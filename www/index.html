@@ -1,58 +1,73 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+    <title>Ionic Seed</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <!-- ionic css -->
+    <link href="css/ionic.min.css" rel="stylesheet">
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+    <!-- your app's css -->
+    <link href="css/app.css" rel="stylesheet">
 
-    <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- angularjs scripts -->
+    <script src="js/vendor/ionic/ionic.min.js"></script>
+    <script src="js/vendor/angular/angular.min.js"></script>
+    <script src="js/vendor/angular/angular-animate.min.js"></script>
+    <script src="js/vendor/angular/angular-resource.min.js"></script>
+    <script src="js/vendor/angular/angular-sanitize.min.js"></script>
+    <script src="js/vendor/angular/angular-ui-router.min.js"></script>
+    <script src="js/vendor/ionic/ionic-angular.min.js"></script>
 
-    <!-- cordova script (this will be a 404 during development) -->
+    <!-- cordova script -->
     <script src="cordova.js"></script>
 
-    <!-- your app's js -->
+    <!-- your app's script -->
     <script src="js/app.js"></script>
-  </head>
-  <body ng-app="MainApp">
+    <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
+</head>
 
-      <!-- <h1 class="item">Some thing here!</h1> -->
-    <ion-side-menus>
-      <ion-side-menu-content ng-controller="ToggleController">
-        <ion-header-bar class="bar-dark">
-          <button class="button button-outline button-stable icon ion-navicon" ng-click="toggleLeft()"></button>
-          <h1 class="title">Waiterio</h1>
-        </ion-header-bar>
+<!-- 'sideMenuApp' is the name of this angular module (js/app.js)-->
+<body ng-app="MainApp">
 
-        <ion-content>
-          <h1 class="item">Some thing here!</h1>
-        </ion-content>
-      </ion-side-menu-content>
+    <div ng-controller="CategoryController">
+        <ion-side-menus>
 
-      <ion-side-menu side = "left">
-        <ion-header-bar class="bar-positive">
-          <h1 class="title">Categories</h1>
-        </ion-header-bar>
+            <!-- Center content: Navigate view -->
+            <ion-pane ion-side-menu-content>
+                <ion-nav-bar type="bar-dark" back-button-type="button-icon" back-button-icon="ion-arrow-left-c"></ion-nav-bar>
 
-        <ion-content>
-          <ion-list>
-            <ion-item ng-repeat="x in ['Order', 'Menu', 'Restaurant', 'Staff', 'Analytics']" href="#">
-              {{x}}
-            </ion-item>
-          </ion-list>
-        </ion-content>
-      </ion-side-menu>
-    </ion-side-menus>
+                <ion-nav-view></ion-nav-view>
+            </ion-pane>
 
-    <ion-footer-bar class="bar-assertive">
-      <h1 class="title">Copy right by BBS 2015</h1>
-    </ion-footer-bar>
-  </body>
+            <!-- Left Side Menu: Categories -->
+            <ion-side-menu side="left">
+                <ion-header-bar class="bar bar-header bar-positive">
+                    <h1 class="title">Categories</h1>
+                </ion-header-bar>
+                <ion-content class = "has-header">
+                    <ion-list>
+                        <ion-item ng-repeat="item in list" ng-click="goTo(item.link)" class="item item-icon-left">
+                            <i ng-class="item.iconClass"></i>
+                            {{item.text}}
+                        </ion-item>
+                    </ion-list>
+                </ion-content>
+            </ion-side-menu>
+
+            <!-- Right Side Menu: Account -->
+            <ion-side-menu side="right">
+                <ion-list>
+                    <ion-item class="item item-avatar">
+                        <img src="img/ionic.png" alt="image here" />
+                        <h2>Username</h2>
+                    </ion-item>
+                </ion-list>
+            </ion-side-menu>
+        </ion-side-menus>
+    </div>
+
+</body>
 </html>
