@@ -6,7 +6,7 @@ angular.module('sideMenuApp.services', [])
 .factory('MenuService', function() {
 
   var menuItems = [
-      { text: 'Home', iconClass: 'icon ion-home', link: 'Home'},
+      { text: 'Home', iconClass: 'icon ion-home', link: 'home'},
       { text: 'Order', iconClass: 'icon ion-document-text', link: 'order'},
       { text: 'Menu', iconClass: 'icon ion-clipboard', link: 'menu'},
       { text: 'Restaurant', iconClass: 'icon ion-star', link: 'restaurant'}
