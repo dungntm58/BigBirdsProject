@@ -1,4 +1,4 @@
-angular.module('sideMenuApp.services', [])
+angular.module('MainApp.services', [])
 
 /**
  * A simple example service that returns some data.
