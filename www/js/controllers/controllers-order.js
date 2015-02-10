@@ -1,6 +1,6 @@
 angular.module('MainApp.controllers.order', [])
 
-	.controller('OrderController', function ($scope,$ionicModal, MenuService) {
+	.controller('OrderController', function ($scope, $ionicModal, MenuService) {
         
 
         $scope.navTitle = MenuService.get(1).text;
@@ -11,6 +11,7 @@ angular.module('MainApp.controllers.order', [])
                 $scope.sideMenuController.toggleLeft();
             }
         }];
+
         $scope.rightButtons = [{
             type: 'button-icon icon ion-gear-b',
             tap: function(e){
@@ -18,21 +19,18 @@ angular.module('MainApp.controllers.order', [])
             }
         }];
 
-
-        $ionicModal.fromTemplateUrl('templates/modal.html', function($ionicModal) {
+        $ionicModal.fromTemplateUrl('templates/new-order-modal.html', function($ionicModal) {
             $scope.modal = $ionicModal;}, {
-            // Use our scope for the scope of the modal to keep it simple
             scope: $scope,
-            // The animation we want to use for the modal entrance
             animation: 'slide-in-up'
         });
-
       
         $scope.openModal = function() {
-            console.log('Opening Modal');
+            // console.log('Opening Modal');
             $scope.modal.show();
         };
+
         $scope.closeModal = function(){
             $scope.modal.hide();
-        }
+        };
     });
