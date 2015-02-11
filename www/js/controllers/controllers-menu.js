@@ -1,7 +1,7 @@
 angular.module('MainApp.controllers.menu', [])
 
-	.controller('MenuController', function ($scope, MenuService) {
-        $scope.navTitle = MenuService.get(2).text;
+	.controller('MenuController', function ($scope, CategoryService) {
+        $scope.navTitle = CategoryService.get(2).text;
 
         $scope.leftButtons = [{
             type: 'button-icon icon ion-navicon',

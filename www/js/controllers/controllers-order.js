@@ -1,9 +1,7 @@
-angular.module('MainApp.controllers.order', [])
+var orderControllers = angular.module('MainApp.controllers.order', [])
 
-	.controller('OrderController', function ($scope, $ionicModal, MenuService) {
-        
-
-        $scope.navTitle = MenuService.get(1).text;
+	orderControllers.controller('OrderController', function ($scope, $ionicModal, CategoryService, MenuFoodService) {
+        $scope.navTitle = CategoryService.get(1).text;
 
         $scope.leftButtons = [{
             type: 'button-icon icon ion-navicon',
@@ -20,10 +18,13 @@ angular.module('MainApp.controllers.order', [])
         }];
 
         $ionicModal.fromTemplateUrl('templates/new-order-modal.html', function($ionicModal) {
-            $scope.modal = $ionicModal;}, {
-            scope: $scope,
-            animation: 'slide-in-up'
-        });
+                $scope.modal = $ionicModal;
+            },
+            {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }
+        );
       
         $scope.openModal = function() {
             // console.log('Opening Modal');
@@ -33,4 +34,13 @@ angular.module('MainApp.controllers.order', [])
         $scope.closeModal = function(){
             $scope.modal.hide();
         };
+
+        $scope.Appetizers = MenuFoodService.appetizers();
+        $scope.MainCourses = MenuFoodService.mainCourses();
+        $scope.Desserts = MenuFoodService.desserts();
+        $scope.Drinks = MenuFoodService.drinks();
+
+        $scope.orderTemplate = [{
+
+        }];
     });
