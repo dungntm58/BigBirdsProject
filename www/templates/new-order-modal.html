@@ -5,7 +5,31 @@
  		<a class="button icon-right button-clear button-light">Done</a>
 	</ion-header>
 
-	<ion-content class="has-haeder padding">
-		
+	<ion-content class="has-header padding">
+		<div class="card list">
+			<ion-item class="item item-divider">
+				<strong>New Order:</strong>
+			</ion-item>
+			<ion-item ng-hide="dishes.length">
+				<p>No dishes in your order</p>
+			</ion-item>
+			<ion-item ng-repeat="dish in dishes">
+				<i class="button button-small icon-left ion-minus-circled button-clear"
+					ng-click="removeDish(dish)">
+    			</i>
+    			<span>
+    				{{dish.name}}
+					{{dish.price | currency : Currency}}
+					{{dish.amount}}
+    			</span>
+			</ion-item>
+			<ion-item class = "item-divider" ng-show="dishes.length">
+				<strong>Total: </strong>
+				<strong>{{valueOfOrder() | currency : Currency}}</strong>
+			</ion-item>
+		</div>
+		<div>
+			
+		</div>
 	</ion-content>
 </div>

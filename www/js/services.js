@@ -27,49 +27,49 @@ var allServices = angular.module('MainApp.services', [])
     var Appetizers = [
       {
         "name": "a1",
-        "price": "$2"
+        "price": "2"
       },{
         "name": "a2",
-        "price": "$1.5"
+        "price": "1.5"
       },{
         "name": "a3",
-        "price": "$2.5"
+        "price": "2.5"
       }];
 
     var Main_Courses = [
       {
         "name": "mc1",
-        "price": "$2"
+        "price": "2"
       },{
         "name": "mc2",
-        "price": "$1.5"
+        "price": "1.5"
       },{
         "name": "mc3",
-        "price": "$2.5"
+        "price": "2.5"
       }];
 
     var Desserts = [
       {
         "name": "d1",
-        "price": "$2"
+        "price": "2"
       },{
         "name": "d2",
-        "price": "$1.5"
+        "price": "1.5"
       },{
         "name": "d3",
-        "price": "$2.5"
+        "price": "2.5"
       }];
 
     var Drinks = [
       {
         "name": "dr1",
-        "price": "$2"
+        "price": "2"
       },{
         "name": "dr2",
-        "price": "$1.5"
+        "price": "1.5"
       },{
         "name": "dr3",
-        "price": "$2.5"
+        "price": "2.5"
       }];
 
     // $http.get('data/menu/waitFood.json').success(function(data) {

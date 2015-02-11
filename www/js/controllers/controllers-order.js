@@ -40,7 +40,23 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
         $scope.Desserts = MenuFoodService.desserts();
         $scope.Drinks = MenuFoodService.drinks();
 
-        $scope.orderTemplate = [{
+        $scope.Currency = '$';
+        $scope.dishes = [$scope.Appetizers[0], $scope.MainCourses[0], $scope.Desserts[0], $scope.Drinks[0]];
+        $scope.quantity = [1, 1, 1, 1];
 
-        }];
+        $scope.selectDish = function(dish){
+            $scope.dishes.push(dish);
+            $scope.quantity.push(0);
+        };
+        $scope.removeDish = function(dish){
+            $scope.dishes.splice($scope.dishes.indexOf(dish), 1);
+            $scope.quantity.splice($scope.quantity.indexOf(dish), 1);
+        };
+        $scope.valueOfOrder = function(){
+            var value = 0;
+            for (var i = 0; i < $scope.dishes.length; i++){
+                value += parseFloat(dishes[i].price)*parseInt(quantity[i]);
+            };
+            return value;
+        };
     });
