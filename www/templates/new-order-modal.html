@@ -6,27 +6,38 @@
 	</ion-header>
 
 	<ion-content class="has-header padding">
-		<div class="card list">
+		<div>
 			<ion-item class="item item-divider">
 				<strong>New Order:</strong>
 			</ion-item>
+
 			<ion-item ng-hide="dishes.length">
 				<p>No dishes in your order</p>
 			</ion-item>
-			<ion-item ng-repeat="dish in dishes">
-				<i class="button button-small icon-left ion-minus-circled button-clear"
-					ng-click="removeDish(dish)">
-    			</i>
-    			<span>
+
+			<ion-list ng-show="dishes.length">
+				<ion-item ng-repeat="dish in dishes">
+					<button class="button button-small button-clear" ng-click="removeDish(dish)">
+						<i class="icon ion-close-round"></i>
+					</button>
+					
     				{{dish.name}}
 					{{dish.price | currency : Currency}}
-					{{dish.amount}}
-    			</span>
-			</ion-item>
-			<ion-item class = "item-divider" ng-show="dishes.length">
-				<strong>Total: </strong>
-				<strong>{{valueOfOrder() | currency : Currency}}</strong>
-			</ion-item>
+	    			<span style = "float: right;">
+	    				<strong>{{quantity[$index]}}</strong>
+		    			<button class="button button-small button-positive" ng-click="increaseQuantity(dish)">
+			    			<i class="icon ion-plus-round"></i>
+			    		</button>
+			    		<button class="button button-small button-assertive" ng-click="decreaseQuantity(dish)">
+			    			<i class="icon ion-minus"></i>
+			    		</button>
+	    			</span>
+				</ion-item>
+				<ion-item class = "item item-divider">
+					<strong>Total: </strong>
+					<strong style="float: right;">{{valueOfOrder() | currency : Currency}}</strong>
+				</ion-item>
+			</ion-list>
 		</div>
 		<div>
 			

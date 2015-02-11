@@ -41,22 +41,35 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
         $scope.Drinks = MenuFoodService.drinks();
 
         $scope.Currency = '$';
-        $scope.dishes = [$scope.Appetizers[0], $scope.MainCourses[0], $scope.Desserts[0], $scope.Drinks[0]];
-        $scope.quantity = [1, 1, 1, 1];
+        $scope.dishes = [$scope.Appetizers[0], $scope.MainCourses[1], $scope.Desserts[2], $scope.Drinks[1]];
+        $scope.quantity = [1, 2, 2, 1];
 
         $scope.selectDish = function(dish){
             $scope.dishes.push(dish);
-            $scope.quantity.push(0);
+            $scope.quantity.push(1);
         };
         $scope.removeDish = function(dish){
-            $scope.dishes.splice($scope.dishes.indexOf(dish), 1);
-            $scope.quantity.splice($scope.quantity.indexOf(dish), 1);
+            var index = $scope.dishes.indexOf(dish);
+            $scope.dishes.splice(index, 1);
+            $scope.quantity.splice(index, 1);
         };
         $scope.valueOfOrder = function(){
-            var value = 0;
+            var total = 0.0;
             for (var i = 0; i < $scope.dishes.length; i++){
-                value += parseFloat(dishes[i].price)*parseInt(quantity[i]);
+                total += parseFloat($scope.dishes[i].price)*parseInt($scope.quantity[i]);
             };
-            return value;
+            return total;
+        };
+        $scope.increaseQuantity = function(dish){
+            var index = $scope.dishes.indexOf(dish);
+            $scope.quantity[index]++;
+        };
+
+        $scope.decreaseQuantity = function(dish){
+            var index = $scope.dishes.indexOf(dish);
+            if ($scope.quantity[index] > 0)
+                $scope.quantity[index]--;
+            if ($scope.quantity[index] == 0)
+                $scope.removeDish(dish);
         };
     });
