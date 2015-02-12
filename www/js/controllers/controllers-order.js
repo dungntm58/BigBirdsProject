@@ -1,6 +1,6 @@
 var orderControllers = angular.module('MainApp.controllers.order', [])
 
-	orderControllers.controller('OrderController', function ($scope, $ionicModal, CategoryService, MenuFoodService) {
+	orderControllers.controller('OrderController', function ($scope, $ionicModal, CategoryService) {
         $scope.navTitle = CategoryService.get(1).text;
 
         $scope.leftButtons = [{
@@ -27,48 +27,59 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
         );
       
         $scope.openModal = function() {
-            // console.log('Opening Modal');
             $scope.modal.show();
         };
 
         $scope.closeModal = function(){
             $scope.modal.hide();
         };
+    });
 
+    orderControllers.controller('NewOrder', function($scope, MenuFoodService){
         $scope.Appetizers = MenuFoodService.appetizers();
         $scope.MainCourses = MenuFoodService.mainCourses();
         $scope.Desserts = MenuFoodService.desserts();
         $scope.Drinks = MenuFoodService.drinks();
 
         $scope.Currency = '$';
-        $scope.dishes = [$scope.Appetizers[0], $scope.MainCourses[1], $scope.Desserts[2], $scope.Drinks[1]];
-        $scope.quantity = [1, 2, 2, 1];
+        $scope.dishes = [];
+        $scope.quantity = [];
 
         $scope.selectDish = function(dish){
-            $scope.dishes.push(dish);
-            $scope.quantity.push(1);
+            var index = $scope.dishes.indexOf(dish);
+            if (index >= 0){
+                $scope.quantity[index]++;
+            }
+            else{
+                $scope.dishes.push(dish);
+                $scope.quantity.push(1);
+            }
         };
+
         $scope.removeDish = function(dish){
             var index = $scope.dishes.indexOf(dish);
             $scope.dishes.splice(index, 1);
             $scope.quantity.splice(index, 1);
         };
-        $scope.valueOfOrder = function(){
-            var total = 0.0;
-            for (var i = 0; i < $scope.dishes.length; i++){
-                total += parseFloat($scope.dishes[i].price)*parseInt($scope.quantity[i]);
-            };
-            return total;
-        };
+
         $scope.increaseQuantity = function(dish){
             var index = $scope.dishes.indexOf(dish);
             $scope.quantity[index]++;
         };
 
+        $scope.valueOfOrder = function(){
+            var total = 0;
+            for (var i = 0; i<$scope.dishes.length ; i++){
+                total += parseFloat($scope.dishes[i].price)*parseInt($scope.quantity[i]);
+            }
+            return total;
+        }
+
         $scope.decreaseQuantity = function(dish){
             var index = $scope.dishes.indexOf(dish);
-            if ($scope.quantity[index] > 0)
+            if ($scope.quantity[index] > 0){
                 $scope.quantity[index]--;
+            }
             if ($scope.quantity[index] == 0)
                 $scope.removeDish(dish);
         };
