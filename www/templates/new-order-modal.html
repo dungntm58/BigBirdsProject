@@ -10,14 +10,15 @@
 			<div>
 				<ion-item class="item item-divider">
 					<strong>New Order:</strong>
+					<button class="button button-outline" style="float: right;" ng-click="resetOrder()">Reset</button>
 				</ion-item>
 
-				<ion-item ng-hide="dishes.length">
+				<ion-item ng-hide="order.dishes.length">
 					<p>No dishes in your order</p>
 				</ion-item>
 
-				<ion-list ng-show="dishes.length">
-					<ion-item ng-repeat="dish in dishes">
+				<ion-list ng-show="order.dishes.length">
+					<ion-item ng-repeat="dish in order.dishes">
 						<button class="button button-small button-clear" ng-click="removeDish(dish)">
 							<i class="icon ion-close-round"></i>
 						</button>
@@ -26,7 +27,7 @@
 						{{dish.price | currency : Currency}}
 
 		    			<span style = "float: right;">
-		    				<strong style="color: red; padding-right: 10px;">{{quantity[$index]}}</strong>
+		    				<strong style="color: red; padding-right: 10px;">{{order.quantity[$index]}}</strong>
 			    			<button class="button button-small button-positive" ng-click="increaseQuantity(dish)">
 				    			<i class="icon ion-plus-round"></i>
 				    		</button>
@@ -42,14 +43,14 @@
 				</ion-list>
 			</div>
 
-			<!-- <div>
+			<div>
 				<ion-list>
 					<ion-item ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
 						{{dish.name}}
 						{{dish.price | currency : Currency}}
 					</ion-item>
 				</ion-list>
-			</div> -->
+			</div>
 		</div>
 	</ion-content>
 </div>
