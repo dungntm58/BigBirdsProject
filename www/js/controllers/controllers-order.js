@@ -53,7 +53,10 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
             var index = $scope.order.dishes.indexOf(dish);
 
             if (index >= 0){
-                $scope.order.quantity[index]++;
+                if ($scope.order.quantity[index] != null)
+                    $scope.order.quantity[index]++;
+                else
+                    $scope.order.quantity[index] = 1;
             }
             else{
                 $scope.order.dishes.push(dish);

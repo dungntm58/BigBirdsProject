@@ -1,4 +1,4 @@
-<div class="modal">
+<div class="modal" ng-controller="NewOrder">
 	<ion-header class="bar bar-header bar-dark">
 		<a class="button icon ion-arrow-left-c button-clear button-light" ng-click="closeModal()"></a>
  		<h1 class="title">New order</h1>
@@ -6,7 +6,7 @@
 	</ion-header>
 
 	<ion-content class="has-header padding">
-		<div ng-controller="NewOrder">
+		<div>
 			<div>
 				<ion-item class="item item-divider">
 					<strong>New Order:</strong>
@@ -19,25 +19,28 @@
 
 				<ion-list ng-show="order.dishes.length">
 					<ion-item ng-repeat="dish in order.dishes">
-						<button class="button button-small button-clear" ng-click="removeDish(dish)">
-							<i class="icon ion-close-round"></i>
-						</button>
-
-	    				{{dish.name}}
-						{{dish.price | currency : Currency}}
+						<span style = "float: left; margin-top: 5px;">
+							{{dish.name}}
+							{{dish.price | currency : Currency}}
+						</span>
 
 		    			<span style = "float: right;">
-		    				<strong style="color: red; padding-right: 10px;">{{order.quantity[$index]}}</strong>
+		    				<span>
+		    					Quantity: <input type="text" style="border: 1px solid light-grey; color: red; font-weight: 200;" ng-model="order.quantity[$index]" placeholder={{order.quantity[$index]}} required>
+		    				</span>
 			    			<button class="button button-small button-positive" ng-click="increaseQuantity(dish)">
 				    			<i class="icon ion-plus-round"></i>
 				    		</button>
 				    		<button class="button button-small button-assertive" ng-click="decreaseQuantity(dish)">
 				    			<i class="icon ion-minus"></i>
 				    		</button>
+				    		<button class="button button-small button-clear" ng-click="removeDish(dish)">
+								<i class="icon ion-close-round"></i>
+							</button>
 		    			</span>
 					</ion-item>
 					<ion-item class = "item item-divider">
-						<strong>Total: </strong>
+						<strong style= "float: left;">Total: </strong>
 						<strong style="float: right;">{{valueOfOrder() | currency : Currency}}</strong>
 					</ion-item>
 				</ion-list>
@@ -45,10 +48,12 @@
 
 			<div>
 				<ion-list>
-					<ion-item ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
-						{{dish.name}}
-						{{dish.price | currency : Currency}}
-					</ion-item>
+					<div class="item" ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
+						<a class="selected-item item-content">
+							{{dish.name}}
+							{{dish.price | currency : Currency}}
+						</a>
+					</div>
 				</ion-list>
 			</div>
 		</div>
