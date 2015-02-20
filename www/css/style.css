@@ -2,6 +2,7 @@
 	vertical-align: middle;
 	min-width: 30px;
 	min-height: 20px;
+	line-height: 20px;
 }
 
 .button-small{
@@ -32,4 +33,16 @@ a.selected-item: visited{
 
 .item-complex .item-content{
 	padding: 12px 12px 12px 12px;
+}
+
+.item-divider-td{
+	float: left;
+	width: 25%;
+}
+
+.item-divider-td input{
+	color: red;
+	border: 1px solid;
+	font-size: 20px;
+	height: 50%;
 }

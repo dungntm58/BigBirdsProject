@@ -78,7 +78,8 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
         $scope.valueOfOrder = function(){
             var total = 0;
             for (var i = 0; i<$scope.order.dishes.length ; i++){
-                total += parseFloat($scope.order.dishes[i].price)*parseInt($scope.order.quantity[i]);
+                if ($scope.order.quantity[i] != null)
+                    total += parseFloat($scope.order.dishes[i].price)*parseInt($scope.order.quantity[i]);
             }
             return total;
         }
