@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
-    <title>Ionic Seed</title>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
 
-    <!-- ionic css -->
-    <link href="css/ionic.min.css" rel="stylesheet">
-
-    <!-- your app's css -->
-    <link href="css/app.css" rel="stylesheet">
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <!-- angularjs scripts -->
-    <script src="js/vendor/ionic/ionic.min.js"></script>
-    <script src="js/vendor/angular/angular.min.js"></script>
-    <script src="js/vendor/angular/angular-animate.min.js"></script>
-    <script src="js/vendor/angular/angular-resource.min.js"></script>
-    <script src="js/vendor/angular/angular-sanitize.min.js"></script>
-    <script src="js/vendor/angular/angular-ui-router.min.js"></script>
-    <script src="js/vendor/ionic/ionic-angular.min.js"></script>
-    <!-- cordova script -->
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
-    <!-- your app's script -->
+    <!-- your app's js -->
     <script src="js/app.js"></script>
     <script src="js/services.js"></script>
     <script src="js/controllers/controllers.js"></script>
@@ -30,28 +26,25 @@
     <script src="js/controllers/controllers-order.js"></script>
     <script src="js/controllers/controllers-menu.js"></script>
     <script src="js/controllers/controllers-restaurant.js"></script>
-</head>
-
-<!-- 'sideMenuApp' is the name of this angular module (js/app.js)-->
-<body ng-app="MainApp">
+  </head>
+  <body ng-app="MainApp">
     <div ng-controller="CategoryController">
         <ion-side-menus>
 
             <!-- Center content: Navigate view -->
-            <ion-pane ion-side-menu-content>
-                <ion-nav-bar type="bar-dark"></ion-nav-bar>
-
+            <ion-side-menu-content>
+                <ion-nav-bar class="bar bar-header bar-dark" align-title = "center"></ion-nav-bar>
                 <ion-nav-view></ion-nav-view>
-            </ion-pane>
+            </ion-side-menu-content>
 
             <!-- Left Side Menu: Categories -->
             <ion-side-menu side="left" >
                 <div class="bar bar-header bar-positive">
                     <h1 class="title">Categories</h1>
                 </div>
-                <ion-content class = "has-header" scroll="false">
+                <ion-content class = "has-header">
                     <ion-list>
-                        <ion-item ng-repeat="item in list" ng-click="goTo(item.link)" class="item item-icon-left">
+                        <ion-item ng-repeat="item in list" menu-close ui-sref="{{item.link}}" class="item item-icon-left">
                             <i ng-class="item.iconClass"></i>
                             {{item.text}}
                         </ion-item>

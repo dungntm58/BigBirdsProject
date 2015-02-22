@@ -3,20 +3,6 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
 	orderControllers.controller('OrderController', function ($scope, $ionicModal, CategoryService) {
         $scope.navTitle = CategoryService.get(1).text;
 
-        $scope.leftButtons = [{
-            type: 'button-icon icon ion-navicon',
-            tap: function(e) {
-                $scope.sideMenuController.toggleLeft();
-            }
-        }];
-
-        $scope.rightButtons = [{
-            type: 'button-icon icon ion-gear-b',
-            tap: function(e){
-                $scope.sideMenuController.toggleRight();
-            }
-        }];
-
         $ionicModal.fromTemplateUrl('templates/new-order-modal.html', function($ionicModal) {
                 $scope.modal = $ionicModal;
             },
@@ -97,4 +83,14 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
             $scope.order.table = null;
             $scope.order.date = null;
         };
+    });
+
+    orderControllers.controller('SlideController', function($scope, $ionicSlideBoxDelegate){
+        $scope.nextSlide = function() {
+            $ionicSlideBoxDelegate.next();
+        }
+
+        $scope.prevSlide = function(){
+            $ionicSlideBoxDelegate.previous();
+        }
     });

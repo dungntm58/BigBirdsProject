@@ -28,7 +28,7 @@ a.selected-item: visited{
 }
 
 .item{
-	margin: 0px -1px -1px -1px;
+	margin: -1px -1px 0px -1px;
 }
 
 .item-complex .item-content{

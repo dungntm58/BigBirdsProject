@@ -6,60 +6,65 @@
 	</ion-header>
 
 	<ion-content class="has-header padding">
+		<div ng-controller="SlideController">
+			<ion-slide-box>
+				<ion-slide>
+				  	<div class="box">
+				    	<button class="button button-positive" ng-click="nextSlide()">Next slide!</button>
+				  	</div>
+				</ion-slide>
+				<ion-slide>
+					<div class="box">
+						<button class="button button-positive" ng-click="prevSlide()">Previous slide!</button>
+					</div>
+				</ion-slide>
+			</ion-slide-box>
+		</div>
+
 		<div>
-			<div>
-				<ion-item class="item item-divider">
-					<strong>New Order:</strong>
-					<button class="button button-outline" style="float: right;" ng-click="resetOrder()">Reset</button>
-				</ion-item>
+			<ion-item class="item item-divider">
+				<strong>Table: {{order.table}}</strong>
+				<button class="button button-outline" style="float: right;" ng-click="resetOrder()">Reset</button>
+			</ion-item>
 
-				<ion-item ng-hide="order.dishes.length">
-					<p>No dishes in your order</p>
-				</ion-item>
+			<div class="card" >
+				<div class="item item-text-wrap" style="height: 400px">
+					<ion-content>
+						<ion-item ng-hide="order.dishes.length">
+							<p>No dishes in your order</p>
+						</ion-item>
+						<ion-list ng-show="order.dishes.length">
+							<ion-item ng-repeat="dish in order.dishes">
+								<span style = "float: left; margin-top: 5px;">
+									{{dish.name}}
+									{{dish.price | currency : Currency}}
+								</span>
 
-				<ion-list ng-show="order.dishes.length">
-					<ion-item>
-						<span class="item-divider-td">Name</span>
-						<span class="item-divider-td">Price</span>
-						<span class="item-divider-td">Quantity</span>
-					</ion-item>
-
-					<ion-item ng-repeat="dish in order.dishes">
-						<span class="item-divider-td">{{dish.name}}</span>
-						<span class="item-divider-td">{{dish.price | currency : Currency}}</span>
-						<span class="item-divider-td">
-		    					<input type="text" ng-model="order.quantity[$index]" placeholder={{order.quantity[$index]}} required />
-		    			</span>
-
-		    			<span class="item-divider-td">
-			    			<button class="button button-small button-positive" ng-click="increaseQuantity(dish)">
-				    			<i class="icon ion-plus-round"></i>
-				    		</button>
-				    		<button class="button button-small button-assertive" ng-click="decreaseQuantity(dish)">
-				    			<i class="icon ion-minus"></i>
-				    		</button>
-				    		<button class="button button-small button-clear" ng-click="removeDish(dish)">
-								<i class="icon ion-close-round"></i>
-							</button>
-		    			</span>
-					</ion-item>
-					<ion-item class = "item item-divider">
+				    			<span style = "float: right;">
+				    				<span>
+				    					Quantity: <input type="text" style="border: 1px solid light-grey; color: red; font-weight: 200;" ng-model="order.quantity[$index]" placeholder={{order.quantity[$index]}} required>
+				    				</span>
+					    			<button class="button button-small button-positive" ng-click="increaseQuantity(dish)">
+						    			<i class="icon ion-plus-round"></i>
+						    		</button>
+						    		<button class="button button-small button-assertive" ng-click="decreaseQuantity(dish)">
+						    			<i class="icon ion-minus"></i>
+						    		</button>
+						    		<button class="button button-small button-clear" ng-click="removeDish(dish)">
+										<i class="icon ion-close-round"></i>
+									</button>
+				    			</span>
+							</ion-item>
+							
+						</ion-list>
+					</ion-content>
+				</div>
+			</div>
+			<ion-item class = "item item-divider">
 						<strong style= "float: left;">Total: </strong>
 						<strong style="float: right;">{{valueOfOrder() | currency : Currency}}</strong>
-					</ion-item>
-				</ion-list>
-			</div>
-
-			<div>
-				<ion-list>
-					<div class="item" ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
-						<a class="selected-item item-content">
-							{{dish.name}}
-							{{dish.price | currency : Currency}}
-						</a>
-					</div>
-				</ion-list>
-			</div>
+			</ion-item>			
 		</div>
 	</ion-content>
+
 </div>
