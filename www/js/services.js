@@ -24,6 +24,7 @@ var allServices = angular.module('MainApp.services', [])
   });
 
   allServices.factory('MenuFoodService', function($http){
+    var Restaurant = "Quan Bun SP";
     var Appetizers = [
       {
         "id" : "a1",
@@ -37,6 +38,14 @@ var allServices = angular.module('MainApp.services', [])
         "id" : "a3",
         "name": "a3",
         "price": "2.5"
+      },{
+        "id" : "a4",
+        "name": "a4",
+        "price": "1"
+      },{
+        "id" : "a5",
+        "name": "a5",
+        "price": "3"
       }];
 
     var Main_Courses = [
@@ -100,6 +109,9 @@ var allServices = angular.module('MainApp.services', [])
       },
       drinks: function(){
         return Drinks;
+      },
+      nameOfRestaurant: function(){
+        return Restaurant;
       }
     };
   });

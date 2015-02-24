@@ -22,10 +22,7 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
     });
 
     orderControllers.controller('NewOrder', function($scope, MenuFoodService){
-        $scope.Appetizers = MenuFoodService.appetizers();
-        $scope.MainCourses = MenuFoodService.mainCourses();
-        $scope.Desserts = MenuFoodService.desserts();
-        $scope.Drinks = MenuFoodService.drinks();
+        $scope.restaurant = MenuFoodService.nameOfRestaurant();
         $scope.Currency = '$';
 
         $scope.order = {
@@ -39,7 +36,7 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
             var index = $scope.order.dishes.indexOf(dish);
 
             if (index >= 0){
-                if ($scope.order.quantity[index] != null)
+                if (!isNaN($scope.order.quantity[index]))
                     $scope.order.quantity[index]++;
                 else
                     $scope.order.quantity[index] = 1;
@@ -64,7 +61,7 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
         $scope.valueOfOrder = function(){
             var total = 0;
             for (var i = 0; i<$scope.order.dishes.length ; i++){
-                if ($scope.order.quantity[i] != null)
+                if (!isNaN($scope.order.quantity[i]))
                     total += parseFloat($scope.order.dishes[i].price)*parseInt($scope.order.quantity[i]);
             }
             return total;
@@ -92,5 +89,30 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
 
         $scope.prevSlide = function(){
             $ionicSlideBoxDelegate.previous();
+        }
+    });
+
+    orderControllers.controller('MenuFoodTabController', function($scope, MenuFoodService){
+        $scope.typeOfFood = [{
+            'name' : 'Appetizer',
+            'content' : MenuFoodService.appetizers()
+        },{
+            'name' : 'Main Course',
+            'content' : MenuFoodService.mainCourses()
+        },{
+            'name' : 'Dessert',
+            'content' : MenuFoodService.desserts()
+        },{
+            'name' : 'Drink',
+            'content' : MenuFoodService.drinks()
+        }];
+
+        $scope.chosen = $scope.typeOfFood[0].name;
+        $scope.setTab = function(tab){
+            $scope.chosen = tab;
+        }
+
+        $scope.isSet = function(check){
+            return $scope.chosen === check;
         }
     });

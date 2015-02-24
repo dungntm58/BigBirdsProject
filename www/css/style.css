@@ -2,11 +2,12 @@
 	vertical-align: middle;
 	min-width: 30px;
 	min-height: 20px;
-	line-height: 20px;
+	line-height: 30px;
 }
 
 .button-small{
 	font-size: 100%;
+	line-height: 20px;
 }
 
 a.selected-item: hover{
@@ -37,12 +38,32 @@ a.selected-item: visited{
 
 .item-divider-td{
 	float: left;
-	width: 25%;
+	width: 30%;
+	text-align: center;
 }
 
-.item-divider-td input{
+#input-quantity{
+	width: 35px;
 	color: red;
 	border: 1px solid;
 	font-size: 20px;
 	height: 50%;
+	padding: 0px 2px 0px 2px;
+}
+
+.list-tabs{
+	float: left;
+	width: 25%;
+	font-size: 100%;
+	border: none;
+	text-align: center;
+	text-decoration: none;
+	line-height: 35px;
+	background-color: #0000FF;
+	color: white;
+}
+
+a.active{
+	color: black;
+	background-color: #CCFFFF;
 }
