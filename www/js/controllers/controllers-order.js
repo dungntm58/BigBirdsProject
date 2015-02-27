@@ -1,4 +1,4 @@
-var orderControllers = angular.module('MainApp.controllers.order', [])
+var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstrap']);
 
 	orderControllers.controller('OrderController', function ($scope, $ionicModal, CategoryService) {
         $scope.navTitle = CategoryService.get(1).text;
@@ -21,16 +21,17 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
         };
     });
 
-    orderControllers.controller('NewOrder', function($scope, MenuFoodService){
-        $scope.restaurant = MenuFoodService.nameOfRestaurant();
+    orderControllers.controller('NewOrder', function($scope, $ionicPopup, $timeout, RestaurantService){
+        $scope.restaurant = RestaurantService.nameOfRestaurant();
         $scope.Currency = '$';
 
         $scope.order = {
             dishes: [],
             quantity: [],
             table: null,
-            date: null
+            datetime: new Date(),
         };
+        $scope.tables = RestaurantService.unorderedTable($scope.order.datetime);
 
         $scope.selectDish = function(dish){
             var index = $scope.order.dishes.indexOf(dish);
@@ -74,11 +75,53 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
                 $scope.removeDish(dish);
         };
 
-        $scope.resetOrder = function(){
+        $scope.emptyOrder = function(){
             $scope.order.dishes = [];
             $scope.order.quantity = [];
             $scope.order.table = null;
-            $scope.order.date = null;
+            $scope.order.datetime = new Date(); 
+        }
+
+        $scope.resetOrder = function(){
+            $ionicPopup.confirm({
+                title: 'Reset',
+                template: 'Do you want to reset?',
+                cancelType: 'button-assertive'
+            }).then(function(res){
+                if (res){
+                    $scope.emptyOrder();
+                }
+            });
+        };
+
+        $scope.orderTable = function(table){
+            $scope.order.table = table;
+        };
+
+        $scope.confirmOrder = function(){
+            $ionicPopup.confirm({
+                title: '<b>Confirm order<b>',
+                template: 'Are you sure of your order?',
+                okText: 'Confirm',
+                cancelType: 'button-assertive'
+            }).then(function(res){
+                if(res){
+                    if ($scope.order.dishes.length && $scope.order.table){
+                        // $scope.emptyOrder();
+                        //send order
+                        RestaurantService.sendOrder(order);
+                    }
+                    else{
+                        var alert = $ionicPopup.show({
+                            title: '<b>Warning<b>',
+                            template: 'Your order is not finished. Please check again!'
+                        });
+                        $timeout(function(){
+                            alert.close();
+                        }, 1500);
+                    }
+                }
+            });
         };
     });
 
@@ -92,19 +135,19 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
         }
     });
 
-    orderControllers.controller('MenuFoodTabController', function($scope, MenuFoodService){
+    orderControllers.controller('MenuFoodTabController', function($scope, RestaurantService){
         $scope.typeOfFood = [{
             'name' : 'Appetizer',
-            'content' : MenuFoodService.appetizers()
+            'content' : RestaurantService.appetizers()
         },{
-            'name' : 'Main Course',
-            'content' : MenuFoodService.mainCourses()
+            'name' : 'Main',
+            'content' : RestaurantService.mainCourses()
         },{
             'name' : 'Dessert',
-            'content' : MenuFoodService.desserts()
+            'content' : RestaurantService.desserts()
         },{
             'name' : 'Drink',
-            'content' : MenuFoodService.drinks()
+            'content' : RestaurantService.drinks()
         }];
 
         $scope.chosen = $scope.typeOfFood[0].name;
@@ -115,4 +158,51 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
         $scope.isSet = function(check){
             return $scope.chosen === check;
         }
+    });
+
+    orderControllers.controller('DatepickerCtrl', function ($scope) {
+        $scope.today = function () {
+            $scope.dt = new Date();
+        };
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+        $scope.open = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened = true;
+        };
+        $scope.format = 'dd/MM/yyyy';
+        $scope.dateOptions = {
+            'starting-day': 1
+        };
+    });
+
+    orderControllers.controller('TimepickerCtrl', function ($scope, $log) {
+        $scope.show = {
+            opened: false,
+            text: "Choose Time"
+        }
+        $scope.toggleTime = function(){
+            $scope.show.opened = !$scope.show.opened;
+            if ($scope.show.opened)
+                $scope.show.text = "Close Time";
+            else
+                $scope.show.text = "Choose Time";
+        }
+        $scope.mytime = new Date();
+
+        $scope.hstep = 1;
+        $scope.mstep = 15;
+
+        $scope.ismeridian = true;
+        $scope.toggleMode = function() {
+            $scope.ismeridian = ! $scope.ismeridian;
+        };
+
+        $scope.clear = function() {
+            $scope.dt = null;
+        };
     });

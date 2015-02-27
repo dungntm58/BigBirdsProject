@@ -9,7 +9,7 @@ angular.module('MainApp.directives', []).directive('numbersOnly', function(){
           modelCtrl.$setViewValue(transformedInput);
           modelCtrl.$render();
         }
-        return transformedInput;         
+        return transformedInput;
       });
     }
   };

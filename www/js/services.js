@@ -23,7 +23,7 @@ var allServices = angular.module('MainApp.services', [])
     };
   });
 
-  allServices.factory('MenuFoodService', function($http){
+  allServices.factory('RestaurantService', function($http){
     var Restaurant = "Quan Bun SP";
     var Appetizers = [
       {
@@ -92,6 +92,9 @@ var allServices = angular.module('MainApp.services', [])
         "name": "dr3",
         "price": "2.5"
       }];
+    var UnorderedTable = [
+      //define later
+    ]
 
     // $http.get('data/menu/waitFood.json').success(function(data) {
     //     Appetizers = data;
@@ -112,6 +115,13 @@ var allServices = angular.module('MainApp.services', [])
       },
       nameOfRestaurant: function(){
         return Restaurant;
+      },
+      sendOrder: function(order){
+        //something here
+      },
+      unorderedTable: function(time){
+        //compare time to other datas in database to check unordered table
+        //get a set of unordered tables
       }
     };
   });
