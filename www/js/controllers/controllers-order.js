@@ -84,7 +84,7 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
 
         $scope.resetOrder = function(){
             $ionicPopup.confirm({
-                title: 'Reset',
+                title: '<b>Reset</b>',
                 template: 'Do you want to reset?',
                 cancelType: 'button-assertive'
             }).then(function(res){
@@ -100,7 +100,7 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
 
         $scope.confirmOrder = function(){
             $ionicPopup.confirm({
-                title: '<b>Confirm order<b>',
+                title: '<b>Confirm order</b>',
                 template: 'Are you sure of your order?',
                 okText: 'Confirm',
                 cancelType: 'button-assertive'
@@ -113,7 +113,7 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
                     }
                     else{
                         var alert = $ionicPopup.show({
-                            title: '<b>Warning<b>',
+                            title: '<b>Warning</b>',
                             template: 'Your order is not finished. Please check again!'
                         });
                         $timeout(function(){

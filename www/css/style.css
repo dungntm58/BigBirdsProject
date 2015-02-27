@@ -32,14 +32,8 @@
 	padding: 12px 12px 12px 12px;
 }
 
-.item-divider-td{
-	float: left;
-	width: 30%;
-	text-align: center;
-}
-
 #input-quantity{
-	width: 35px;
+	width: 30px;
 	color: red;
 	border: 1px solid;
 	font-size: 20px;
@@ -54,7 +48,7 @@
 	border: none;
 	text-align: center;
 	text-decoration: none;
-	line-height: 35px;
+	line-height: 33px;
 	background-color: #387ef5;
 	color: white;
 }
