@@ -1,16 +1,59 @@
-angular.module('MainApp.directives', []).directive('numbersOnly', function(){
+angular.module('MainApp.directives', [])
+
+.directive('positiveNumber', function(){
+  //Use for the entering number of foods
   return {
     require: 'ngModel',
-    link: function(scope, element, attrs, modelCtrl) {
+    scope: { max: '='},
+    link: function(scope, elem, attrs, modelCtrl) {
       modelCtrl.$parsers.push(function (inputValue) {
-        if (inputValue == undefined) return '1' 
-        var transformedInput = inputValue.replace(/[^0-9]/g, ''); 
-        if (transformedInput!=inputValue) {
-          modelCtrl.$setViewValue(transformedInput);
-          modelCtrl.$render();
+        inputValue = inputValue.replace(/[^0-9]/g, '');
+        if (isNaN(inputValue) || Number(inputValue) < 1) {
+          inputValue = '1';
         }
-        return transformedInput;
+        if (Number(inputValue) > scope.max) {
+          inputValue = scope.max.toString();
+        }
+        modelCtrl.$setViewValue(inputValue);
+        modelCtrl.$render();
+        return inputValue;
       });
     }
-  };
-});
+  }
+})
+
+.directive('mainCategory', function(){
+  return{
+    restrict: 'E',
+    templateUrl: 'templates/Main/main-category.html'
+  }
+})
+
+.directive('mainAccount', function(){
+  return{
+    restrict: 'E',
+    templateUrl: 'templates/Main/main-account.html'
+  }
+})
+
+.directive('menuFoodSlide', function(){
+  return{
+    restrict: 'E',
+    templateUrl: 'templates/Main/Order/menu-food-slide.html'
+  }
+})
+
+.directive('tableDatetime', function(){
+  return{
+    restrict: 'E',
+    templateUrl: 'templates/Main/Order/table-datetime.html'
+  }
+})
+
+.directive('orderView', function(){
+  return{
+    restrict: 'E',
+    templateUrl: 'templates/Main/Order/order-view.html'
+  }
+})
+

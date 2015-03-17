@@ -1,0 +1,39 @@
+<ion-view view-title="Sign Up">
+	<ion-header-bar class="bar bar-dark" align-title = "center">
+		<button class="button button-icon icon ion-chevron-left pull-left" ng-click="back()"></button>
+		<span class="title">Sign up</span>
+	</ion-header-bar>
+	
+    <ion-content>
+    	<form name="signUp" novalidate>
+	        <div class="list list-inset">
+				<label class="item item-input">
+					<input type="text" name="username" ng-model = "account.username" placeholder="Username" required>
+				</label>
+				<label class="item item-input">
+					<input type="email" name="email" ng-model = "account.email" placeholder="Email" required>
+				</label>
+				<label class="item item-input">
+					<input type="password" name="password" ng-model = "account.password" placeholder="Password" required>
+				</label>
+			</div>
+	      	<div class="padding">
+		        <button type="submit" class="button button-block button-positive" ng-submit="signUp()" ng-disabled="signUp.$invalid">
+					Create Account
+		        </button>
+	      	</div>
+	      	<div class="card" ng-show="signUp.$dirty && signUp.$invalid">
+	      		<p style="color:red" ng-show="signUp.username.$dirty && signUp.username.$invalid">
+					<span ng-show="signUp.username.$error.required">Username is required.</span>
+				</p>
+				<p style="color:red" ng-show="signUp.email.$dirty && signUp.email.$invalid">
+					<span ng-show="signUp.email.$error.required">Email is required.</span>
+					<span ng-show="signUp.email.$error.email">Invalid email address.</span>
+				</p>
+				<p style="color:red" ng-show="signUp.password.$dirty && signUp.password.$invalid">
+					<span ng-show="signUp.password.$error.required">Password is required.</span>
+				</p>
+	      	</div>
+      	</form>
+    </ion-content>
+</ion-view>

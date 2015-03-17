@@ -1,0 +1,19 @@
+<div class="box">
+	<div ng-controller="MenuFoodTabController">
+		<div class="list">
+			<a href="#" ng-repeat="food in typeOfFood" class="list-tabs" ng-click="setTab(food.name)" ng-class="{active: isSet(food.name)}">{{food.name}}</a>
+		</div>
+		
+		<ion-scroll direction="y" style="height: 195px; border: 1px solid #E0E0E0;">
+  		<ion-list ng-repeat="food in typeOfFood" ng-show="isSet(food.name)" >
+  			<ion-item ng-repeat="dish in food.content" ng-click="selectDish(dish)" class="selected">
+  				<span style="float: left;">{{dish.name}}</span>
+  				<span style="float: right; color: red;">{{dish.price | currency: Currency}}</span>
+  			</ion-item>
+  		</ion-list>
+		</ion-scroll>
+	</div>
+	<div>
+		<button class="button button-positive button-block" ng-click="nextSlide()">Table and Time</button>	
+	</div>
+</div>

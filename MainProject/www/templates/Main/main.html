@@ -1,0 +1,21 @@
+<!-- Design side menu -->
+
+<ion-side-menus>
+    <!-- Center content: Navigate view -->
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar bar-header bar-dark" align-title = "center"></ion-nav-bar>
+        <ion-nav-view name = "categoryContent"></ion-nav-view>
+    </ion-side-menu-content>
+
+    <!-- Left Side Menu: Categories -->
+    <ion-side-menu side="left" >
+        <!-- Directive from tempaltes/Main/main-category.html -->
+        <main-category></main-category>
+    </ion-side-menu>
+
+    <!-- Right Side Menu: Account -->
+    <ion-side-menu side="right">
+        <!-- Directive from tempaltes/Main/main-account.html -->
+        <main-account></main-account>
+    </ion-side-menu>
+</ion-side-menus>

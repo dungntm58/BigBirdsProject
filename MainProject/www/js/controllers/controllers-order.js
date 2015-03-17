@@ -3,7 +3,7 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
 	orderControllers.controller('OrderController', function ($scope, $ionicModal, CategoryService) {
         $scope.navTitle = CategoryService.get(1).text;
 
-        $ionicModal.fromTemplateUrl('templates/new-order-modal.html', function($ionicModal) {
+        $ionicModal.fromTemplateUrl('templates/Main/Order/new-order-modal.html', function($ionicModal) {
                 $scope.modal = $ionicModal;
             },
             {
@@ -21,17 +21,24 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
         };
     });
 
-    orderControllers.controller('NewOrder', function($scope, $ionicPopup, $timeout, RestaurantService){
-        $scope.restaurant = RestaurantService.nameOfRestaurant();
-        $scope.Currency = '$';
+    orderControllers.controller('NewOrder', function ($scope, $ionicPopup, $timeout, RestaurantService){
+        $scope.initialize = function(){
+            $scope.order = {
+                dishes: [],
+                quantity: [],
+                table: null,
+                datetime: new Date(),
+            };
+            if (RestaurantService.nameOfRestaurant() != null)
+                $scope.restaurant = RestaurantService.nameOfRestaurant();
+            else
+                $scope.restaurant = "No name";
 
-        $scope.order = {
-            dishes: [],
-            quantity: [],
-            table: null,
-            datetime: new Date(),
+            $scope.Currency = RestaurantService.Currency;
+            $scope.tables = RestaurantService.unorderedTable($scope.order.datetime);
         };
-        $scope.tables = RestaurantService.unorderedTable($scope.order.datetime);
+
+        $scope.initialize();
 
         $scope.selectDish = function(dish){
             var index = $scope.order.dishes.indexOf(dish);
@@ -62,17 +69,15 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
         $scope.valueOfOrder = function(){
             var total = 0;
             for (var i = 0; i<$scope.order.dishes.length ; i++){
-                if (!isNaN($scope.order.quantity[i]))
-                    total += parseFloat($scope.order.dishes[i].price)*parseInt($scope.order.quantity[i]);
+                total += parseFloat($scope.order.dishes[i].price)*parseInt($scope.order.quantity[i]);
             }
             return total;
         }
 
         $scope.decreaseQuantity = function(dish){
             var index = $scope.order.dishes.indexOf(dish);
-            $scope.order.quantity[index]--;
-            if ($scope.order.quantity[index] == 0)
-                $scope.removeDish(dish);
+            if ($scope.order.quantity[index] > 1)
+                $scope.order.quantity[index]--;
         };
 
         $scope.emptyOrder = function(){
@@ -125,7 +130,7 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
         };
     });
 
-    orderControllers.controller('SlideController', function($scope, $ionicSlideBoxDelegate){
+    orderControllers.controller('SlideController', function ($scope, $ionicSlideBoxDelegate){
         $scope.nextSlide = function() {
             $ionicSlideBoxDelegate.next();
         }
@@ -135,7 +140,7 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
         }
     });
 
-    orderControllers.controller('MenuFoodTabController', function($scope, RestaurantService){
+    orderControllers.controller('MenuFoodTabController', function ($scope, RestaurantService){
         $scope.typeOfFood = [{
             'name' : 'Appetizer',
             'content' : RestaurantService.appetizers()

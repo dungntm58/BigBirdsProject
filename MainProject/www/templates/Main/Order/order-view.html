@@ -1,0 +1,52 @@
+<div>
+	<ion-item class="item item-divider">
+		<span style="float: left;">
+			<strong>Table: {{order.table}}</strong>
+			<br/>
+			<strong>Date: </strong>
+			<span style="color: green;">{{order.datetime | date: 'dd/MM/yyyy'}}</span>
+			<br/>
+			<strong>Time: </strong>
+			<span style="color: red;">{{order.datetime | date: 'hh:mm a'}}</span>
+		</span>
+		
+		<button class="button button-light" style="float: right; margin: 8px; padding: 5px 5px 5px 5px;" ng-click="resetOrder()">Reset</button>
+	</ion-item>
+
+	<div>
+		<ion-item ng-hide="order.dishes.length">
+			<p>No dishes in your order</p>
+		</ion-item>
+		
+		<div class="list" ng-show="order.dishes.length">
+			<ion-scroll direction = "y" style="width: 100%; height: 207px; border: 1px solid #E0E0E0;">
+				<ion-item ng-repeat="dish in order.dishes | orderBy: 'name' : false" style="margin : -1px 0px 0px 0px;">
+					<span style = "float: left; margin-top: 5px; width: 30%;">
+						{{dish.name}}
+					</span>
+					<span style = "float: left; margin-top: 5px; width: 25%; text-align: center; color: red;">
+						{{dish.price | currency : Currency}}
+					</span>
+					<span style = "float: left; width: 10%; text-align: center;">
+    					<input id="input-quantity" type="text" ng-model="order.quantity[order.dishes.indexOf(dish)]" placeholder="{{order.quantity[order.dishes.indexOf(dish)]}}" positive-number="positive-number" max = "99"/>
+    				</span>
+	    			<span style="width: 35%; clear: both;">
+		    			<button class="button button-small button-positive pull-left" ng-click="increaseQuantity(dish)">
+			    			<i class="icon ion-plus-round"></i>
+			    		</button>
+			    		<button class="button button-small button-assertive" ng-click="decreaseQuantity(dish)">
+			    			<i class="icon ion-minus"></i>
+			    		</button>
+			    		<button class="button button-small button-outline icon ion-close-round pull-right" ng-click="removeDish(dish)"></button>
+	    			</span>
+				</ion-item>
+			</ion-scroll>
+		</div>
+	</div>
+
+
+	<ion-item class = "item item-divider">
+		<strong style= "float: left;">Total: </strong>
+		<strong style="float: right; color: red;">{{valueOfOrder() | currency : Currency}}</strong>
+	</ion-item>
+</div>
