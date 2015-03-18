@@ -62,3 +62,7 @@ Nguyen Manh Hung
 
 *Liên hệ:*
 coming soon
+
+###Extra Information
+Phần mềm được phát triển theo phương pháp Scrum
+[Document Scrum](https://drive.google.com/drive/#folders/0B4-xwxrkvfT0dTZObjZseV9yVmc)
