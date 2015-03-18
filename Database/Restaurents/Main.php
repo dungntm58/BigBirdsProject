@@ -55,11 +55,11 @@ if( $num_results ){
 			echo "<td>{$cost}</td>";
 			echo "<td>{$detail}</td>";
             echo "<td>";
-                echo "<a href='edit.php?id={$id}'>Edit</a>";
+                echo "<a href='edit.php?id='>Edit</a>";
                 echo " / ";
  
                 // delete_user is a javascript function, see at the bottom par of the page
-                echo "<a href='#' onclick='delete_user( {$id} );'>Delete</a>";
+                echo "<a href='#' onclick='delete_user( {$food_id} );'>Delete</a>";
             echo "</td>";
         echo "</tr>";
     }

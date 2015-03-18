@@ -13,33 +13,31 @@ include 'main_db_connect.php';
  
 // if the form was submitted/posted, update the record
 if($_POST){
- 
+	 
     //write query
     $sql = "UPDATE
                 menu_1
             SET
-                food_id = ?,
                 food_name = ?,
                 type = ?,
                 cost  = ?,
-				detail=?
+				detail = ?
             WHERE
                 food_id= ?";
  
     $stmt = $mysqli->prepare($sql);
- 
+
     // you can bind params this way,
     // if you want to see the other way, see our add.php
     $stmt->bind_param(
-        'ssssss',
-        $_POST['food_id'],
+        'sssss',
         $_POST['food_name'],
         $_POST['type'],
         $_POST['cost'],
-		$_POST['detail'],
+        $_POST['detail'],
 		$_POST['food_id']
     );
- 
+	
     // execute the update statement
     if($stmt->execute()){
         echo "User was updated.";
@@ -49,8 +47,8 @@ if($_POST){
     }else{
         die("Unable to update.");
     }
-}
- 
+
+
 /*
  * select the record to be edited,
  * you can also use prepared statement here,
@@ -59,14 +57,15 @@ if($_POST){
  
  * so it I'm going to use $mysqli->real_escape_string() this time.
  */
- 
+$f=$_POST['food_id'];
 $sql = "SELECT
             *
         FROM
             menu_1
         WHERE
-            food_id = ".$_POST['food_id'];
-        
+            food_id = ".$f;
+			
+
  
 // execute the sql query
 $result = $mysqli->query( $sql );
@@ -80,37 +79,40 @@ extract($row);
 //disconnect from database
 $result->free();
 $mysqli->close();
+$food_name_v=$_POST['food_name'];
+}
 ?>
  
 <!--we have our html form here where new user information will be entered-->
 <form action='Edit.php' method='POST' border='0'>
     <table>
         <tr>
-            <td>Food's ID</td>
-            <td><input type='text' name='food_id' value='<?php echo $food_id;  ?>' /></td>
+            <td>food_id</td>
+            <td><input type='text' name='food_id'  /></td>
         </tr>
         <tr>
-            <td>Food's Name</td>
-            <td><input type='text' name='food_name' value='<?php echo $food_name;  ?>' /></td>
+            <td>food_name</td>
+            <td><input type='text' name='food_name'  /></td>
         </tr>
         <tr>
-            <td>Type</td>
-            <td><input type='text' name='type'  value='<?php echo $type;  ?>' /></td>
+            <td>type</td>
+            <td><input type='text' name='type'   /></td>
         </tr>
         <tr>
-            <td>Cost</td>
-            <td><input type='number_format' name='cost'  value='<?php echo $cost;  ?>' /></td>
+            <td>cost</td>
+            <td><input type='number_format' name='cost'   /></td>
         <tr>
 		<tr>
-            <td>Detail</td>
-            <td><input type='text' name='detail'  value='<?php echo $detail;  ?>' /></td>
-        <tr>
+            <td>detail</td>
+            <td><input type='text' name='detail'   /></td>
+        </tr>
             <td></td>
             <td>
                 <!-- so that we could identify what record is to be updated -->
                 <input type='hidden' name='id'  />
                 <input type='submit' value='Edit' />
-                <a href='Main.php'>Back to index</a>
+                <a href='Main
+				.php'>Back to index</a>
             </td>
         </tr>
     </table>
