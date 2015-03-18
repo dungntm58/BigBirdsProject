@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2015 at 07:37 PM
+-- Generation Time: Mar 18, 2015 at 06:50 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -40,9 +40,8 @@ CREATE TABLE IF NOT EXISTS `menu_1` (
 --
 
 INSERT INTO `menu_1` (`food_id`, `food_name`, `type`, `cost`, `detail`) VALUES
-(1, 'Piece of shit', 'main', 9999, 'Fucking delicious'),
-(2, 'Shit', 'main', 69, 'FUCK'),
-(3, 'asfasf', 'asfsaf', 22, 'asfasf');
+(1, 'SHit', 'main', 69, 'FUCKING Delicous'),
+(2, 'Piece of shit', 'Main', 96, 'Awesome');
 
 -- --------------------------------------------------------
 
