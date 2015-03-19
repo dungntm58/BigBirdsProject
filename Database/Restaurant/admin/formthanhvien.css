@@ -1,0 +1,50 @@
+@charset "utf-8";
+/* CSS Document */
+/*	RESET CSS	*/
+*{
+margin:0px;
+padding:0px;
+}
+
+/*	MAIN	*/
+table#login-main{
+margin:80px auto;
+width:400px;
+height:auto;
+background:#FFFFFF;
+border-left:1px solid #CDCDCD;
+border-right:1px solid #CDCDCD;
+border-bottom:1px solid #CDCDCD;
+}
+
+
+
+/*	NAVIGATION BAR	*/
+table#login-main tr td#login-navbar{
+font-family:arial;
+font-size:11px;
+font-weight:bold;
+border-bottom:1px solid #CDCDCD;
+border-top:1px solid #CDCDCD;
+text-align:center;
+text-transform:uppercase;
+background:black;
+color:#ffffff;
+}
+
+/*	INPUT	*/
+table#login-main tr td.login-input{
+font-family:arial;
+font-size:11px;
+font-weight:bold;
+color:#0f0f0f;
+text-transform:capitalize;
+}
+
+table#login-main tr td.login-input input{
+width:218px;
+height:16px;
+border:1px solid #cdcdcd;
+}
+
+

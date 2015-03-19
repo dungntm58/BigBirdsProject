@@ -1,0 +1,65 @@
+@charset "utf-8";
+/* CSS Document */
+/*	MAIN CONTENT	*/
+table#main-content{
+border-left:1px solid #cdcdcd;
+}
+table#main-content tr td{
+border-right:1px solid #cdcdcd;
+border-bottom:1px solid #cdcdcd;
+}
+
+/*	NAVIGATION BAR	*/
+table#main-content tr#main-navbar{
+font-family:arial;
+font-size:11px;
+font-weight:bold;
+color:#FFFFFF;
+text-transform:uppercase;
+background:black;
+}
+table#main-content tr#main-navbar td{
+padding:0px 10px;
+}
+table#main-content tr#main-navbar td a{
+float:right;
+color:#FFFFFF;
+text-decoration:none;
+}
+table#main-content tr#main-navbar td a:hover{
+text-decoration:underline;
+}
+
+/*	NAVIGATION TITLE	*/
+table#main-content tr#navbar-title{
+font-family:arial;
+font-size:11px;
+font-weight:bold;
+color:#0f0f0f;
+text-align:center;
+text-transform:capitalize;
+}
+
+/*	CAT ITEM	*/
+table#main-content tr.cat-item td.text{
+font-family:arial;
+font-size:11px;
+color:#0085cf;
+padding-left:10px;
+}
+table#main-content tr td.link{
+font-family:arial;
+font-size:11px;
+text-align:center;
+}
+table#main-content tr td.link a{
+color:#0085cf;
+text-decoration:none;
+text-transform:capitalize;
+}
+table#main-content tr td.link a.red{
+color:#FF0000;
+}
+table#main-content tr td.link a:hover{
+text-decoration:underline;
+}

@@ -1,0 +1,120 @@
+@charset "utf-8";
+/* CSS Document */
+/*	RESET CSS	*/
+*{
+margin:5px;
+padding:0px;
+}
+
+/*	WRAPPER	*/
+table#wrapper{
+margin:0px auto;
+}
+
+/*	NAVIGATION BAR	*/
+table#wrapper tr td#header table tr td#navbar{
+padding-left:15px;
+border-right:1px solid #cdcdcd;
+border-bottom:1px solid #cdcdcd;
+border-left:1px solid #cdcdcd;
+width:900px;
+font-size:25px;
+text-align:center;
+text-transform:uppercase;
+background:black;
+color:#ffffff;
+padding: 10px 0px;
+
+}
+
+table#wrapper tr td#header table tr td#navbar table tr td{
+font-family:arial;
+font-size:11px;
+font-weight:bold;
+padding-right:30px;
+}
+table#wrapper tr td#header table tr td#navbar table tr td a{
+text-decoration:none;
+text-transform:capitalize;
+}
+table#wrapper tr td#header table tr td#navbar table tr td a:hover{
+color:#C3C0B7;
+}
+table#wrapper tr td#header table tr td#line-header{
+border-top:1px solid #cdcdcd;
+}
+
+/*	LEFT MENU	*/
+table.left-menu{
+border-left:1px solid #cdcdcd;
+border-right:1px solid #cdcdcd;
+border-bottom:1px solid #cdcdcd;
+background:#e3e4de;
+}
+table.left-menu tr.bg-leftbar{
+font-family:arial;
+font-size:11px;
+font-weight:bold;
+color:#FFFFFF;
+text-transform:uppercase;
+
+}
+table.left-menu tr.bg-leftbar td{
+padding-left:10px;
+background:black;
+
+}
+table.left-menu tr.menu-item{
+font-family:arial;
+font-size:11px;
+border-bottom:1px solid #cdcdcd;
+}
+table.left-menu tr.menu-item a{
+color:#0f0f0f;
+text-decoration:none;
+text-transform:capitalize;
+}
+table.left-menu tr.menu-item a:hover{
+color:#797875;
+}
+table.left-menu tr.menu-item td{
+padding-left:10px;
+}
+table.left-menu tr td#user-info{
+font-family:arial;
+font-size:11px;
+color:#0f0f0f;
+padding:10px;
+}
+table.left-menu tr td#user-info b{
+color:#FF0000;
+}
+table.left-menu tr td#logout a{
+font-family:arial;
+font-size:11px;
+font-weight:bold;
+color:#FF0000;
+text-decoration:none;
+text-transform:capitalize;
+padding-right:10px;
+}
+table.left-menu tr td#logout a:hover{
+text-decoration:underline;
+}
+
+/*	BODY	*/
+table#wrapper tr#body td table{
+margin-bottom:20px;
+}
+
+/*	MAIN CONTENT	*/
+
+
+/*	FOOTER	*/
+table tr td#footer{
+font-family:arial;
+font-size:10px;
+color:#ffffff;
+text-transform:capitalize;
+background:black;
+}

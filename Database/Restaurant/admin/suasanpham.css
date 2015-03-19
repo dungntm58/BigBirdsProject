@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* CSS Document */
+/*	MAIN CONTENT	*/
+table#main-content{
+border-left:1px solid #cdcdcd;
+border-right:1px solid #cdcdcd;
+border-bottom:1px solid #cdcdcd;
+}
+
+/*	NAVIGATION BAR	*/
+table#main-content tr#main-navbar{
+font-family:arial;
+font-size:11px;
+font-weight:bold;
+color:#FFFFFF;
+text-transform:uppercase;
+background:black;
+}
+table#main-content tr#main-navbar td{
+padding:0px 10px;
+}
+
+
+/*	FORM	*/
+table#main-content tr td.form{
+padding-left:10px;
+}
+table#main-content tr td.form label{
+font-family:arial;
+font-size:11px;
+font-weight:bold;
+color:#0f0f0f;
+text-transform:capitalize;
+}
+table#main-content tr#textbox td input{
+width:400px;
+height:18px;
+border:1px solid #cdcdcd;
+}
