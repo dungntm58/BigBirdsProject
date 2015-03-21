@@ -188,6 +188,9 @@ td,
 th {
   padding: 0;
 }
+.nav-header.title {
+  text-align: center;
+  color: #444; }
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
   *,
@@ -1135,6 +1138,14 @@ img {
 }
 .img-circle {
   border-radius: 50%;
+}
+header{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  font: inherit;
+  font-size: 100%;
 }
 hr {
   margin-top: 20px;

@@ -10,7 +10,7 @@
 <title>Đăng Nhập</title>
 <link rel="stylesheet" type="text/css" href="bootstrap.css" />
 </head>
-<body class="container">
+<body>
 	<?php
 		if($_POST["submit_name"]){
 			if($_POST["user"] && $_POST["pass"]){
@@ -41,17 +41,17 @@
 	<?php
 		if(!$_SESSION['user'] && !$_SESSION['pass']){
 		?>
-		<div class="form-group text-center">
-		    <h2><span class="label label-default">Đăng nhập hệ thống quản trị</span></h2>
-		</div>
-		<form method="post" role="form" class="form" style="position: absolute; height: 50%; top: 25%">
-			<div class="form-group text-center panel" style="position:fixed; left: 33%; width: 33%;">
+		<nav class="navbar navbar-default nav-fixed-top">
+		    <h2 class="text-center">Đăng nhập hệ thống quản trị</h2>
+		</nav>
+		<form method="post" role="form" class="form">
+			<div class="form-group text-center panel" style="position: fixed; left: 30%; width: 40%;">
 				<div class="panel-body">
-				    <img src="images/big_bird_1.jpg" width="150px" class="pull-left" align="center" />
-				    <ul class="list-group pull-left">
+				    <img src="images/big_bird_1.jpg" width="30%" class="pull-left" align="center" />
+				    <ul class="list-group pull-left" style="width: 70%;">
 					    <li class="list-group-item">
 					    	<label>Tài khoản</label>
-					    	<br />
+					    	<br/>
 					    	<input type="text" name="user" class="form-control" />
 					    </li>
 					    <li class="list-group-item">

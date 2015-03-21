@@ -57,14 +57,14 @@ error_reporting(E_NOTICE || E_WARNING);
 
   	<!-- Main Content -->
 	<form method="post" class="form">
-		<div class="form-group text-center">
-	    	<h2><span class="label label-default">Đăng kí</span></h2>
-		</div>
-		<div class="form-group panel" style="position: fixed; width: 50%; left: 25%;">
+		<nav class="navbar navbar-default nav-fixed-top">
+	    	<h2 class="text-center">Đăng kí</h2>
+		</nav>
+		<div class="form-group panel" style="position: fixed; width: 40%; left: 30%;">
 			<ul class="panel-body list-group">
 				<li class="list-group-item">
 					<label>Tài khoản</label>
-			        <br />
+			        <br/>
 			        <input type="text" name="tai_khoan" class="form-control" />
 				</li>
 				<li class="list-group-item">
@@ -74,7 +74,7 @@ error_reporting(E_NOTICE || E_WARNING);
 				</li>
 				<li class="list-group-item">
 					<label>Nhập lại mật khẩu</label>
-					<br />
+					<br/>
 					<input type="password" name="mat_khau_2" class="form-control"/>
 				</li>
 				<li class="list-group-item">

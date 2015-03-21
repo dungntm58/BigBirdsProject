@@ -41,16 +41,15 @@
 	<?php
 		if(!$_SESSION['user'] && !$_SESSION['pass']){
 		?>
-			<div class="form-group text-center">
-				<h2><span class="label label-warning">Tìm tài khoản của bạn</span></h2>
-			</div>
+			<nav class="navbar navbar-default nav-fixed-top">
+			    <h2 class="text-center">Tìm tài khoản</h2>
+			</nav>
 			<form method="post" class="form-group" style="position: absolute; height: 50%; top: 25%">
-				<div class="form-group panel" style="position: fixed; width: 33%; left: 33%;">
+				<div class="form-group panel" style="position: fixed; width: 40%; left: 30%;">
 					<div class="panel-body">
-						<img src="images/big_bird_1.jpg" width="150px" class="pull-left" /></td>
-						<div class="pull-left">
-							<label>Nhập vào tên tài khoản</label>
-							<br/>
+						<img src="images/big_bird_1.jpg" width="30%" class="pull-left" /></td>
+						<div class="pull-left" style="width: 70%">
+							<strong><h4>Nhập vào tên tài khoản</h4></strong>
 							<input type="text" name="tai_khoan" class="form-control" />
 							<br/>
 							<div align="center" class="btn-group">
