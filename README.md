@@ -1,4 +1,4 @@
-<pre>
+﻿<pre>
 	  ____    ____        __      _______           ____    _
 	.*    *. |    '      /  \        |    |     | .*    *  | \    |
 	|      | |     *    /    \       |    |_____| |      | |  \   |
@@ -73,4 +73,4 @@ coming soon
 
 ###Extra Information
 Phần mềm được phát triển theo phương pháp Scrum
-[Document Scrum](https://drive.google.com/drive/#folders/0B4-xwxrkvfT0dTZObjZseV9yVmc)
+[Link Document Scrum](https://drive.google.com/drive/#folders/0B4-xwxrkvfT0dTZObjZseV9yVmc)
