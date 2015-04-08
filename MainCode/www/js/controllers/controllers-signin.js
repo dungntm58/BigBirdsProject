@@ -18,14 +18,14 @@ angular.module('MainApp.controllers.signIn', [])
 		$rootScope.$on('$stateChangeStart', function ($event, next) {
 			// var AuthorizedRoles = next.views.authentication.data.authorizedRoles;
 			// if (!AccountService.isAuthorized(AuthorizedRoles)) {
-			// 	$event.preventDefault();
-			// 	if (AccountService.isAuthenticated()) {
-			// 		// user is not allowed
-			// 		$rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-			// 	} else {
-			// 		// user is not logged in
-			// 		$rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-			// 	}
+				event.preventDefault();
+				if (!AccountService.isAuthenticated()) {
+					// user is not allowed
+					// $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+				// } else {
+					// user is not logged in
+					$rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+				}
 			// }
 		});
 	})
@@ -42,13 +42,13 @@ angular.module('MainApp.controllers.signIn', [])
 		    $scope.currentUser = user;
 	  	};
 		$scope.signIn = function () {
-			// AccountService.login($scope.credentials).then(function (user) {
-			// 	$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-			// 	$scope.setCurrentUser(user);
+			AccountService.login($scope.credentials).then(function (user) {
+				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+				$scope.setCurrentUser(user);
 				$state.go('home');
-			// }, function () {
-			// 	$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-			// });
+			}, function () {
+				$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+			});
 		};
 		$scope.signUp = function(){
 			$state.go('sign-up');
