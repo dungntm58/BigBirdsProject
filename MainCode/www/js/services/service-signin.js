@@ -1,21 +1,6 @@
 var signIn = angular.module('MainApp.services.signIn', []);
 
-signIn.constant('AUTH_EVENTS', {
-		loginSuccess: 'auth-login-success',
-		loginFailed: 'auth-login-failed',
-		logoutSuccess: 'auth-logout-success',
-		sessionTimeout: 'auth-session-timeout',
-		notAuthenticated: 'auth-not-authenticated',
-		notAuthorized: 'auth-not-authorized'
-	})
-
-	.constant('USER_ROLES', {
-		all: '*',
-		admin: 'admin',
-		editor: 'editor',
-		guest: 'guest'
-	})
-
+signIn
 	.config(function ($httpProvider) {
 		$httpProvider.interceptors.push([
 			'$injector',
@@ -30,7 +15,6 @@ signIn.constant('AUTH_EVENTS', {
 			responseError: function (response) { 
 				$rootScope.$broadcast({
 					401: AUTH_EVENTS.notAuthenticated,
-					403: AUTH_EVENTS.notAuthorized,
 					419: AUTH_EVENTS.sessionTimeout,
 					440: AUTH_EVENTS.sessionTimeout
 				}[response.status], response);
@@ -46,6 +30,10 @@ signIn.constant('AUTH_EVENTS', {
 			return $http({
 				method: 'POST',
 				url : 'http://sdk108.pe.hu',
+				headers: {
+					'Access-Control-Allow-Origin': '*',
+					'Content-Type' : undefined
+				},
 				data: credentials
 			})
 			.then(function (res) {
@@ -57,12 +45,9 @@ signIn.constant('AUTH_EVENTS', {
 	    authService.isAuthenticated = function () {
 			return !!Session.userId;
 	    };
-	   
-	    authService.isAuthorized = function (authorizedRoles) {
-			if (!angular.isArray(authorizedRoles)) {
-				authorizedRoles = [authorizedRoles];
-			}
-			return (authService.isAuthenticated() && authorizedRoles.indexOf(Session.userRole) !== -1);
+
+	    authService.logout = function(){
+	    	Session.destroy();
 	    };
 
 	    return authService;
@@ -72,13 +57,11 @@ signIn.constant('AUTH_EVENTS', {
 	    this.create = function (sessionId, userId, userRole) {
 			this.id = sessionId;
 			this.userId = userId;
-			this.userRole = userRole;
 	    };
 
 	    this.destroy = function () {
 			this.id = null;
 			this.userId = null;
-			this.userRole = null;
 	    };
 	    return this;
 	});

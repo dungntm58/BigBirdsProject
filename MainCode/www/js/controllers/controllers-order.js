@@ -1,7 +1,7 @@
 var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstrap']);
 
-	orderControllers.controller('OrderController', function ($scope, $ionicModal, CategoryService) {
-        $scope.navTitle = CategoryService.get(1).text;
+	orderControllers.controller('OrderController', function ($scope, $ionicModal, menuItems) {
+        $scope.navTitle = menuItems[1].text;
 
         $ionicModal.fromTemplateUrl('templates/Main/Order/new-order-modal.html', function($ionicModal) {
                 $scope.modal = $ionicModal;
@@ -21,18 +21,19 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
         };
     });
 
-    orderControllers.controller('NewOrder', function ($scope, $ionicPopup, $timeout, RestaurantService){
+    orderControllers.controller('NewOrder', function ($scope, $rootScope, $ionicPopup, RestaurantService){
         $scope.initialize = function(){
             $scope.order = {
                 dishes: [],
                 quantity: [],
                 table: null,
                 datetime: new Date(),
+                restaurant: null
             };
-            if (RestaurantService.nameOfRestaurant() != null)
-                $scope.restaurant = RestaurantService.nameOfRestaurant();
+            if ($rootScope.restaurant != null)
+                $scope.order.restaurant = $rootScope.restaurant;
             else
-                $scope.restaurant = "No name";
+                $scope.order.restaurant = "No name";
 
             $scope.Currency = RestaurantService.Currency;
             $scope.tables = RestaurantService.unorderedTable($scope.order.datetime);
@@ -117,13 +118,10 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
                         RestaurantService.sendOrder(order);
                     }
                     else{
-                        var alert = $ionicPopup.show({
+                        $ionicPopup.alert({
                             title: '<b>Warning</b>',
                             template: 'Your order is not finished. Please check again!'
                         });
-                        $timeout(function(){
-                            alert.close();
-                        }, 1500);
                     }
                 }
             });

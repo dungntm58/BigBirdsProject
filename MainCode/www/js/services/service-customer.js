@@ -1,25 +1,4 @@
 angular.module('MainApp.services.customer', [])
-  .factory('CategoryService', function() {
-    var menuItems = [
-        { text: 'Home', iconClass: 'icon ion-home', link: 'home'},
-        { text: 'Order', iconClass: 'icon ion-document-text', link: 'order'},
-        { text: 'Menu', iconClass: 'icon ion-clipboard', link: 'menu'},
-        { text: 'Restaurant', iconClass: 'icon ion-star', link: 'restaurant'},
-        // { text: 'Analytics', iconClass: 'icon ion-stats-bars', link: 'analytics'},
-        { text: 'Setting', iconClass: 'icon ion-gear-b', link: 'setting'},
-    ];
-
-    return {
-      all: function() {
-        return menuItems;
-      },
-
-      get: function(index){
-        return menuItems[index];
-      }
-    };
-  })
-
   .factory('RestaurantService', function($http){
     var Restaurant = null;
     var Currency = "$";

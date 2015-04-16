@@ -1,51 +1,38 @@
 angular.module('MainApp.controllers.signIn', [])
-	.run(function($rootScope, $ionicLoading) {
-		$rootScope.$on('$ionicView.beforeEnter', function(){
-			$ionicLoading.show({
-				template: 'Loading...',
-	            animation: 'fade-in',
-	            showBackdrop: false,
-	            maxWidth: 200
-    		});
+	.run(function ($rootScope, $ionicPopup, $timeout, $state, AUTH_EVENTS, AccountService) {
+		$rootScope.$on('$stateChangeStart', function ($event) {
+			event.preventDefault();
+			if (!AccountService.isAuthenticated()) {
+				// user is not logged in
+				$rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+			}
 		});
 
-		$rootScope.$on('$ionicView.enter', function(){
-			$ionicLoading.hide();
+		$rootScope.$on(AUTH_EVENTS.loginFailed, function ($event){
+			event.preventDefault();
+			$ionicPopup.alert({
+                title: '<b>Sign up</b>',
+                template: 'Sign up failed. Please check your info or connecting network'
+            });
 		});
-	})
 
-	.run(function ($rootScope, AUTH_EVENTS, AccountService) {
-		$rootScope.$on('$stateChangeStart', function ($event, next) {
-			// var AuthorizedRoles = next.views.authentication.data.authorizedRoles;
-			// if (!AccountService.isAuthorized(AuthorizedRoles)) {
-				event.preventDefault();
-				if (!AccountService.isAuthenticated()) {
-					// user is not allowed
-					// $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-				// } else {
-					// user is not logged in
-					$rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-				}
-			// }
+		$rootScope.$on(AUTH_EVENTS.loginSuccess, function ($event){
+			event.preventDefault();
+			$state.go('home');
 		});
 	})
 
-	.controller('LoginController', function ($scope, $rootScope, $state, AUTH_EVENTS, USER_ROLES, AccountService) {
+	.controller('LoginController', function ($scope, $rootScope, $state, AUTH_EVENTS, AccountService) {
 		$scope.credentials = {
 			username: null,
 			password: null
 		};
-		$scope.currentUser = null;
-		$scope.userRoles = USER_ROLES;
-		$scope.isAuthorized = AccountService.isAuthorized;
-		$scope.setCurrentUser = function (user) {
-		    $scope.currentUser = user;
-	  	};
+
 		$scope.signIn = function () {
+			// $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 			AccountService.login($scope.credentials).then(function (user) {
 				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-				$scope.setCurrentUser(user);
-				$state.go('home');
+				$rootScope.currentUser = user;
 			}, function () {
 				$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 			});
@@ -84,17 +71,9 @@ angular.module('MainApp.controllers.signIn', [])
             }).then(function(res){
                 if (res){
                 	$ionicSideMenuDelegate.toggleRight();
+                	AccountService.logout();
                     $state.go('sign-in');
                 }
             });
-			
 		};
 	})
-
-   	.controller('CategoryController', function ($scope, $state, $ionicSideMenuDelegate, CategoryService) {
-        $scope.list = CategoryService.all();
-        $scope.goto = function(link){
-        	// $ionicSideMenuDelegate.toggleLeft();
-        	$state.go(link);
-        }
-    });

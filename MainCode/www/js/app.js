@@ -1,4 +1,16 @@
 angular.module('MainApp', ['ionic', 'MainApp.controllers', 'MainApp.directives', 'MainApp.services'])
+    .run(function($ionicPlatform) {
+        $ionicPlatform.ready(function() {
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+            // for form inputs)
+            if(window.cordova && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            }
+            if(window.StatusBar) {
+                StatusBar.styleDefault();
+            }
+        });
+    })
     .provider('SettingServiceProvider', function ($injector){
         this.$get = function(){
             return angular.injector('MainApp.services').get('SettingService');
@@ -7,109 +19,65 @@ angular.module('MainApp', ['ionic', 'MainApp.controllers', 'MainApp.directives',
     .config(function ($compileProvider) {
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
     })
-    .config(function ($stateProvider, $urlRouterProvider, USER_ROLES, SettingServiceProvider) {
+    .config(function ($stateProvider, $urlRouterProvider) {
         //Navigate
         $stateProvider
-            .state('main', {
-                abstract : true,
-                url: '/main',
-                views : {
-                    'authentication' : {
-                        controller: 'CategoryController',
-                        templateUrl: 'templates/Main/main.html',
-                        data: {
-                            'authorizedRoles': [USER_ROLES.admin, USER_ROLES.editor]
-                        }
-                    }
-                }
-            })
             .state('sign-in',{
                 url: '/sign-in',
-                views : {
-                    'authentication' : {
-                        controller: 'LoginController',
-                        templateUrl: 'templates/LogIn/sign-in.html'
-                    }
-                }
+                templateUrl: 'templates/LogIn/sign-in.html',
+                controller: 'LoginController'
             })
             .state('sign-up',{
                 url: '/sign-up',
-                views : {
-                    'authentication' : {
-                        controller: 'SignUpController',
-                        templateUrl: 'templates/LogIn/sign-up.html'
-                    }
-                }
+                templateUrl: 'templates/LogIn/sign-up.html',
+                controller: 'SignUpController'
+            })
+            .state('main', {
+                abstract : true,
+                url: '',
+                templateUrl: 'templates/Main/main.html'
             })
             
             //State for main view after signing in successfully
             .state('home',{
                 parent: 'main',
                 url: '/home',
-                views : {
-                    'categoryContent' : {
-                        controller: 'HomeController',
-                        templateUrl: 'templates/Main/Home/home-'+ SettingServiceProvider.$get().getLanguage() + '.html'
-                        // templateUrl: 'templates/Main/Home/home-en.html'
-                    }
-                }
+                controller: 'HomeController',
+                // templateUrl: 'templates/Main/Home/home-'+ SettingServiceProvider.$get().getLanguage() + '.html'
+                templateUrl: 'templates/Main/Home/home-en.html'
             })
             .state('order', {
                 parent: 'main',
                 url: '/order',
-                views : {
-                    'categoryContent' : {
-                        controller: 'OrderController',
-                        templateUrl: 'templates/Main/Order/order.html'
-                    }
-                }
+                controller: 'OrderController',
+                templateUrl: 'templates/Main/Order/order.html'
             })
             .state('menu', {
                 parent: 'main',
                 url: '/menu',
-                views : {
-                    'categoryContent' : {
-                        controller: 'MenuController',
-                        templateUrl: 'templates/Main/Menu/menu.html'
-                    }
-                }
+                controller: 'MenuController',
+                templateUrl: 'templates/Main/Menu/menu.html'
             })
             .state('restaurant', {
                 parent: 'main',
                 url: '/restaurant',
-                views : {
-                    'categoryContent' : {
-                        controller: 'RestaurantController',
-                        templateUrl: 'templates/Main/Restaurant/restaurant.html'
-                    }
-                }
+                controller: 'RestaurantController',
+                templateUrl: 'templates/Main/Restaurant/restaurant.html'
             })
             .state('setting',{
                 parent: 'main',
                 url: '/setting',
-                views: {
-                    'categoryContent':{
-                        templateUrl: 'templates/Main/Setting/setting.html'
-                    }
-                }
+                templateUrl: 'templates/Main/Setting/setting.html'
             })
             .state('suggestedApps', {
                 parent: 'main',
                 url: '/suggested-apps',
-                views:{
-                    'categoryContent':{
-                        templateUrl: 'templates/Main/Setting/suggested-apps.html'
-                    }
-                }
+                templateUrl: 'templates/Main/Setting/suggested-apps.html'
             })
             .state('about',{
                 parent: 'main',
                 url: '/about',
-                views:{
-                    'categoryContent':{
-                        templateUrl: 'templates/Main/Setting/about.html'
-                    }
-                }
+                templateUrl: 'templates/Main/Setting/about.html'
             })
         //Need some code to check wheather view signIn showing
         $urlRouterProvider.otherwise('/sign-in');
