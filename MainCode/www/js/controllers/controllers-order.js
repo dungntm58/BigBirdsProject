@@ -1,7 +1,7 @@
 var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstrap']);
 
 	orderControllers.controller('OrderController', function ($scope, $ionicModal, menuItems) {
-        $scope.navTitle = menuItems[1].text;
+        $scope.navTitle = menuItems[3].text;
 
         $ionicModal.fromTemplateUrl('templates/Main/Order/new-order-modal.html', function($ionicModal) {
                 $scope.modal = $ionicModal;
@@ -33,7 +33,7 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
             if ($rootScope.restaurant != null)
                 $scope.order.restaurant = $rootScope.restaurant;
             else
-                $scope.order.restaurant = "No name";
+                $scope.order.restaurant = null;
 
             $scope.Currency = RestaurantService.Currency;
             $scope.tables = RestaurantService.unorderedTable($scope.order.datetime);
@@ -142,6 +142,7 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
         $scope.typeOfFood = [{
             'name' : 'Appetizer',
             'content' : RestaurantService.appetizers()
+            // 'content' : RestaurantService.food.appetizers
         },{
             'name' : 'Main',
             'content' : RestaurantService.mainCourses()

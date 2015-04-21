@@ -1,9 +1,8 @@
 angular.module('MainApp.controllers.signIn', [])
-	.run(function ($rootScope, $ionicPopup, $timeout, $state, AUTH_EVENTS, AccountService) {
+	.run(function ($rootScope, $ionicPopup, $timeout, $state, AUTH_EVENTS) {
 		$rootScope.$on('$stateChangeStart', function ($event) {
 			event.preventDefault();
-			if (!AccountService.isAuthenticated()) {
-				// user is not logged in
+			if ($rootScope.currentUser == null && $rootScope.start == true) {
 				$rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
 			}
 		});
@@ -11,57 +10,59 @@ angular.module('MainApp.controllers.signIn', [])
 		$rootScope.$on(AUTH_EVENTS.loginFailed, function ($event){
 			event.preventDefault();
 			$ionicPopup.alert({
-                title: '<b>Sign up</b>',
-                template: 'Sign up failed. Please check your info or connecting network'
+                title: '<b>Sign in</b>',
+                template: 'Sign in failed. Please check your network connection'
             });
 		});
 
 		$rootScope.$on(AUTH_EVENTS.loginSuccess, function ($event){
 			event.preventDefault();
+			$rootScope.start = true;
 			$state.go('home');
 		});
+
+		$rootScope.$on(AUTH_EVENTS.notAuthenticated, function ($event){
+			event.preventDefault();
+			$ionicPopup.alert({
+                title: '<b>Warning</b>',
+                template: 'You dont have a permisson. Please login before'
+            }).then(function (res){
+            	if (res){
+            		$state.go('sign-in');
+            	}
+            })
+		})
 	})
 
-	.controller('LoginController', function ($scope, $rootScope, $state, AUTH_EVENTS, AccountService) {
-		$scope.credentials = {
-			username: null,
-			password: null
+	.controller('LoginController', function ($scope, $rootScope, $state, AUTH_EVENTS, $cordovaOauth) {
+		$scope.googleLogin = function () {
+		    $cordovaOauth.google("415716996892-9t4qjhqm2317t1b2ffee7tjgr355pqnl.apps.googleusercontent.com",
+	    		"https://www.googleapis.com/auth/plus.login"
+		    )
+		    .then(function (result) {
+		    	$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+		        console.log(JSON.stringify(result));
+		    }, function (error) {
+		    	$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+		        console.log(error);
+		    });
 		};
 
-		$scope.signIn = function () {
-			// $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-			AccountService.login($scope.credentials).then(function (user) {
+		$scope.facebookLogin = function (){
+			$cordovaOauth.facebook("",
+				""
+			)
+			.then(function (result) {
 				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-				$rootScope.currentUser = user;
-			}, function () {
+		        console.log(JSON.stringify(result));
+			}, function (error) {
 				$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+		        console.log(error);
 			});
-		};
-		$scope.signUp = function(){
-			$state.go('sign-up');
-		};
-	})
-
-	.controller('SignUpController', function ($scope, $state){
-		$scope.account = {
-			username : null,
-			password : null,
-			email : null
-		};
-		$scope.back = function(){
-			$state.go('sign-in');
-		};
-
-		$scope.signUp = function(){
-			//code here
-		}
-		$scope.check = function(){
-			//code here
-			return true;
 		}
 	})
 
-	.controller('LogoutController', function ($scope, $state, $ionicPopup, $ionicSideMenuDelegate, AccountService){
+	.controller('LogoutController', function ($scope, $state, $ionicPopup, $ionicSideMenuDelegate){
 		$scope.logOut = function(){
 			//more code
 			$ionicPopup.confirm({
@@ -71,7 +72,8 @@ angular.module('MainApp.controllers.signIn', [])
             }).then(function(res){
                 if (res){
                 	$ionicSideMenuDelegate.toggleRight();
-                	AccountService.logout();
+                	$rootScope.currentUser = null;
+                	$rootScope.start = false;
                     $state.go('sign-in');
                 }
             });

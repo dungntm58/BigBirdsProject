@@ -1,5 +1,5 @@
 angular.module('MainApp.services.customer', [])
-  .factory('RestaurantService', function($http){
+  .factory('RestaurantService', function ($http){
     var Restaurant = null;
     var Currency = "$";
     var Appetizers = [
@@ -101,4 +101,42 @@ angular.module('MainApp.services.customer', [])
         //get a set of unordered tables
       }
     };
-  });
+  })
+
+  // .service('RestaurantService', function ($http, $rootScope, URL_SERVER){
+  //   this.food = {};
+
+  //   this.getRestaurants = function(){
+  //     $http.get(URL_SERVER.url + '').success(function(data) {
+  //       return data;
+  //     })
+  //   }
+
+  //   this.getFood = function (res){
+  //     $http({
+  //       method: 'GET',
+  //       url: URL_SERVER.url + '',
+  //       headers: {
+  //         'Access-Control-Allow-Origin': '*',
+  //         'Content-Type' : undefined
+  //       },
+  //       data: res
+  //     }).success(function (app, main, des, dri){
+  //       this.food.appetizers = app;
+  //       this.food.mainCourses = main;
+  //       this.food.desserts = des;
+  //       this.food.drinks = dri;
+  //     })
+  //   }
+    
+  //   this.sendOrder = function (order){
+  //     $http.post(URL_SERVER.url + '', order).then(function(){
+
+  //     })
+  //   }
+  //   this.unorderedTable = function (time){
+  //     $http.post(URL_SERVER.url + '', time).then(function(data){
+  //       return data;
+  //     })
+  //   }
+  // })

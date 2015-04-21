@@ -1,4 +1,4 @@
-angular.module('MainApp', ['ionic', 'MainApp.controllers', 'MainApp.directives', 'MainApp.services'])
+angular.module('MainApp', ['ionic', 'MainApp.controllers', 'MainApp.directives', 'MainApp.services', 'ngCordova'])
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -26,11 +26,6 @@ angular.module('MainApp', ['ionic', 'MainApp.controllers', 'MainApp.directives',
                 url: '/sign-in',
                 templateUrl: 'templates/LogIn/sign-in.html',
                 controller: 'LoginController'
-            })
-            .state('sign-up',{
-                url: '/sign-up',
-                templateUrl: 'templates/LogIn/sign-up.html',
-                controller: 'SignUpController'
             })
             .state('main', {
                 abstract : true,

@@ -76,18 +76,10 @@ a.active{
 
 .sign-in{
 	position: absolute;
-	top: 35%;
+	top: 40%;
 	left: 10%;
     width: 80%;
     z-index: 1;
-}
-
-.sign-in .item{
-	border-radius: 25px;
-}
-
-.sign-in-buttons .button{
-	border-radius: 10px;
 }
 
 .sign-in-page{
