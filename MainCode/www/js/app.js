@@ -1,4 +1,4 @@
-angular.module('MainApp', ['ionic', 'MainApp.controllers', 'MainApp.directives', 'MainApp.services', 'ngCordova'])
+angular.module('MainApp', ['ionic', 'MainApp.controllers', 'MainApp.directives', 'MainApp.services', 'ngCordova', 'ngCookies'])
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
