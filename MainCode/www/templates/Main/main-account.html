@@ -2,14 +2,22 @@
     <h1 class="title">Account</h1>
 </div>
 
-<ion-content class="has-header" ng-controller="LogoutController">
-    <ion-list>
+<ion-content class="has-header" >
+    <ion-list ng-controller="AccountInfo">
         <ion-item class="item item-avatar-left">
-            <img class="avatar-image" src="img/ionic.png" alt="image here" />
-            <h2>Username</h2>
+            <img class="avatar-image" src="{{user.image.url}}" alt="image here" />
+            <h2>{{user.name}}</h2>
         </ion-item>
-        
-        <ion-item class="item item-icon-left" ng-click="logOut()">
+        <ion-item>
+            <span>Gender:</span>
+            <strong class = "pull-right">{{user.gender}}</strong>
+        </ion-item>
+        <ion-item>
+            <span>Email:</span>
+            <strong class = "pull-right">{{user.email}}</strong>
+        </ion-item>
+
+        <ion-item ng-controller="LogoutController" class="item item-icon-left" ng-click="logOut()">
             <i class="icon ion-power"></i>
             Log out
         </ion-item>

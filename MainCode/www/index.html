@@ -9,8 +9,8 @@
     <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
 
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="cordova.js"></script>
-
+    <!-- <script src="lib/cordova.js"></script> -->
+    <script src="lib/ngCookie/angular-cookies.js"></script>
     <script src="js/directives.js"></script>
     <script src="js/services/service-setting.js"></script>
     <script src="js/services/service-customer.js"></script>
@@ -28,6 +28,52 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body ng-app="MainApp">
+    <script>
+        // Facebbok OAuth init
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId      : '1565719953678807',
+                status: true, // check login status
+                cookie: true, // enable cookies to allow the server to access the session
+                xfbml: true,  // parse XFBML
+                version    : 'v2.3'
+            });
+        };
+
+        // Load the SDK asynchronously
+        (function (d) {
+            var js, ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById('facebook-js')) {
+                return;
+            }
+            js = d.createElement('script');
+            js.id = 'facebook-js';
+            js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document));
+        // Facebbok OAuth init - END
+        
+        // Google OAuth Init
+        (function () {
+            var s = document.getElementsByTagName('script')[0];
+            if (document.getElementById('google-js')) {
+                return;
+            }
+            var po = document.createElement('script');
+            po.id = 'google-js';
+            po.type = 'text/javascript';
+            po.async = true;
+            po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
+            s.parentNode.insertBefore(po, s);
+        })();
+
+        function onLoadCallback() {
+            gapi.client.setApiKey('AIzaSyA3XT0udhWLXuShK87bHK21c-bPX-bYR7g');
+            gapi.client.load('plus', 'v1', function () {});
+        }
+        // Google Oauth Init - END
+    </script>
     <ion-nav-view></ion-nav-view>
 </body>
 </html>
