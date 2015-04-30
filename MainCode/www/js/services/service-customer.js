@@ -104,7 +104,7 @@ angular.module('MainApp.services.customer', [])
   // })
 
   .service('RestaurantService', function ($http, $rootScope, $cookieStore, URL_SERVER){
-    this.food = {};
+    this.typeOfDish = {};
 
     function selectRestaurant(rest){
       if ($cookieStore.get('restaurant') !== rest){
@@ -120,7 +120,7 @@ angular.module('MainApp.services.customer', [])
       })
     }
 
-    this.getFood = function (){
+    this.getCategoriesOfDishes = function (){
       $http({
         method: 'GET',
         url: URL_SERVER.url + '',
@@ -129,14 +129,25 @@ angular.module('MainApp.services.customer', [])
           'Content-Type' : undefined
         },
         data: $rootScope.restaurant
-      }).success(function (app, main, des, dri){
-        this.food.appetizers = app;
-        this.food.mainCourses = main;
-        this.food.desserts = des;
-        this.food.drinks = dri;
+      }).success(function (response){
+        this.typeOfDish = response;
       })
     }
     
+    this.getListOfDishes = function (typeOfDish) {
+      $http({
+        method: 'GET',
+        url: URL_SERVER.url + '',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type' : undefined
+        },
+        data: {'restaurant' : $rootScope.restaurant, 'type' : typeOfDish}
+      }).success(function (response){
+        return response;
+      })
+    }
+
     this.unorderedTable = function (time){
       $http.post(URL_SERVER.url + '', time).then(function(data){
         return data;
@@ -144,8 +155,14 @@ angular.module('MainApp.services.customer', [])
     }
 
     this.sendOrder = function (order){
-      $http.post(URL_SERVER.url + '', order).then(function(){
-        
-      })
+      $http({
+        method: 'POST',
+        url: URL_SERVER.url + '',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type' : undefined
+        },
+        data: {'restaurant' : $rootScope.restaurant, 'order' : order}
+      }).success(function (response){})
     }
   })

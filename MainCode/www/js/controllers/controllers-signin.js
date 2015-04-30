@@ -61,6 +61,7 @@ angular.module('MainApp.controllers.signIn', [])
 	                    }
 	                    // store data to DB
 	                    var user = {};
+	                    user.type = 'Google';
 	                    user.name = resp.displayName;
 	                    user.email = userEmail;
 	                    user.image = resp.image;
@@ -96,10 +97,11 @@ angular.module('MainApp.controllers.signIn', [])
 	                    // Todo
 	                    // After posting user data to server successfully store user data locally
 	                    var user = {};
+	                    user.type = 'Facebook';
 	                    user.name = response.name;
 	                    user.email = response.email;
 	                    user.gender = response.gender;
-	                    user.image = picResponse.data.url;
+	                    user.image = picResponse.data;
 	                    $cookieStore.put('userInfo', user);
 	                    $rootScope.currentUser = user;
 	                    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
@@ -121,6 +123,7 @@ angular.module('MainApp.controllers.signIn', [])
                 if (res){
                 	$ionicSideMenuDelegate.toggleRight();
                 	gapi.auth.signOut();
+                	FB.logout(function(response){});
                 	$cookieStore.remove('userInfo');
                 	$rootScope.currentUser = null;
                 	$rootScope.start = false;
