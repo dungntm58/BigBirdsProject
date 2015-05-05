@@ -5,7 +5,8 @@ angular.module('MainApp.controllers',
 		'MainApp.controllers.order',
 		'MainApp.controllers.menu',
 		'MainApp.controllers.restaurant',
-		'MainApp.controllers.setting'
+		'MainApp.controllers.setting',
+		'ui.bootstrap'
 	])
 
 	.run(function ($rootScope, $state, $ionicPopup, CHANGE_STATE){
@@ -43,6 +44,13 @@ angular.module('MainApp.controllers',
 			}
 			else
 				$state.go(CHANGE_STATE.menu);
+		})
+
+		$rootScope.$on('Request Failed', function (){
+			$ionicPopup.alert({
+                title: '<b>Warning</b>',
+                template: 'Request failed. Please try again.'
+            }).then(function(res){})
 		})
 	})
 

@@ -19,7 +19,7 @@
     	<ion-scroll style="height: 195px; border: 1px solid #E0E0E0;">
     		<ion-list>
 	    		<ion-item ng-repeat="table in tables" ng-click="orderTable(table)">
-	    			{{table}}
+	    			<span ng-class="{active: isSelected(table)}">{{table}}</span>
 	    		</ion-item>
 	    	</ion-list>
     	</ion-scroll>

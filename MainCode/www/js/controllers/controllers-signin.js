@@ -36,6 +36,18 @@ angular.module('MainApp.controllers.signIn', [])
 	})
 
 	.controller('LoginController', function ($scope, $rootScope, $state, AUTH_EVENTS, $cookieStore) {
+		$scope.purpose = function(){
+			$rootScope.currentUser = {
+				name: 'User',
+				email: 'abc@domain',
+				image: {
+					url: '/img/ionic.png'
+				},
+				gender: 'Undefined',
+				age: 'Undefined'
+			}
+			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+		}
 		$scope.googleLogin = function () {
 		    var params = {
 	            'clientid': '415716996892-9t4qjhqm2317t1b2ffee7tjgr355pqnl.apps.googleusercontent.com',

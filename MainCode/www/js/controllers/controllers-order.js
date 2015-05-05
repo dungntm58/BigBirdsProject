@@ -1,4 +1,4 @@
-var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstrap']);
+var orderControllers = angular.module('MainApp.controllers.order', []);
 
 	orderControllers.controller('OrderController', function ($scope, $ionicModal, menuItems) {
         $scope.navTitle = menuItems[3].text;
@@ -31,12 +31,12 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
                 restaurant: null
             };
             if ($rootScope.restaurant != null)
-                $scope.order.restaurant = $rootScope.restaurant;
+                $scope.order.restaurant = $rootScope.restaurant.name;
             else
                 $scope.order.restaurant = null;
 
             $scope.Currency = RestaurantService.Currency;
-            $scope.tables = RestaurantService.unorderedTable($scope.order.datetime);
+            $scope.tables = RestaurantService.giveBackCorrespondingUnorderedTable($scope.order.datetime);
         };
 
         $scope.initialize();
@@ -104,6 +104,10 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
             $scope.order.table = table;
         };
 
+        $scope.isSelected = function(table){
+            return $scope.order.table === table;
+        }
+
         $scope.confirmOrder = function(){
             $ionicPopup.confirm({
                 title: '<b>Confirm order</b>',
@@ -139,20 +143,7 @@ var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstra
     });
 
     orderControllers.controller('MenuFoodTabController', function ($scope, RestaurantService){
-        $scope.typeOfFood = [{
-            'name' : 'Appetizer',
-            'content' : RestaurantService.appetizers()
-            // 'content' : RestaurantService.food.appetizers
-        },{
-            'name' : 'Main',
-            'content' : RestaurantService.mainCourses()
-        },{
-            'name' : 'Dessert',
-            'content' : RestaurantService.desserts()
-        },{
-            'name' : 'Drink',
-            'content' : RestaurantService.drinks()
-        }];
+        $scope.typeOfFood = RestaurantService.getAllListOfDishes();
 
         $scope.chosen = $scope.typeOfFood[0].name;
         $scope.setTab = function(tab){
