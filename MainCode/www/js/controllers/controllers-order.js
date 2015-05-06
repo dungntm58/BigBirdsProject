@@ -21,7 +21,7 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
         };
     });
 
-    orderControllers.controller('NewOrder', function ($scope, $rootScope, $ionicPopup, RestaurantService){
+    orderControllers.controller('NewOrder', function ($scope, $http, $rootScope, $ionicPopup, RestaurantService){
         $scope.initialize = function(){
             $scope.order = {
                 dishes: [],
@@ -36,10 +36,13 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
                 $scope.order.restaurant = null;
 
             $scope.Currency = RestaurantService.Currency;
-            $scope.tables = RestaurantService.giveBackCorrespondingUnorderedTable($scope.order.datetime);
+            // updateTable();
         };
 
         $scope.initialize();
+        $scope.$watch('order.datetime', function () {
+            updateTable();
+        });
 
         $scope.selectDish = function(dish){
             var index = $scope.order.dishes.indexOf(dish);
@@ -130,6 +133,59 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
                 }
             });
         };
+
+        function updateTable(){
+            $http.get('Json/Table-' + $rootScope.restaurant.name + '.json').success(function(data, status, headers, config) {
+                $scope.tables = giveBackCorrespondingUnorderedTable($scope.order.datetime, data);
+            }).error(function(data, status, headers, config){
+                $rootScope.$broadcast('Request Failed');
+            });
+        }
+
+        function giveBackCorrespondingUnorderedTable(time, data){
+            function filterTime(time){
+                if (time === undefined || time === null)
+                    return -1;
+                if (time.getHours() >= 0 && time.getHours() < 10)
+                    return 0;
+                else
+                    if (time.getHours() >= 10 && time.getHours() < 13)
+                        return 1;
+                    else
+                        if (time.getHours() >= 13 && time.getHours() < 17)
+                            return 2;
+                        else
+                            if (time.getHours() >= 17 && time.getHours() < 19)
+                                return 3;
+                            else return 4;
+            }
+
+            var t;
+            var f = filterTime(time);
+            var res;
+            if (time !== undefined && time !== null){
+                for (var i = 0; i < data.length; i++){
+                    if (time.getUTCDate().toString() == data[i].date.toString()){
+                        if ((time.getUTCMonth() + 1).toString() == data[i].month.toString()){
+                            if (time.getUTCFullYear().toString() == data[i].year.toString()){
+                                t = data[i];
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (t !== undefined){
+                    for (var i = 0; i < t.setOfTables.length; i++){
+                        if (f.toString() == t.setOfTables[i].instant.toString()){
+                            res = t.setOfTables[i].tables;
+                        }
+                    }
+                }
+            }
+            
+            return res;
+        }
     });
 
     orderControllers.controller('SlideController', function ($scope, $ionicSlideBoxDelegate){
@@ -142,17 +198,40 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
         }
     });
 
-    orderControllers.controller('MenuFoodTabController', function ($scope, RestaurantService){
-        $scope.typeOfFood = RestaurantService.getAllListOfDishes();
+    orderControllers.controller('MenuFoodTabController', function ($scope, $http, $rootScope){
+        $scope.typeOfDish = {};
 
-        $scope.chosen = $scope.typeOfFood[0].name;
-        $scope.setTab = function(tab){
-            $scope.chosen = tab;
-        }
+        $http.get('Json/COD-' + $rootScope.restaurant.name + '.json').success(function (data, status, headers, config){
+            $scope.typeOfDish = data;
+            // $scope.chosen = $scope.typeOfDish[0];
+        }).error(function(data, status, headers, config){
+          $rootScope.$broadcast('Request Failed');
+        });
 
         $scope.isSet = function(check){
             return $scope.chosen === check;
         }
+
+        $scope.setTab = function(tab){
+            $scope.chosen = tab;
+            $scope.list = {};
+            $http.get('Json/DinC-' + $scope.chosen +'-'+ $rootScope.restaurant.name + '.json')
+            .success(function (data, status, headers, config){
+                $scope.list = data;
+            }).error(function (data, status, headers, config){
+              $rootScope.$broadcast('Request Failed');
+            })
+        }
+
+        // $scope.$watch('chosen', function(){
+        //     $scope.list = {};
+        //     $http.get('Json/DinC-' + $scope.chosen +'-'+ $rootScope.restaurant.name + '.json')
+        //     .success(function (data, status, headers, config){
+        //         $scope.list = data;
+        //     }).error(function (data, status, headers, config){
+        //       $rootScope.$broadcast('Request Failed');
+        //     })
+        // })
     });
 
     orderControllers.controller('DatepickerCtrl', function ($scope) {
