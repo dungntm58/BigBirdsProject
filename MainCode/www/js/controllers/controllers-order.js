@@ -21,7 +21,7 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
         };
     });
 
-    orderControllers.controller('NewOrder', function ($scope, $http, $rootScope, $ionicPopup, $timeout, RestaurantService){
+    orderControllers.controller('NewOrder', function ($scope, $http, $rootScope, $ionicPopup, RestaurantService){
         $scope.initialize = function(){
             $scope.order = {
                 dishes: [],
@@ -125,13 +125,10 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
                         RestaurantService.sendOrder(order);
                     }
                     else{
-                        var warning = $ionicPopup.show({
+                        $ionicPopup.alert({
                             title: '<b>Warning</b>',
-                            template: 'Your order is not finished. Please check again!',
-                        })
-                        $timeout(function() {
-                            warning.close();
-                        }, 2000);
+                            template: 'Your order is not finished. Please check again!'
+                        });
                     }
                 }
             });
