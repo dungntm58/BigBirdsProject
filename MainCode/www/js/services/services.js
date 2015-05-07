@@ -19,7 +19,6 @@ angular.module('MainApp.services', ['ionic', 'MainApp.services.customer', 'MainA
 	.constant('menuItems', [
 		{ text: 'Home', iconClass: 'icon ion-home', link: 'home'},
 		{ text: 'Restaurant', iconClass: 'icon ion-star', link: 'restaurant'},
-		{ text: 'Menu', iconClass: 'icon ion-clipboard', link: 'menu'},
         { text: 'Order', iconClass: 'icon ion-document-text', link: 'order'},
         // { text: 'Analytics', iconClass: 'icon ion-stats-bars', link: 'analytics'},
         { text: 'Setting', iconClass: 'icon ion-gear-b', link: 'setting'},	

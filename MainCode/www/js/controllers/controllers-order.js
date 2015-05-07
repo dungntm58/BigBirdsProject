@@ -1,8 +1,6 @@
-var orderControllers = angular.module('MainApp.controllers.order', []);
+angular.module('MainApp.controllers.order', [])
 
-	orderControllers.controller('OrderController', function ($scope, $ionicModal, menuItems) {
-        $scope.navTitle = menuItems[3].text;
-
+	.controller('OrderController', function ($scope, $ionicModal) {
         $ionicModal.fromTemplateUrl('templates/Main/Order/new-order-modal.html', function($ionicModal) {
                 $scope.modal = $ionicModal;
             },
@@ -19,9 +17,9 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
         $scope.closeModal = function(){
             $scope.modal.hide();
         };
-    });
+    })
 
-    orderControllers.controller('NewOrder', function ($scope, $http, $rootScope, $ionicPopup, RestaurantService){
+    .controller('NewOrder', function ($scope, $timeout, $http, $rootScope, $ionicPopup, RestaurantService){
         $scope.initialize = function(){
             $scope.order = {
                 dishes: [],
@@ -112,12 +110,12 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
         }
 
         $scope.confirmOrder = function(){
-            $ionicPopup.confirm({
+            var confirm = $ionicPopup.confirm({
                 title: '<b>Confirm order</b>',
                 template: 'Are you sure of your order?',
                 okText: 'Confirm',
                 cancelType: 'button-assertive'
-            }).then(function(res){
+            }).then(function (res){
                 if(res){
                     if ($scope.order.dishes.length && $scope.order.table){
                         // $scope.emptyOrder();
@@ -125,10 +123,13 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
                         RestaurantService.sendOrder(order);
                     }
                     else{
-                        $ionicPopup.alert({
+                        var warning = $ionicPopup.alert({
                             title: '<b>Warning</b>',
                             template: 'Your order is not finished. Please check again!'
                         });
+                        $timeout(function (){
+                            warning.close();
+                        }, 2000);
                     }
                 }
             });
@@ -186,9 +187,9 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
             
             return res;
         }
-    });
+    })
 
-    orderControllers.controller('SlideController', function ($scope, $ionicSlideBoxDelegate){
+    .controller('SlideController', function ($scope, $ionicSlideBoxDelegate){
         $scope.nextSlide = function() {
             $ionicSlideBoxDelegate.next();
         }
@@ -196,9 +197,9 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
         $scope.prevSlide = function(){
             $ionicSlideBoxDelegate.previous();
         }
-    });
+    })
 
-    orderControllers.controller('MenuFoodTabController', function ($scope, $http, $rootScope){
+    .controller('MenuFoodTabController', function ($scope, $http, $rootScope, $ionicPopup){
         $scope.typeOfDish = {};
 
         $http.get('Json/COD-' + $rootScope.restaurant.name + '.json').success(function (data, status, headers, config){
@@ -223,6 +224,12 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
             })
         }
 
+        $scope.openDetail = function (dish){
+            $ionicPopup.alert({
+                title: '<b>' + dish.name + '</b>',
+                template: 'Detail!'
+            })
+        }
         // $scope.$watch('chosen', function(){
         //     $scope.list = {};
         //     $http.get('Json/DinC-' + $scope.chosen +'-'+ $rootScope.restaurant.name + '.json')
@@ -232,9 +239,9 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
         //       $rootScope.$broadcast('Request Failed');
         //     })
         // })
-    });
+    })
 
-    orderControllers.controller('DatepickerCtrl', function ($scope) {
+    .controller('DatepickerCtrl', function ($scope) {
         $scope.today = function () {
             $scope.dt = new Date();
         };
@@ -252,9 +259,9 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
         $scope.dateOptions = {
             'starting-day': 1
         };
-    });
+    })
 
-    orderControllers.controller('TimepickerCtrl', function ($scope, $log) {
+    .controller('TimepickerCtrl', function ($scope, $log) {
         $scope.show = {
             opened: false,
             text: "Choose Time"
@@ -279,4 +286,4 @@ var orderControllers = angular.module('MainApp.controllers.order', []);
         $scope.clear = function() {
             $scope.dt = null;
         };
-    });
+    })
