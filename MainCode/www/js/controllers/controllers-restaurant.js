@@ -1,5 +1,5 @@
 angular.module('MainApp.controllers.restaurant', [])
-	.controller('RestaurantController', function ($scope, $state, $http, $rootScope, $cookieStore, $ionicPopup) {
+	.controller('RestaurantController', function ($scope, $state, $http, $rootScope, $cookieStore, $ionicPopup, URL_SERVER) {
         $scope.selectRestaurant = function (rest){
         	if ($rootScope.restaurant !== rest){
 				$cookieStore.remove('restaurant');
@@ -21,7 +21,7 @@ angular.module('MainApp.controllers.restaurant', [])
         	return $rootScope.restaurant === rest;
         }
 
-        $http.get('/Json/restaurants.json').success(function(data, status, headers, config) {
+        $http.get(URL_SERVER.local + 'Search_Res.php').success(function(data, status, headers, config) {
         	$scope.listOfRestaurants = data;
         }).error(function(data, status, headers, config){
           	$rootScope.$broadcast('Request Failed');
