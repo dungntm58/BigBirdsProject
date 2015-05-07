@@ -21,7 +21,15 @@ angular.module('MainApp.controllers.restaurant', [])
         	return $rootScope.restaurant === rest;
         }
 
-        $http.get(URL_SERVER.local + 'Search_Res.php').success(function(data, status, headers, config) {
+        $http({
+        	method: 'POST',
+			url: URL_SERVER.local + 'Search_Res.php',
+			headers: {
+				'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept",
+				'Access-Control-Allow-Origin': '*',
+				'Content-Type' : undefined
+			}
+		}).success(function(data, status, headers, config) {
         	$scope.listOfRestaurants = data;
         }).error(function(data, status, headers, config){
           	$rootScope.$broadcast('Request Failed');
