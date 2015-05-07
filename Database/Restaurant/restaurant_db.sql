@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2015 at 08:44 PM
+-- Generation Time: May 07, 2015 at 08:55 PM
 -- Server version: 5.5.36
 -- PHP Version: 5.4.27
 
@@ -79,6 +79,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_image` varchar(255) NOT NULL,
   `user_add` varchar(255) NOT NULL,
   `user_name` varchar(255) NOT NULL,
+  `restaurant_name` varchar(255) NOT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
@@ -86,13 +87,13 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_email`, `user_pass`, `user_level`, `user_image`, `user_add`, `user_name`) VALUES
-(1, 'hung1@gmail.com', 'hunghung1', 1, '', '', ''),
-(2, 'hung2@gmail.com', 'hunghung2', 1, '', '', ''),
-(3, 'hung11', 'hung1', 2, 'khong co gi', 'xuan thuy, cau giay,ha noi', ''),
-(4, '', '', 1, 'aaaaa', 'duong quang ham, cau giay', ''),
-(5, '', '', 2, '123kjlk.jpg', 'le duc tho keo dai', ''),
-(6, '', '', 2, '7987sdf.png', 'san van dong my dinh', '');
+INSERT INTO `user` (`user_id`, `user_email`, `user_pass`, `user_level`, `user_image`, `user_add`, `user_name`, `restaurant_name`) VALUES
+(1, 'hung1@gmail.com', 'hunghung1', 1, '', '', '', ''),
+(2, 'hung2@gmail.com', 'hunghung2', 1, '', '', '', ''),
+(3, 'hung11', 'hung1', 2, 'khong co gi', 'xuan thuy, cau giay,ha noi', '', ''),
+(4, '', '', 1, 'aaaaa', 'duong quang ham, cau giay', '', ''),
+(5, '', '', 2, '123kjlk.jpg', 'le duc tho keo dai', '', ''),
+(6, '', '', 2, '7987sdf.png', 'san van dong my dinh', '', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
