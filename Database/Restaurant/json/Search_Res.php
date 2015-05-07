@@ -22,7 +22,7 @@
 	}
 
 	//Truy vấn
-	$query = mysqli_query($conn, 'SELECT `user_id`,`user_name`,`user_add` FROM user WHERE user_level = 2');
+	$query = mysqli_query($conn, 'SELECT `user_id`,`restaurant_name`,`user_add` FROM user WHERE user_level = 2');
 
 	if (!$query) {
 		printf("Error: %s\n", mysqli_error($conn));
