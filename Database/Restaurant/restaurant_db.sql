@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2015 at 08:55 PM
+-- Generation Time: May 08, 2015 at 07:39 PM
 -- Server version: 5.5.36
 -- PHP Version: 5.4.27
 
@@ -32,7 +32,17 @@ CREATE TABLE IF NOT EXISTS `catalog` (
   `ctl_content` text NOT NULL,
   `user_id` int(10) NOT NULL,
   PRIMARY KEY (`ctl_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `catalog`
+--
+
+INSERT INTO `catalog` (`ctl_id`, `ctl_name`, `ctl_content`, `user_id`) VALUES
+(1, 'drink', 'vodka', 2),
+(2, 'desert', 'nothing', 3),
+(3, 'aaaaaaaaa', 'sdfsdf', 2),
+(4, 'fdsgdfsgsd', 'sdfgsfdg', 2);
 
 -- --------------------------------------------------------
 
