@@ -1,0 +1,17 @@
+{
+    "nobitacnt" : {
+        "id" : 1,
+        "age": 21
+    },
+    "xukacnt" : {
+        "id" : 2,
+        "age": 20,
+        "address" : "hai_phong"
+    },
+    "chaiencnt" : {
+        "id" : 3,
+        "age": 23,
+        "address" : "HCM",
+        "email" : "email@gmail.com"
+    }
+}
