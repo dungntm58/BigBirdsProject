@@ -23,11 +23,11 @@ angular.module('MainApp.controllers.restaurant', [])
 
         $http({
         	method: 'POST',
-			url: URL_SERVER.local + 'Search_Res.php',
+			url: URL_SERVER.url + 'Search_Res.php',
 			headers: {
 				'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept",
 				'Access-Control-Allow-Origin': '*',
-				'Content-Type' : undefined
+				'Content-Type' : 'application/json'
 			}
 		}).success(function(data, status, headers, config) {
         	$scope.listOfRestaurants = data;

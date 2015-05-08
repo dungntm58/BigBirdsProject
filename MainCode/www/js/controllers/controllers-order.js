@@ -199,11 +199,21 @@ angular.module('MainApp.controllers.order', [])
         }
     })
 
-    .controller('MenuFoodTabController', function ($scope, $http, $rootScope, $ionicPopup){
+    .controller('MenuFoodTabController', function ($scope, $http, $rootScope, $ionicPopup, URL_SERVER){
         $scope.typeOfDish = {};
 
-        $http.get('Json/COD-' + $rootScope.restaurant.name + '.json').success(function (data, status, headers, config){
+        $http({
+            method: 'POST',
+            url: URL_SERVER.url + 'Search_ctl.php',
+            headers: {
+                'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept",
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type' : 'application/json'
+            },
+            data: {'resID' : $rootScope.restaurant.user_id}
+        }).success(function (data, status, headers, config){
             $scope.typeOfDish = data;
+            console.log(data);
             // $scope.chosen = $scope.typeOfDish[0];
         }).error(function(data, status, headers, config){
           $rootScope.$broadcast('Request Failed');

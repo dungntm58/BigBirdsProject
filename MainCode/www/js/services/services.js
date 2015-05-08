@@ -25,6 +25,5 @@ angular.module('MainApp.services', ['ionic', 'MainApp.services.customer', 'MainA
 	])
 
 	.constant('URL_SERVER', {
-		url: 'http://sdk108.pe.hu/',
-		local: 'http://localhost/Restaurant/json/'
+		url: 'http://localhost/Restaurant/json/'//use localhost instead of 'http://sdk108.pe.hu/', 
 	})

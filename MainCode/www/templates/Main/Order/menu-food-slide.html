@@ -1,7 +1,7 @@
 <div class="box">
 	<div ng-controller="MenuFoodTabController">
 		<div class="list">
-			<a href="#" ng-repeat="type in typeOfDish" class="list-tabs" ng-click="setTab(type)" ng-class="{active: isSet(type)}">{{type}}</a>
+			<a href="#" ng-repeat="type in typeOfDish" class="list-tabs" ng-click="setTab(type)" ng-class="{active: isSet(type)}">{{type.ctl_name}}</a>
 		</div>
 		
 		<ion-scroll direction="y" style="height: 195px; border: 1px solid #E0E0E0;">
