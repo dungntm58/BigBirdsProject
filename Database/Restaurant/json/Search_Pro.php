@@ -2,21 +2,20 @@
 	
 	error_reporting(E_NOTICE || E_WARNING);
 	
-	$string = file_get_contents("php://input");
+	$string = file_get_contents("http://input");
 	$json = json_decode($string,true);//chuyển $json thành mảng
 	
-	//$user_id = array(); // khai báo mảng user_id chưa các id
 	
 	foreach($json as $key => $value) {
 		if (is_array($value)) {
 			foreach ($value as $key => $value) {
-				if($key =='resID'){
-					$id= $value;
-					//echo $user_id."<br />";
+				if($key =='ctlID'){
+					$ctlID= $value;
 				}
 			}
 		}
     }
+	// echo $resID;
 	
 	$db_user = 'root'; //User đăng nhập MYSQL
 	$db_pass = ''; // Pass đăng nhập MySQL
@@ -40,7 +39,7 @@
 	}
 
 	//Truy vấn
-	$query = mysqli_query($conn, "SELECT `ctl_name` FROM catalog WHERE user_id = '$id'");
+	$query = mysqli_query($conn, "SELECT `pro_name` FROM product WHERE ctl_id = '$ctlID'");
 	
 	//var_dump($query);
 	
