@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2015 at 11:22 AM
+-- Generation Time: May 09, 2015 at 11:28 AM
 -- Server version: 5.5.36
 -- PHP Version: 5.4.27
 
@@ -53,7 +53,7 @@ INSERT INTO `catalog` (`ctl_id`, `ctl_name`, `ctl_content`, `user_id`) VALUES
 CREATE TABLE IF NOT EXISTS `order` (
   `or_id` int(10) NOT NULL AUTO_INCREMENT,
   `or_instant` int(2) NOT NULL,
-  `or_time` time DEFAULT NULL,
+  `or_time` datetime DEFAULT NULL,
   `or_list` varchar(255) NOT NULL,
   `or_amount` double NOT NULL,
   PRIMARY KEY (`or_id`)
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `order` (
 --
 
 INSERT INTO `order` (`or_id`, `or_instant`, `or_time`, `or_list`, `or_amount`) VALUES
-(1, 2, '08:12:00', 'adsfasdfasf', 12345);
+(1, 2, '2008-12-00 00:00:00', 'adsfasdfasf', 12345);
 
 -- --------------------------------------------------------
 
