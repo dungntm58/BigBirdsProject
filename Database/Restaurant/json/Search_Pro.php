@@ -39,7 +39,7 @@
 	}
 
 	//Truy vấn
-	$query = mysqli_query($conn, "SELECT `pro_name` FROM product WHERE ctl_id = '$ctlID'");
+	$query = mysqli_query($conn, "SELECT `pro_id`,`pro_name` FROM product WHERE ctl_id = '$ctlID'");
 	
 	//var_dump($query);
 	

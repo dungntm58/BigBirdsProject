@@ -40,7 +40,7 @@
 	}
 
 	//Truy vấn
-	$query = mysqli_query($conn, "SELECT `ctl_name` FROM catalog WHERE user_id = '$id'");
+	$query = mysqli_query($conn, "SELECT `ctl_name`,`ctl_id` FROM catalog WHERE user_id = '$id'");
 	
 	//var_dump($query);
 	
