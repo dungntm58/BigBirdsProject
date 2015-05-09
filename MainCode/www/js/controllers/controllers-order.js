@@ -34,7 +34,6 @@ angular.module('MainApp.controllers.order', [])
                 $scope.order.restaurant = null;
 
             $scope.Currency = RestaurantService.Currency;
-            // updateTable();
         };
 
         $scope.initialize();
@@ -136,57 +135,66 @@ angular.module('MainApp.controllers.order', [])
         };
 
         function updateTable(){
-            $http.get('Json/Table-' + $rootScope.restaurant.name + '.json').success(function(data, status, headers, config) {
-                $scope.tables = giveBackCorrespondingUnorderedTable($scope.order.datetime, data);
+            $http({
+                method: 'POST',
+                url: URL_SERVER.url + 'Search_tbl.php',
+                headers: {
+                    'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept",
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type' : 'application/json'
+                },
+                data: [{'resID' : $rootScope.restaurant.user_id, 'time' : $scope.order.datetime}]
+            }).success(function(data, status, headers, config) {
+                $scope.tables = data;
             }).error(function(data, status, headers, config){
                 $rootScope.$broadcast('Request Failed');
             });
         }
 
-        function giveBackCorrespondingUnorderedTable(time, data){
-            function filterTime(time){
-                if (time === undefined || time === null)
-                    return -1;
-                if (time.getHours() >= 0 && time.getHours() < 10)
-                    return 0;
-                else
-                    if (time.getHours() >= 10 && time.getHours() < 13)
-                        return 1;
-                    else
-                        if (time.getHours() >= 13 && time.getHours() < 17)
-                            return 2;
-                        else
-                            if (time.getHours() >= 17 && time.getHours() < 19)
-                                return 3;
-                            else return 4;
-            }
+        // function giveBackCorrespondingUnorderedTable(time, data){
+        //     function filterTime(time){
+        //         if (time === undefined || time === null)
+        //             return -1;
+        //         if (time.getHours() >= 0 && time.getHours() < 10)
+        //             return 0;
+        //         else
+        //             if (time.getHours() >= 10 && time.getHours() < 13)
+        //                 return 1;
+        //             else
+        //                 if (time.getHours() >= 13 && time.getHours() < 17)
+        //                     return 2;
+        //                 else
+        //                     if (time.getHours() >= 17 && time.getHours() < 19)
+        //                         return 3;
+        //                     else return 4;
+        //     }
 
-            var t;
-            var f = filterTime(time);
-            var res;
-            if (time !== undefined && time !== null){
-                for (var i = 0; i < data.length; i++){
-                    if (time.getUTCDate().toString() == data[i].date.toString()){
-                        if ((time.getUTCMonth() + 1).toString() == data[i].month.toString()){
-                            if (time.getUTCFullYear().toString() == data[i].year.toString()){
-                                t = data[i];
-                                break;
-                            }
-                        }
-                    }
-                }
+        //     var t;
+        //     var f = filterTime(time);
+        //     var res;
+        //     if (time !== undefined && time !== null){
+        //         for (var i = 0; i < data.length; i++){
+        //             if (time.getUTCDate().toString() == data[i].date.toString()){
+        //                 if ((time.getUTCMonth() + 1).toString() == data[i].month.toString()){
+        //                     if (time.getUTCFullYear().toString() == data[i].year.toString()){
+        //                         t = data[i];
+        //                         break;
+        //                     }
+        //                 }
+        //             }
+        //         }
 
-                if (t !== undefined){
-                    for (var i = 0; i < t.setOfTables.length; i++){
-                        if (f.toString() == t.setOfTables[i].instant.toString()){
-                            res = t.setOfTables[i].tables;
-                        }
-                    }
-                }
-            }
+        //         if (t !== undefined){
+        //             for (var i = 0; i < t.setOfTables.length; i++){
+        //                 if (f.toString() == t.setOfTables[i].instant.toString()){
+        //                     res = t.setOfTables[i].tables;
+        //                 }
+        //             }
+        //         }
+        //     }
             
-            return res;
-        }
+        //     return res;
+        // }
     })
 
     .controller('SlideController', function ($scope, $ionicSlideBoxDelegate){
