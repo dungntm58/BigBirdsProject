@@ -190,6 +190,10 @@ angular.module('MainApp.controllers.order', [])
     })
 
     .controller('SlideController', function ($scope, $ionicSlideBoxDelegate){
+        $scope.disableSwipe = function() {
+            $ionicSlideBoxDelegate.enableSlide(false);
+        };
+
         $scope.nextSlide = function() {
             $ionicSlideBoxDelegate.next();
         }

@@ -2,7 +2,7 @@
 	
 	error_reporting(E_NOTICE || E_WARNING);
 	
-	$string = file_get_contents("test.json");
+	$string = file_get_contents("php://input");
 	$json = json_decode($string,true);//chuyển $json thành mảng
 	
 	//$user_id = array(); // khai báo mảng user_id chưa các id
@@ -17,7 +17,6 @@
 			}
 		}
     }
-	
 	
 	$db_user = 'root'; //User đăng nhập MYSQL
 	$db_pass = ''; // Pass đăng nhập MySQL
@@ -41,10 +40,9 @@
 	}
 
 	//Truy vấn
-	$query = mysqli_query($conn, 'SELECT `ctl_name` FROM catalog WHERE user_id = '.$id.'');
+	$query = mysqli_query($conn, "SELECT `ctl_name` FROM catalog WHERE ctl_id = '$id'");
 	
 	//var_dump($query);
-	
 	
 	if (!$query) {
 		printf("Error: %s\n", mysqli_error($conn));

@@ -8,7 +8,7 @@
 
 	<ion-content class="has-header padding">
 		<div ng-controller="SlideController">
-			<ion-slide-box>
+			<ion-slide-box ng-init = "disableSwipe()">
 				<ion-slide>
 				  	<menu-food-slide></menu-food-slide>
 				</ion-slide>
