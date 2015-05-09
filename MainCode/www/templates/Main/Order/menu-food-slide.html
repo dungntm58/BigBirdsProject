@@ -9,9 +9,9 @@
 		<ion-scroll direction="y" style="height: 195px; border: 1px solid #E0E0E0; clear: both;">
 	  		<ion-list>
 	  			<ion-item ng-repeat="dish in list" ng-click="selectDish(dish)" class="selected">
-	  				<span style="float: left;">{{dish.name}}</span>
+	  				<span style="float: left;">{{dish.pro_name}}</span>
 	  				<!-- <button class="button button-icon icon ion-arrow-right-c" style="float: right" ng-click="openDetail(dish)"></button> -->
-	  				<span style="float: right; color: red;">{{dish.price | currency: Currency}}</span>
+	  				<span style="float: right; color: red;">{{dish.pro_price | currency: Currency}}</span>
 	  			</ion-item>
 	  		</ion-list>
 		</ion-scroll>

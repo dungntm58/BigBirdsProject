@@ -230,8 +230,16 @@ angular.module('MainApp.controllers.order', [])
         $scope.setTab = function(tab){
             $scope.chosen = tab;
             $scope.list = {};
-            $http.get('Json/DinC-' + $scope.chosen +'-'+ $rootScope.restaurant.name + '.json')
-            .success(function (data, status, headers, config){
+            $http({
+                method: 'POST',
+                url: URL_SERVER.url + 'Search_Pro.php',
+                headers: {
+                    'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept",
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type' : 'application/json'
+                },
+                data: [{'ctlID' : tab.ctl_id}]
+            }).success(function (data, status, headers, config){
                 $scope.list = data;
             }).error(function (data, status, headers, config){
               $rootScope.$broadcast('Request Failed');
