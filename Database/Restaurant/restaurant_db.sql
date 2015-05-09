@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2015 at 11:28 AM
+-- Generation Time: May 09, 2015 at 09:05 PM
 -- Server version: 5.5.36
 -- PHP Version: 5.4.27
 
@@ -52,19 +52,21 @@ INSERT INTO `catalog` (`ctl_id`, `ctl_name`, `ctl_content`, `user_id`) VALUES
 
 CREATE TABLE IF NOT EXISTS `order` (
   `or_id` int(10) NOT NULL AUTO_INCREMENT,
-  `or_instant` int(2) NOT NULL,
-  `or_time` datetime DEFAULT NULL,
+  `or_time` time DEFAULT NULL,
   `or_list` varchar(255) NOT NULL,
   `or_amount` double NOT NULL,
+  `or_table` int(10) NOT NULL,
+  `or_date` date NOT NULL,
   PRIMARY KEY (`or_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `order`
 --
 
-INSERT INTO `order` (`or_id`, `or_instant`, `or_time`, `or_list`, `or_amount`) VALUES
-(1, 2, '2008-12-00 00:00:00', 'adsfasdfasf', 12345);
+INSERT INTO `order` (`or_id`, `or_time`, `or_list`, `or_amount`, `or_table`, `or_date`) VALUES
+(1, '00:00:00', 'adsfasdfasf', 12345, 0, '0000-00-00'),
+(2, '00:00:00', 'ádfasf', 123123, 2, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -104,14 +106,15 @@ CREATE TABLE IF NOT EXISTS `table` (
   `table_instant` int(4) NOT NULL,
   `table_content` varchar(255) NOT NULL,
   PRIMARY KEY (`table_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `table`
 --
 
 INSERT INTO `table` (`table_id`, `user_id`, `table_instant`, `table_content`) VALUES
-(1, 2, 1, 'sadfsadf');
+(1, 2, 1, 'sadfsadf'),
+(2, 2, 3, 'aa');
 
 -- --------------------------------------------------------
 
