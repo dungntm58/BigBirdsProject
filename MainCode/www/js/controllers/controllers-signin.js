@@ -134,9 +134,9 @@ angular.module('MainApp.controllers.signIn', [])
             }).then(function(res){
                 if (res){
                 	$ionicSideMenuDelegate.toggleRight();
-                	if ($scope.currentUser.type = "Google")
+                	if ($scope.currentUser.type == "Google")
                 		gapi.auth.signOut();
-                	if ($scope.currentUser.type = "Facebook")
+                	if ($scope.currentUser.type == "Facebook")
                 		FB.logout(function(response){});
                 	$cookieStore.remove('userInfo');
                 	$rootScope.currentUser = null;
