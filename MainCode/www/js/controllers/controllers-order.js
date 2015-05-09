@@ -210,12 +210,12 @@ angular.module('MainApp.controllers.order', [])
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type' : 'application/json'
             },
-            data: {'resID' : $rootScope.restaurant.user_id}
+            data: [{'resID' : $rootScope.restaurant.user_id}]
         }).success(function (data, status, headers, config){
             $scope.typeOfDish = data;
-            console.log(data);
+            // console.log(data);
             // $scope.chosen = $scope.typeOfDish[0];
-        }).error(function(data, status, headers, config){
+        }).error(function (data, status, headers, config){
           $rootScope.$broadcast('Request Failed');
         });
 

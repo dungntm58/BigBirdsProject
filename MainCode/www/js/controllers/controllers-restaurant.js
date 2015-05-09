@@ -8,7 +8,7 @@ angular.module('MainApp.controllers.restaurant', [])
 
 				$ionicPopup.confirm({
 	                title: '<b>Notification</b>',
-	                template: "You've selected " + $rootScope.restaurant.name + ".<br/>Do you want to order?",
+	                template: "You've selected " + $rootScope.restaurant.restaurant_name + ".<br/>Do you want to order?",
 	                cancelType: 'button-assertive'
 	            }).then(function(res){
 	                if (res){
