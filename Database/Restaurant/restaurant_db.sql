@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2015 at 07:39 PM
+-- Generation Time: May 09, 2015 at 09:42 AM
 -- Server version: 5.5.36
 -- PHP Version: 5.4.27
 
@@ -59,7 +59,16 @@ CREATE TABLE IF NOT EXISTS `product` (
   `user_id` int(10) NOT NULL,
   `ctl_id` int(10) NOT NULL,
   PRIMARY KEY (`pro_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`pro_id`, `pro_name`, `pro_price`, `pro_image`, `pro_description`, `user_id`, `ctl_id`) VALUES
+(1, 'aaa', 12, 'ádfdsa', 'sadfdsaf', 1, 1),
+(2, 'sdfsdf', 23, 'adsfasdf', 'aasdf', 1, 2),
+(3, 'ểtrt', 123, 'ểtrt', 'ẻtret', 1, 2);
 
 -- --------------------------------------------------------
 
