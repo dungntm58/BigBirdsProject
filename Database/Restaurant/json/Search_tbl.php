@@ -2,7 +2,7 @@
 	
 	error_reporting(E_NOTICE || E_WARNING);
 	
-	$string = file_get_contents("php://input");
+	$string = file_get_contents("test.json");
 	$json = json_decode($string,true);//chuyển $json thành mảng
 	
 	//$user_id = array(); // khai báo mảng user_id chưa các id
@@ -24,11 +24,16 @@
 		
 		$hour = substr($day,11, 8);
 		$hour1 = strtotime($hour);
+		$mysql = date( 'H:i:s', $hour1 );
+		//echo $mysql;
 		$hour2 = strtotime("+2 hours",$hour1);
-
+		$mysql1 = date( 'H:i:s', $hour2 );
+		//echo $mysql1;
 		$hour3 = strtotime($hour);
-		$hour4 = strtotime("-2 hours",$hour1);
 		
+		$hour4 = strtotime("-2 hours",$hour1);
+		$mysql2 = date( 'H:i:s', $hour4);
+		//echo $mysql2;
 	
 	$db_user = 'root'; //User đăng nhập MYSQL
 	$db_pass = ''; // Pass đăng nhập MySQL
@@ -52,7 +57,7 @@
 	}
 
 	//Truy vấn
-	$query = mysqli_query($conn, 'SELECT `table_id`,`table_content` FROM `table` WHERE table_id NOT IN (SELECT `or_table` FROM `order` WHERE order.or_table = table.table_id AND or_date = '.$date.' AND or_time < '.$hour2.' AND or_time > '.$hour4.')');
+	$query = mysqli_query($conn, "SELECT `table_id`,`table_content` FROM `table` WHERE table_id NOT IN (SELECT `or_table` FROM `order` WHERE order.or_table = table.table_id AND or_date = '$date' AND or_time < '$mysql1' AND or_time > '$mysql2')");
 	
 	//var_dump($query);
 	
