@@ -153,6 +153,15 @@ angular.module('MainApp.controllers.order', [])
         }
 
         function updateTable(){
+            // var _date = {
+            //     dateUTC : $scope.data.datetime.getUTCDate(),
+            //     monthUTC : $scope.data.datetime.getUTCMonth(),
+            //     yearUTC: $scope.data.datetime.getUTCFullYear()
+            // }
+            // var _time = {
+            //     hourUTC: $scope.data.datetime.getUTCHours(),
+            //     minuteUTC: $scope.data.datetime.getUTCMinutes()
+            // }
             $http({
                 method: 'POST',
                 url: URL_SERVER.url + 'Search_tbl.php',
@@ -161,9 +170,19 @@ angular.module('MainApp.controllers.order', [])
                     'Access-Control-Allow-Origin': '*',
                     'Content-Type' : 'application/json'
                 },
-                data: [{'resID' : $scope.data.restaurant, 'time' : $scope.data.datetime.toString()}]
+                data: [
+                    {
+                        'resID' : $scope.data.restaurant,
+                        // 'datetime' : {
+                        //     date : _date,
+                        //     time : _time,
+                        //     timezone : $scope.data.datetime.getTimezoneOffset()
+                        // }
+                        'datetime' : $scope.data.datetime
+                    }]
             }).success(function(data, status, headers, config) {
                 $scope.tables = data;
+                console.log(data);
             }).error(function(data, status, headers, config){
                 $rootScope.$broadcast('Request Failed');
             })

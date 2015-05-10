@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2015 at 09:05 PM
--- Server version: 5.5.36
--- PHP Version: 5.4.27
+-- Generation Time: May 10, 2015 at 06:12 PM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `catalog` (
 
 INSERT INTO `catalog` (`ctl_id`, `ctl_name`, `ctl_content`, `user_id`) VALUES
 (1, 'drink', 'vodka', 2),
-(2, 'desert', 'nothing', 3),
+(2, 'desert', 'nothing', 2),
 (3, 'aaaaaaaaa', 'sdfsdf', 2),
 (4, 'fdsgdfsgsd', 'sdfgsfdg', 2);
 
@@ -65,8 +65,8 @@ CREATE TABLE IF NOT EXISTS `order` (
 --
 
 INSERT INTO `order` (`or_id`, `or_time`, `or_list`, `or_amount`, `or_table`, `or_date`) VALUES
-(1, '00:00:00', 'adsfasdfasf', 12345, 0, '0000-00-00'),
-(2, '00:00:00', 'ádfasf', 123123, 2, '0000-00-00');
+(1, '10:10:00', 'adsfasdfasf', 12345, 1, '2015-05-11'),
+(2, '20:00:00', 'ádfasf', 123123, 2, '2015-05-12');
 
 -- --------------------------------------------------------
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `product` (
 INSERT INTO `product` (`pro_id`, `pro_name`, `pro_price`, `pro_image`, `pro_description`, `user_id`, `ctl_id`) VALUES
 (1, 'aaa', 12, 'ádfdsa', 'sadfdsaf', 1, 1),
 (2, 'sdfsdf', 23, 'adsfasdf', 'aasdf', 1, 2),
-(3, 'ểtrt', 123, 'ểtrt', 'ẻtret', 1, 2);
+(3, 'ểtrt', 123, 'ểtrt', 'ẻtret', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`user_id`, `user_email`, `user_pass`, `user_level`, `user_image`, `user_add`, `user_name`, `restaurant_name`) VALUES
 (1, 'hung1@gmail.com', 'hunghung1', 1, '', '', '', ''),
-(2, 'hung2@gmail.com', 'hunghung2', 1, '', '', '', ''),
+(2, 'hung2@gmail.com', 'hunghung2', 2, '', 'cho lon', '', 'AAAAAAAAAAAAAA'),
 (3, 'hung11', 'hung1', 2, 'khong co gi', 'xuan thuy, cau giay,ha noi', '', ''),
 (4, '', '', 1, 'aaaaa', 'duong quang ham, cau giay', '', ''),
 (5, '', '', 2, '123kjlk.jpg', 'le duc tho keo dai', '', ''),
