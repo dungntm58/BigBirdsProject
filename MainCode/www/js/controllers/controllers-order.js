@@ -153,15 +153,18 @@ angular.module('MainApp.controllers.order', [])
         }
 
         function updateTable(){
-            // var _date = {
-            //     dateUTC : $scope.data.datetime.getUTCDate(),
-            //     monthUTC : $scope.data.datetime.getUTCMonth(),
-            //     yearUTC: $scope.data.datetime.getUTCFullYear()
-            // }
-            // var _time = {
-            //     hourUTC: $scope.data.datetime.getUTCHours(),
-            //     minuteUTC: $scope.data.datetime.getUTCMinutes()
-            // }
+            var _date = {
+                dateUTC : $scope.data.datetime.getDate(),
+                monthUTC : $scope.data.datetime.getMonth(),
+                yearUTC: $scope.data.datetime.getFullYear()
+            }
+            var _time = {
+                hourUTC: $scope.data.datetime.getHours(),
+                minuteUTC: $scope.data.datetime.getMinutes(),
+                secondUTC: $scope.data.datetime.getSeconds()
+            }
+            var datetimeString = _date.yearUTC + "-" + _date.monthUTC + "-" + _date.dateUTC + " " + _time.hourUTC + ":" + _time.minuteUTC + ":" + _time.secondUTC;
+            console.log(datetimeString);
             $http({
                 method: 'POST',
                 url: URL_SERVER.url + 'Search_tbl.php',
@@ -173,12 +176,7 @@ angular.module('MainApp.controllers.order', [])
                 data: [
                     {
                         'resID' : $scope.data.restaurant,
-                        // 'datetime' : {
-                        //     date : _date,
-                        //     time : _time,
-                        //     timezone : $scope.data.datetime.getTimezoneOffset()
-                        // }
-                        'datetime' : $scope.data.datetime
+                        'datetime' : datetimeString
                     }]
             }).success(function(data, status, headers, config) {
                 $scope.tables = data;
