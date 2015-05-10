@@ -1,13 +1,13 @@
 <div>
 	<ion-item class="item item-divider">
 		<span style="float: left;">
-			<strong>Table: {{order.table}}</strong>
+			<strong>Table: {{order.table.table_content}}</strong>
 			<br/>
 			<strong>Date: </strong>
-			<span style="color: green;">{{order.datetime | date: 'dd/MM/yyyy'}}</span>
+			<span style="color: green;">{{data.datetime | date: 'dd/MM/yyyy'}}</span>
 			<br/>
 			<strong>Time: </strong>
-			<span style="color: red;">{{order.datetime | date: 'hh:mm a'}}</span>
+			<span style="color: red;">{{data.datetime | date: 'hh:mm a'}}</span>
 		</span>
 		
 		<button class="button button-light" style="float: right; margin: 8px; padding: 5px 5px 5px 5px;" ng-click="resetOrder()">Reset</button>
@@ -28,7 +28,7 @@
 						{{dish.pro_price | currency : Currency}}
 					</span>
 					<span style = "float: left; width: 10%; text-align: center;">
-    					<input id="input-quantity" type="text" ng-model="order.quantity[order.dishes.indexOf(dish)]" placeholder="{{order.quantity[order.dishes.indexOf(dish)]}}" positive-number="positive-number" max = "99"/>
+    					<input id="input-quantity" type="text" ng-model="data.quantity[order.dishes.indexOf(dish)]" placeholder="{{data.quantity[order.dishes.indexOf(dish)]}}" positive-number="positive-number" max = "99"/>
     				</span>
 	    			<span style="width: 35%; clear: both;">
 		    			<button class="button button-small button-positive pull-left" ng-click="increaseQuantity(dish)">
