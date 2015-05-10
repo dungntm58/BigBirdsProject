@@ -21,6 +21,9 @@
 		}
     }
 		$date = substr($day, 0, 10);
+		$date1 = strtotime($date);
+		$date2 = date('Y-m-d',$date1);
+		//echo $date2;
 		
 		$hour = substr($day,11, 8);
 		$hour1 = strtotime($hour);
