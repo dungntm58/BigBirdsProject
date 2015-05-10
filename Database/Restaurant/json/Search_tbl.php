@@ -57,11 +57,7 @@
 	}
 
 	//Truy vấn
-<<<<<<< HEAD
 	$query = mysqli_query($conn, "SELECT `table_id`,`table_content` FROM `table` WHERE table_id NOT IN (SELECT `or_table` FROM `order` WHERE order.or_table = table.table_id AND or_date = '$date' AND or_time < '$mysql1' AND or_time > '$mysql2')");
-=======
-	$query = mysqli_query($conn, 'SELECT `table_id`,`table_content` FROM `table` WHERE table_id NOT IN (SELECT `or_table` FROM `order` WHERE order.or_table = table.table_id AND or_date = "$date" AND or_time <= "$hour2" AND or_time >= "$hour4")');
->>>>>>> 7e6bd47da2436e977caf515729705f3c548e5915
 	
 	//var_dump($query);
 	
