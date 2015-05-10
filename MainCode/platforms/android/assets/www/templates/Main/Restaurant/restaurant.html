@@ -1,0 +1,24 @@
+<ion-view view-title="Select a restaurant">
+	<ion-nav-buttons side="left">
+		<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
+	</ion-nav-buttons>
+
+	<ion-nav-buttons side="right">
+		<button class="button button-icon icon ion-person" menu-toggle="right"></button>
+	</ion-nav-buttons>
+	
+    <ion-content has-header="true" padding="true">
+        <div class="card" ng-repeat="res in listOfRestaurants" ng-click="selectRestaurant(res)">
+			<div class="item item-text-wrap">
+				<h2>{{res.name}}</h2>
+				<strong>Address:</strong>
+				<span>{{res.address}}</span>
+				<br/>
+				<strong>Rating:</strong>
+				<span style="color: red">{{res.rating}}</span>
+				<i class="icon ion-checkmark-circled icon-selected" style="float: right" ng-show="isSelected(res)"></i>
+				<!-- <rating ng-model = 'res.rating' readonly = 'true' state-on="'ion-android-star'" state-off="'ion-android-star-outline'"></rating> -->
+			</div>
+        </div>
+    </ion-content>
+</ion-view>

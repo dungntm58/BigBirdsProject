@@ -1,0 +1,47 @@
+<ion-view view-title="Setting">
+	<ion-nav-buttons side="left">
+		<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
+	</ion-nav-buttons>
+
+	<ion-nav-buttons side="right">
+		<button class="button button-icon icon ion-person" menu-toggle="right"></button>
+	</ion-nav-buttons>
+
+	<ion-content>
+		<div class="list" ng-controller="SettingController">
+            <ion-item class="item item-divider" style = "color: #387ef5;">
+            	APPEARANCE
+            </ion-item>
+
+            <label class="item item-input">
+                <div class="input-label">Theme</div>
+                <div class="pull-right">
+                    <select ng-options="color for color in colors" ng-model = "color" ng-change="changeColor()">
+                        <option value="" selected>Auto</option>
+                    </select>
+                </div>
+            </label>
+            <label class="item item-input">
+                <div class="input-label">Language</div>
+                <div class="pull-right">
+                    <select ng-model="language" ng-change="changeLanguage()">
+                        <option value="en" selected>English</option>
+                        <option value="vi">Tiếng Việt</option>
+                    </select>
+                </div>
+            </label>
+
+            <ion-item class="item item-divider" style = "color: #387ef5;">
+            	WAITERIO
+            </ion-item>
+
+            <ion-item class="item" ng-click="gotoSuggestedApps()">
+                Suggested apps
+			</ion-item>
+
+            <ion-item class="item" ng-click="gotoAbout()">
+                <b>About</b>
+            </item>
+        </div>
+	</ion-content>
+</ion-view>
