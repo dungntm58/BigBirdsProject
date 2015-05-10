@@ -1,13 +1,13 @@
 <div class="box">
     <div ng-controller="DatepickerCtrl" style="float: left; width: 50%;">
-    	<div datepicker-popup="{{format}}" ng-model="order.datetime" is-open="opened" close-text="Close"></div>
+    	<div datepicker-popup="{{format}}" ng-model="data.datetime" is-open="opened" close-text="Close"></div>
 		<button type="button" class="btn btn-default button-block" ng-click="open($event)">Choose date</button>
     </div>
 
     <div ng-controller="TimepickerCtrl" style="float: right; width: 50%;">
     	<button type="button" class="btn btn-default button-block" ng-click="toggleTime()">{{show.text}}</button>
     	<div ng-show="show.opened" class="dropdown-menu pull-right">
-    		<timepicker ng-model="order.datetime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+    		<timepicker ng-model="data.datetime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
 	    	<span>
 	    		<button class="btn btn-info" ng-click="toggleMode()">12H / 24H</button>
 	    		<button class="btn btn-danger" ng-click="toggleTime()">Close</button>
@@ -19,7 +19,7 @@
     	<ion-scroll style="height: 195px; border: 1px solid #E0E0E0;">
     		<ion-list>
 	    		<button class="button button-calm" ng-repeat="table in tables" ng-click="orderTable(table)" ng-disabled="isSelected(table)" style="float: left;">
-	    			{{table}}
+	    			{{table.table_content}}
 	    		</button>
 	    	</ion-list>
     	</ion-scroll>

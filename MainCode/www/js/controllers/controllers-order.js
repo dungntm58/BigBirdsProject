@@ -19,73 +19,88 @@ angular.module('MainApp.controllers.order', [])
         };
     })
 
-    .controller('NewOrder', function ($scope, $timeout, $http, $rootScope, $ionicPopup, RestaurantService){
+    .controller('NewOrder', function ($scope, $timeout, $http, $rootScope, $ionicPopup, URL_SERVER, RestaurantService){
         $scope.initialize = function(){
             $scope.order = {
+                dishes: [],
+                // quantity: [],
+                table: null,
+                // datetime: new Date(),
+                restaurant: null
+            }
+            $scope.data = {
                 dishes: [],
                 quantity: [],
                 table: null,
                 datetime: new Date(),
                 restaurant: null
-            };
-            if ($rootScope.restaurant != null)
-                $scope.order.restaurant = $rootScope.restaurant.name;
+            }
+            if ($rootScope.restaurant != null){
+                $scope.order.restaurant = $rootScope.restaurant.restaurant_name;
+                $scope.data.restaurant = $rootScope.restaurant.res_id;
+            }
             else
                 $scope.order.restaurant = null;
 
             $scope.Currency = RestaurantService.Currency;
-        };
-
+        }
+        
         $scope.initialize();
-        $scope.$watch('order.datetime', function () {
+        $scope.$watch('data.datetime', function () {
             updateTable();
-        });
+        })
 
         $scope.selectDish = function(dish){
-            var index = $scope.order.dishes.indexOf(dish);
-
+            var index = -1;
+            for (var i = 0; i < $scope.order.dishes.length; i++){
+                if (dish.pro_id == $scope.order.dishes[i].pro_id){
+                    index = i;
+                    break;
+                }
+            }
+            
             if (index >= 0){
-                if (!isNaN($scope.order.quantity[index]))
-                    $scope.order.quantity[index]++;
+                if (!isNaN($scope.data.quantity[index]))
+                    $scope.data.quantity[index]++;
                 else
-                    $scope.order.quantity[index] = 1;
+                    $scope.data.quantity[index] = 1;
             }
             else{
                 $scope.order.dishes.push(dish);
-                $scope.order.quantity.push(1);
+                $scope.data.quantity.push(1);
             }
-        };
+        }
 
         $scope.removeDish = function(dish){
             var index = $scope.order.dishes.indexOf(dish);
             $scope.order.dishes.splice(index, 1);
-            $scope.order.quantity.splice(index, 1);
-        };
+            $scope.data.quantity.splice(index, 1);
+        }
 
         $scope.increaseQuantity = function(dish){
             var index = $scope.order.dishes.indexOf(dish);
-            $scope.order.quantity[index]++;
-        };
+            $scope.data.quantity[index]++;
+        }
 
         $scope.valueOfOrder = function(){
             var total = 0;
             for (var i = 0; i<$scope.order.dishes.length ; i++){
-                total += parseFloat($scope.order.dishes[i].price)*parseInt($scope.order.quantity[i]);
+                total += parseFloat($scope.order.dishes[i].pro_price)*parseInt($scope.data.quantity[i]);
             }
             return total;
         }
 
         $scope.decreaseQuantity = function(dish){
             var index = $scope.order.dishes.indexOf(dish);
-            if ($scope.order.quantity[index] > 1)
-                $scope.order.quantity[index]--;
-        };
+            if ($scope.data.quantity[index] > 1)
+                $scope.data.quantity[index]--;
+        }
 
-        $scope.emptyOrder = function(){
+        function emptyOrder(){
             $scope.order.dishes = [];
-            $scope.order.quantity = [];
+            $scope.data.quantity = [];
             $scope.order.table = null;
-            $scope.order.datetime = new Date(); 
+            $scope.data.datetime = new Date();
         }
 
         $scope.resetOrder = function(){
@@ -95,14 +110,14 @@ angular.module('MainApp.controllers.order', [])
                 cancelType: 'button-assertive'
             }).then(function(res){
                 if (res){
-                    $scope.emptyOrder();
+                    emptyOrder();
                 }
             });
-        };
+        }
 
         $scope.orderTable = function(table){
             $scope.order.table = table;
-        };
+        }
 
         $scope.isSelected = function(table){
             return $scope.order.table === table;
@@ -117,12 +132,15 @@ angular.module('MainApp.controllers.order', [])
             }).then(function (res){
                 if(res){
                     if ($scope.order.dishes.length && $scope.order.table){
-                        // $scope.emptyOrder();
+                        for (var i = 0; i< $scope.order.dishes.length; i++){
+                            $scope.data.dishes.push($scope.order.dishes[i].pro_id);
+                        }
+                        $scope.data.table = $scope.order.table.table_id;
                         //send order
-                        RestaurantService.sendOrder(order);
+                        RestaurantService.sendOrder($scope.data);
                     }
                     else{
-                        var warning = $ionicPopup.alert({
+                        var warning = $ionicPopup.show({
                             title: '<b>Warning</b>',
                             template: 'Your order is not finished. Please check again!'
                         });
@@ -132,7 +150,7 @@ angular.module('MainApp.controllers.order', [])
                     }
                 }
             });
-        };
+        }
 
         function updateTable(){
             $http({
@@ -143,64 +161,19 @@ angular.module('MainApp.controllers.order', [])
                     'Access-Control-Allow-Origin': '*',
                     'Content-Type' : 'application/json'
                 },
-                data: [{'resID' : $rootScope.restaurant.user_id, 'time' : $scope.order.datetime}]
+                data: [{'resID' : $scope.data.restaurant, 'time' : $scope.data.datetime.toString()}]
             }).success(function(data, status, headers, config) {
                 $scope.tables = data;
             }).error(function(data, status, headers, config){
                 $rootScope.$broadcast('Request Failed');
-            });
+            })
         }
-
-        // function giveBackCorrespondingUnorderedTable(time, data){
-        //     function filterTime(time){
-        //         if (time === undefined || time === null)
-        //             return -1;
-        //         if (time.getHours() >= 0 && time.getHours() < 10)
-        //             return 0;
-        //         else
-        //             if (time.getHours() >= 10 && time.getHours() < 13)
-        //                 return 1;
-        //             else
-        //                 if (time.getHours() >= 13 && time.getHours() < 17)
-        //                     return 2;
-        //                 else
-        //                     if (time.getHours() >= 17 && time.getHours() < 19)
-        //                         return 3;
-        //                     else return 4;
-        //     }
-
-        //     var t;
-        //     var f = filterTime(time);
-        //     var res;
-        //     if (time !== undefined && time !== null){
-        //         for (var i = 0; i < data.length; i++){
-        //             if (time.getUTCDate().toString() == data[i].date.toString()){
-        //                 if ((time.getUTCMonth() + 1).toString() == data[i].month.toString()){
-        //                     if (time.getUTCFullYear().toString() == data[i].year.toString()){
-        //                         t = data[i];
-        //                         break;
-        //                     }
-        //                 }
-        //             }
-        //         }
-
-        //         if (t !== undefined){
-        //             for (var i = 0; i < t.setOfTables.length; i++){
-        //                 if (f.toString() == t.setOfTables[i].instant.toString()){
-        //                     res = t.setOfTables[i].tables;
-        //                 }
-        //             }
-        //         }
-        //     }
-            
-        //     return res;
-        // }
     })
 
     .controller('SlideController', function ($scope, $ionicSlideBoxDelegate){
         $scope.disableSwipe = function() {
             $ionicSlideBoxDelegate.enableSlide(false);
-        };
+        }
 
         $scope.nextSlide = function() {
             $ionicSlideBoxDelegate.next();
@@ -229,7 +202,7 @@ angular.module('MainApp.controllers.order', [])
             // $scope.chosen = $scope.typeOfDish[0];
         }).error(function (data, status, headers, config){
           $rootScope.$broadcast('Request Failed');
-        });
+        })
 
         $scope.isSet = function(check){
             return $scope.chosen === check;
@@ -274,21 +247,21 @@ angular.module('MainApp.controllers.order', [])
     .controller('DatepickerCtrl', function ($scope) {
         $scope.today = function () {
             $scope.dt = new Date();
-        };
+        }
 
         $scope.clear = function () {
             $scope.dt = null;
-        };
+        }
         $scope.open = function ($event) {
             $event.preventDefault();
             $event.stopPropagation();
 
             $scope.opened = true;
-        };
+        }
         $scope.format = 'dd/MM/yyyy';
         $scope.dateOptions = {
             'starting-day': 1
-        };
+        }
     })
 
     .controller('TimepickerCtrl', function ($scope, $log) {
@@ -311,9 +284,9 @@ angular.module('MainApp.controllers.order', [])
         $scope.ismeridian = true;
         $scope.toggleMode = function() {
             $scope.ismeridian = ! $scope.ismeridian;
-        };
+        }
 
         $scope.clear = function() {
             $scope.dt = null;
-        };
+        }
     })

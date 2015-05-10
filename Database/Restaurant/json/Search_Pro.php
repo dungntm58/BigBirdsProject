@@ -2,7 +2,7 @@
 	
 	error_reporting(E_NOTICE || E_WARNING);
 	
-	$string = file_get_contents("http://input");
+	$string = file_get_contents("php://input");
 	$json = json_decode($string,true);//chuyển $json thành mảng
 	
 	
