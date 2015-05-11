@@ -34,4 +34,16 @@ angular.module('MainApp.controllers.restaurant', [])
         }).error(function(data, status, headers, config){
           	$rootScope.$broadcast('Request Failed');
         });
+
+        $scope.openDetailRes = function(rest){
+        	$ionicPopup.confirm({
+                title: '<b>' + rest.restaurant_name + '</b>',
+                template: 'Detail!',
+                okText: 'Select'
+            }).then(function (res){
+                if (res){
+                    $scope.selectRestaurant(rest)
+                }
+            })
+        }
     })
