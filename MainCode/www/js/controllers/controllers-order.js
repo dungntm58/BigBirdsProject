@@ -1,6 +1,9 @@
 angular.module('MainApp.controllers.order', [])
 
     .controller('NewOrder', function ($scope, $http, $rootScope, $ionicPopup, URL_SERVER, RestaurantService){
+        $scope.$on('SelectDish', function(event, dish){
+            $scope.selectDish(dish);
+        })
         $scope.initialize = function(){
             $scope.order = {
                 dishes: [],
@@ -220,27 +223,23 @@ angular.module('MainApp.controllers.order', [])
                 data: [{'ctlID' : tab.ctl_id}]
             }).success(function (data, status, headers, config){
                 $scope.list = data;
-                console.log(data);
+                // console.log(data);
             }).error(function (data, status, headers, config){
               $rootScope.$broadcast('Request Failed');
             })
         }
 
         $scope.openDetail = function (dish){
-            $ionicPopup.alert({
-                title: '<b>' + dish.name + '</b>',
-                template: 'Detail!'
+            var detail = $ionicPopup.confirm({
+                title: '<b>' + dish.pro_name + '</b>',
+                template: 'Detail!',
+                okText: 'Select'
+            }).then(function (res){
+                if (res){
+                    $scope.$emit('SelectDish', dish);
+                }
             })
         }
-        // $scope.$watch('chosen', function(){
-        //     $scope.list = {};
-        //     $http.get('Json/DinC-' + $scope.chosen +'-'+ $rootScope.restaurant.name + '.json')
-        //     .success(function (data, status, headers, config){
-        //         $scope.list = data;
-        //     }).error(function (data, status, headers, config){
-        //       $rootScope.$broadcast('Request Failed');
-        //     })
-        // })
     })
 
     .controller('DatepickerCtrl', function ($scope) {
