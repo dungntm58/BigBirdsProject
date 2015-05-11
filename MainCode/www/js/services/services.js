@@ -21,7 +21,6 @@ angular.module('MainApp.services', ['ionic', 'MainApp.services.customer', 'MainA
 		{ text: 'Restaurant', iconClass: 'icon ion-star', link: 'restaurant'},
         { text: 'Order', iconClass: 'icon ion-document-text', link: 'order'},
         // { text: 'Analytics', iconClass: 'icon ion-stats-bars', link: 'analytics'},
-        { text: 'Setting', iconClass: 'icon ion-gear-b', link: 'setting'},	
 	])
 
 	.constant('URL_SERVER', {

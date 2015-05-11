@@ -44,7 +44,6 @@ angular.module('MainApp', ['ionic', 'MainApp.controllers', 'MainApp.directives',
             .state('order', {
                 parent: 'main',
                 url: '/order',
-                controller: 'OrderController',
                 templateUrl: 'templates/Main/Order/order.html'
             })
             .state('restaurant', {

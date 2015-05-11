@@ -1,25 +1,6 @@
 angular.module('MainApp.controllers.order', [])
 
-	.controller('OrderController', function ($scope, $ionicModal) {
-        $ionicModal.fromTemplateUrl('templates/Main/Order/new-order-modal.html', function($ionicModal) {
-                $scope.modal = $ionicModal;
-            },
-            {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }
-        );
-      
-        $scope.openModal = function() {
-            $scope.modal.show();
-        };
-
-        $scope.closeModal = function(){
-            $scope.modal.hide();
-        };
-    })
-
-    .controller('NewOrder', function ($scope, $timeout, $http, $rootScope, $ionicPopup, URL_SERVER, RestaurantService){
+    .controller('NewOrder', function ($scope, $http, $rootScope, $ionicPopup, URL_SERVER, RestaurantService){
         $scope.initialize = function(){
             $scope.order = {
                 dishes: [],
@@ -140,50 +121,46 @@ angular.module('MainApp.controllers.order', [])
                         RestaurantService.sendOrder($scope.data);
                     }
                     else{
-                        var warning = $ionicPopup.show({
+                        $ionicPopup.alert({
                             title: '<b>Warning</b>',
                             template: 'Your order is not finished. Please check again!'
                         });
-                        $timeout(function (){
-                            warning.close();
-                        }, 2000);
                     }
                 }
             });
         }
 
         function updateTable(){
-            var _date = {
-                dateUTC : $scope.data.datetime.getDate(),
-                monthUTC : $scope.data.datetime.getMonth(),
-                yearUTC: $scope.data.datetime.getFullYear()
+            if ($scope.data.datetime != null){
+                var _date = {
+                    dateUTC : $scope.data.datetime.getDate(),
+                    monthUTC : $scope.data.datetime.getMonth(),
+                    yearUTC: $scope.data.datetime.getFullYear()
+                }
+                var _time = {
+                    hourUTC: $scope.data.datetime.getHours(),
+                    minuteUTC: $scope.data.datetime.getMinutes(),
+                    secondUTC: $scope.data.datetime.getSeconds()
+                }
+                var datetimeString = _date.yearUTC + "-" + _date.monthUTC + "-" + _date.dateUTC + " " + _time.hourUTC + ":" + _time.minuteUTC + ":" + _time.secondUTC;
+                $http({
+                    method: 'POST',
+                    url: URL_SERVER.url + 'Search_tbl.php',
+                    headers: {
+                        'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept",
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type' : 'application/json'
+                    },
+                    data: [{
+                            'resID' : $scope.data.restaurant,
+                            'datetime' : datetimeString
+                        }]
+                }).success(function(data, status, headers, config) {
+                    $scope.tables = data;
+                }).error(function(data, status, headers, config){
+                    $rootScope.$broadcast('Request Failed');
+                })
             }
-            var _time = {
-                hourUTC: $scope.data.datetime.getHours(),
-                minuteUTC: $scope.data.datetime.getMinutes(),
-                secondUTC: $scope.data.datetime.getSeconds()
-            }
-            var datetimeString = _date.yearUTC + "-" + _date.monthUTC + "-" + _date.dateUTC + " " + _time.hourUTC + ":" + _time.minuteUTC + ":" + _time.secondUTC;
-            console.log(datetimeString);
-            $http({
-                method: 'POST',
-                url: URL_SERVER.url + 'Search_tbl.php',
-                headers: {
-                    'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept",
-                    'Access-Control-Allow-Origin': '*',
-                    'Content-Type' : 'application/json'
-                },
-                data: [
-                    {
-                        'resID' : $scope.data.restaurant,
-                        'datetime' : datetimeString
-                    }]
-            }).success(function(data, status, headers, config) {
-                $scope.tables = data;
-                console.log(data);
-            }).error(function(data, status, headers, config){
-                $rootScope.$broadcast('Request Failed');
-            })
         }
     })
 
@@ -239,6 +216,7 @@ angular.module('MainApp.controllers.order', [])
                 data: [{'ctlID' : tab.ctl_id}]
             }).success(function (data, status, headers, config){
                 $scope.list = data;
+                console.log(data);
             }).error(function (data, status, headers, config){
               $rootScope.$broadcast('Request Failed');
             })

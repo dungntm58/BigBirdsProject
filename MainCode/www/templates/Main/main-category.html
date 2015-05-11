@@ -1,13 +1,20 @@
-<div class="bar bar-header bar-positive">
-    <h1 class="title">Categories</h1>
-</div>
+<ion-content ng-controller="CategoryController">
+	<main-account></main-account>
 
-<ion-content class = "has-header" ng-controller="CategoryController">
     <ion-list>
      <!-- Categories here -->
-        <ion-item ng-repeat="item in list" ng-click="goto(item.link)" class="item item-icon-left" menu-close>
+        <ion-item ng-repeat="item in list" ng-click="goto(item.link)" class="item item-icon-left" style = "border:none;" menu-close>
             <i ng-class="item.iconClass"></i>
             {{item.text}}
+        </ion-item>
+        <ion-item ng-click = "goto('setting')" class="item item-icon-left" menu-close>
+        	<i class="icon ion-gear-b"></i>
+            Setting
+        </ion-item>
+
+        <ion-item ng-controller="LogoutController" class="item item-icon-left" ng-click="logOut()">
+            <i class="icon ion-power"></i>
+            Log out
         </ion-item>
     </ion-list>
 </ion-content>
