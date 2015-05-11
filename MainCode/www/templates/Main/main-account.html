@@ -1,15 +1,14 @@
-<ion-list ng-controller="AccountInfo">
-    <ion-item class="item item-avatar-left">
-        <img src="{{user.image.url}}" alt="image here" />
-        {{user.name}}
-    </ion-item>
-    <ion-item>
-        <span>Gender:</span>
-        <strong class = "pull-right">{{user.gender}}</strong>
-    </ion-item>
-    <ion-item>
-        <span>Email:</span>
-        <strong class = "pull-right">{{user.email}}</strong>
-    </ion-item>
-
-</ion-list>
+<div class="account" ng-controller="AccountInfo" >
+    <img src="{{user.image.url}}" style="position: fixed; z-index: -1; width : 100%;" class="transperant"></img>
+    <div class="list">
+        <h4 style="text-align: right; color: red; weight: 400;">{{user.name}}</h4>
+        <ion-item class="no-background">
+            <span>Gender:</span>
+            <strong class = "pull-right">{{user.gender}}</strong>
+        </ion-item>
+        <ion-item class="no-background">
+            <span>Email:</span>
+            <strong class = "pull-right">{{user.email}}</strong>
+        </ion-item>
+    </div>
+</div>

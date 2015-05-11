@@ -1,4 +1,8 @@
 <ion-view view-title="{{order.restaurant}}" ng-controller="NewOrder">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
+    </ion-nav-buttons>
+
     <ion-content class="has-header padding">
         <div ng-controller="SlideController">
             <ion-slide-box ng-init = "disableSwipe()">

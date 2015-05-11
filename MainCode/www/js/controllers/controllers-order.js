@@ -16,6 +16,7 @@ angular.module('MainApp.controllers.order', [])
                 datetime: new Date(),
                 restaurant: null
             }
+            $scope.tables = [];
             if ($rootScope.restaurant != null){
                 $scope.order.restaurant = $rootScope.restaurant.restaurant_name;
                 $scope.data.restaurant = $rootScope.restaurant.res_id;
@@ -28,6 +29,7 @@ angular.module('MainApp.controllers.order', [])
         
         $scope.initialize();
         $scope.$watch('data.datetime', function () {
+            $scope.tables = [];
             updateTable();
         })
 
@@ -134,15 +136,17 @@ angular.module('MainApp.controllers.order', [])
             if ($scope.data.datetime != null){
                 var _date = {
                     dateUTC : $scope.data.datetime.getDate(),
-                    monthUTC : $scope.data.datetime.getMonth(),
+                    monthUTC : $scope.data.datetime.getMonth() + 1,
                     yearUTC: $scope.data.datetime.getFullYear()
                 }
                 var _time = {
                     hourUTC: $scope.data.datetime.getHours(),
-                    minuteUTC: $scope.data.datetime.getMinutes(),
-                    secondUTC: $scope.data.datetime.getSeconds()
+                    minuteUTC: $scope.data.datetime.getMinutes()
                 }
-                var datetimeString = _date.yearUTC + "-" + _date.monthUTC + "-" + _date.dateUTC + " " + _time.hourUTC + ":" + _time.minuteUTC + ":" + _time.secondUTC;
+                var datetimeString = "" + _date.yearUTC + "-";
+                datetimeString += ((_date.monthUTC >= 10) ? _date.monthUTC : "0" + _date.monthUTC) + "-" + _date.dateUTC + " ";
+                datetimeString += ((_time.hourUTC >= 10) ? _time.hourUTC : "0" + _time.hourUTC) + ":" + _time.minuteUTC + ":00";
+
                 $http({
                     method: 'POST',
                     url: URL_SERVER.url + 'Search_tbl.php',

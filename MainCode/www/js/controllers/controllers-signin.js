@@ -125,7 +125,7 @@ angular.module('MainApp.controllers.signIn', [])
 	.controller('AccountInfo', function ($scope, $rootScope){
 		$scope.user = $rootScope.currentUser;
 	})
-	.controller('LogoutController', function ($scope, $rootScope, $state, $ionicPopup, $ionicSideMenuDelegate, $cookieStore){
+	.controller('LogoutController', function ($scope, $rootScope, $state, $ionicPopup, $ionicSideMenuDelegate, $cookieStore, $ionicHistory){
 		$scope.logOut = function(){
 			$ionicPopup.confirm({
 				title: '<b>Log out</b>',
@@ -133,7 +133,8 @@ angular.module('MainApp.controllers.signIn', [])
                 cancelType: 'button-assertive'
             }).then(function(res){
                 if (res){
-                	$ionicSideMenuDelegate.toggleRight();
+                	$ionicSideMenuDelegate.toggleLeft();
+                	$ionicHistory.clearHistory();
                 	if ($scope.currentUser.type == "Google")
                 		gapi.auth.signOut();
                 	if ($scope.currentUser.type == "Facebook")

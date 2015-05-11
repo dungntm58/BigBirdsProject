@@ -1,3 +1,7 @@
+.account{
+	border-bottom: 1px solid #ddd;
+}
+
 .button{
 	vertical-align: middle;
 	min-width: 30px;
@@ -64,6 +68,11 @@
 	width: 50%;
 }
 
+.no-background{
+	background: none;
+	border: none;
+}
+
 a.active{
 	background-color: #ef473a;
 	border-radius: 2px;
@@ -83,4 +92,8 @@ a.active{
 
 .sign-in-page{
 	background-color: #99FF99;
+}
+
+.transperant{
+	opacity: 0.3;
 }
