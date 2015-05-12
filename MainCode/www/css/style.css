@@ -1,6 +1,14 @@
-.account{
+.account-area{
 	border-bottom: 1px solid #ddd;
-	height: 150px;
+	height: 270px;
+}
+
+.account{
+	font-size: 120%;
+	color: seashell;
+	text-align: center;
+	font-weight: bold;
+	padding-top: 50px;
 }
 
 .center-round-avatar{
@@ -89,6 +97,8 @@
 	line-height: 35px;
 	background-color: #387ef5;
 	color: white;
+	white-space: nowrap;
+	position: relative;
 }
 
 .list-inset input[type]{
