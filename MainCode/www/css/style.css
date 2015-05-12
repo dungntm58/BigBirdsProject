@@ -128,23 +128,16 @@ a.active{
 
 .sign-in{
 	position: absolute;
-	top: 60%;
+	top: 40%;
 	left: 10%;
     width: 80%;
     z-index: 1;
 }
 
 .sign-in-page{
-	background-color: #FFFFFF;
+	background-color: #99FF99;
 }
 
 .light-transperant{
 	opacity: 0.6;
-}
-
-.sign-in-image{
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	-webkit-filter: blur(2px);
 }
