@@ -1,5 +1,6 @@
 .account-area{
 	border-bottom: 1px solid #ddd;
+<<<<<<< HEAD
 	height: 270px;
 }
 
@@ -9,32 +10,38 @@
 	text-align: center;
 	font-weight: bold;
 	padding-top: 50px;
+	height: 150px;
+	background: rgba(0,0,0,1);
 }
 
 .center-round-avatar{
 	position: absolute;
 	left: 112px;
-	max-width: 50px;
-	max-height: 50px;
+	max-width: 55px;
+	max-height: 55px;
 	width: 100%;
 	border-radius: 50%;
+
+
+	background: #cccccc;
+    border: 3px solid #cc0000;
+    box-shadow: -3px 5px 10px;
+    -moz-box-shadow: -3px 5px 10px;
+    -webkit-box-shadow: -3px 5px 10px;
+    -o-box-shadow: -3px 5px 10px;
+    -ms-box-shadow: -3px 5px 10px;
 }
 
 .background-image{
 	position: fixed;
-	z-index: -1 !important;
 	width : 100%;
 	height: 50%;
-	background: linear-gradient(
-      rgba(0, 0, 0, 0.7),
-      rgba(0, 0, 0, 0.7)
-    );
 
-	-webkit-filter: blur(8px);
-	-moz-filter: blur(8px);
-	-o-filter: blur(8px);
-	-ms-filter: blur(8px);
-	filter: blur(8px);
+	-webkit-filter: blur(6px);
+	-moz-filter: blur(6px);
+	-o-filter: blur(6px);
+	-ms-filter: blur(6px);
+	filter: blur(6px);
 }
 
 .button{
@@ -132,5 +139,5 @@ a.active{
 }
 
 .light-transperant{
-	opacity: 0.8;
+	opacity: 0.6;
 }
