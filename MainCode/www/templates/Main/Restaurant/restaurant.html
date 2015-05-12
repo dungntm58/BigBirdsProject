@@ -15,7 +15,7 @@
 		    spinner='ion-load-c'>
 	  	</ion-refresher>
 
-        <div class="card" ng-repeat="res in listOfRestaurants" ng-click="selectRestaurant(res)" on-hold="openDetailRes(res)">
+        <div class="card" ng-repeat="res in listOfRestaurants" ng-click="openDetailRes(res)">
 			<div class="item item-text-wrap">
 				<h2>{{res.restaurant_name}}</h2>
 				<strong>Address:</strong>

@@ -1,22 +1,5 @@
 angular.module('MainApp.controllers.restaurant', [])
-	.controller('RestaurantController', function ($scope, $state, $http, $rootScope, $cookieStore, $ionicPopup, URL_SERVER) {
-        $scope.selectRestaurant = function (rest){
-        	if ($rootScope.restaurant !== rest){
-				$cookieStore.remove('restaurant');
-				$rootScope.restaurant = rest;
-				$cookieStore.put('restaurant', rest);
-
-				$ionicPopup.confirm({
-	                title: '<b>Notification</b>',
-	                template: "You've selected " + $rootScope.restaurant.restaurant_name + ".<br/>Do you want to order?",
-	                cancelType: 'button-assertive'
-	            }).then(function(res){
-	                if (res){
-	                    $state.go('order');
-	                }
-	            });
-		    }
-        }
+	.controller('RestaurantController', function ($scope, $state, $http, $rootScope, URL_SERVER) {
         $scope.isSelected = function(rest){
         	return $rootScope.restaurant === rest;
         }
@@ -57,14 +40,25 @@ angular.module('MainApp.controllers.restaurant', [])
         }
 
         $scope.openDetailRes = function(rest){
-        	$ionicPopup.confirm({
-                title: '<b>' + rest.restaurant_name + '</b>',
-                template: 'Detail!',
-                okText: 'Select'
-            }).then(function (res){
-                if (res){
-                    $scope.selectRestaurant(rest)
-                }
-            })
+            $state.go('restaurantInfo');
+            $rootScope.tmpRest = rest;
+        }
+    })
+
+    .controller('RestaurantInfo', function ($scope, $state, $rootScope, $cookieStore){
+        $scope.backToSelectRestaurant = function(){
+            $rootScope.tmpRest = {};
+            $state.go('restaurant');
+        }
+        $scope.selectRestaurant = function(){
+            if ($rootScope.restaurant !== $rootScope.tmpRest){
+                $cookieStore.remove('restaurant');
+                $rootScope.restaurant = $rootScope.tmpRest;
+                $cookieStore.put('restaurant', $rootScope.tmpRest);
+            }
+
+            $rootScope.tmpRest = {};
+            $state.go('order');
+            // $state.reload();
         }
     })

@@ -180,7 +180,6 @@ angular.module('MainApp.controllers.order', [])
 
     .controller('MenuFoodTabController', function ($scope, $http, $rootScope, $ionicPopup, URL_SERVER){
         $scope.typeOfDish = {};
-
         $http({
             method: 'POST',
             url: URL_SERVER.url + 'Search_ctl.php',
