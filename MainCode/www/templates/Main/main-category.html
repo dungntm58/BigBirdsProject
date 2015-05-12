@@ -3,11 +3,11 @@
 
     <ion-list>
      <!-- Categories here -->
-        <ion-item ng-repeat="item in list" ng-click="goto(item.link)" class="item item-icon-left" style = "border:none;" menu-close>
+        <ion-item ng-repeat="item in list" ng-click="goto(item.link);toggleDrawer()" class="item item-icon-left" style = "border:none;">
             <i ng-class="item.iconClass"></i>
             {{item.text}}
         </ion-item>
-        <ion-item ng-click = "goto('setting')" class="item item-icon-left" menu-close>
+        <ion-item ng-click = "toggleDrawer();goto('setting')" class="item item-icon-left" ng-click="toggleDrawer()">
         	<i class="icon ion-gear-b"></i>
             Setting
         </ion-item>
