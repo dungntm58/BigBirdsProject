@@ -2,6 +2,15 @@ div .card .activated > .item{
 	background-color: #ddd;
 }
 
+.app-title{
+	position: relative;
+	top: 42%;
+	color: white;
+	text-align: center;
+	font-size: 300%;
+	font-family: Lobster;
+}
+
 .account-area{
 	border-bottom: 1px solid #ddd;
 	height: 150px;
@@ -113,6 +122,14 @@ div .card .activated > .item{
 	width: 50%;
 }
 
+.logo{
+	position: fixed;
+	background: none;
+	top: 10%;
+	left: 20%;
+	width: 60%;
+}
+
 .no-background{
 	background: none;
 	border: none;
@@ -139,13 +156,25 @@ a.active{
 	background-color: #FFFFFF;
 }
 
-.light-transperant{
+.light-transparent{
 	opacity: 0.55;
 }
 
 .sign-in-image{
+	z-index: -1 !important;
 	position: fixed;
 	width: 100%;
 	height: 100%;
+
 	-webkit-filter: blur(2px);
+	-moz-filter: blur(2px);
+	-o-filter: blur(2px);
+	-ms-filter: blur(2px);
+	filter: blur(2px);
+}
+
+@font-face {
+	font-family: 'Lobster';
+	src: url('/lib/font/Lobster.eot');
+	src: local('Lobster'), url('/lib/font/Lobster.woff') format('woff'), url('/lib/font/Lobster.ttf') format('truetype');
 }
