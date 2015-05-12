@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2015 at 08:07 PM
--- Server version: 5.5.36
--- PHP Version: 5.4.27
+-- Generation Time: May 12, 2015 at 05:53 AM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   `or_amount` double NOT NULL,
   `or_table` int(10) NOT NULL,
   `or_date` varchar(255) NOT NULL,
-  `or_time` bigint(20) NOT NULL,
+  `or_time` int(5) NOT NULL,
   PRIMARY KEY (`or_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
@@ -65,8 +65,8 @@ CREATE TABLE IF NOT EXISTS `order` (
 --
 
 INSERT INTO `order` (`or_id`, `or_list`, `or_amount`, `or_table`, `or_date`, `or_time`) VALUES
-(1, 'adsfasdfasf', 12345, 1, '2015-05-03', 600),
-(2, 'ádfasf', 123123, 2, '0000-00-00', 800);
+(1, 'adsfasdfasf', 12345, 1, '2015-05-12', 36000),
+(2, 'ádfasf', 123123, 2, '2015-05-13', 72000);
 
 -- --------------------------------------------------------
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `pro_image` varchar(255) NOT NULL,
   `user_id` int(10) NOT NULL,
   `ctl_id` int(10) NOT NULL,
-  `pro_descripttion` varchar(255) NOT NULL,
+  `pro_description` varchar(255) NOT NULL,
   PRIMARY KEY (`pro_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`pro_id`, `pro_name`, `pro_price`, `pro_image`, `user_id`, `ctl_id`, `pro_descripttion`) VALUES
+INSERT INTO `product` (`pro_id`, `pro_name`, `pro_price`, `pro_image`, `user_id`, `ctl_id`, `pro_description`) VALUES
 (1, 'aaa', 12, 'ádfdsa', 1, 1, ''),
 (2, 'sdfsdf', 23, 'adsfasdf', 1, 2, ''),
 (3, 'ểtrt', 123, 'ểtrt', 1, 2, '');
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`user_id`, `user_email`, `user_pass`, `user_level`, `user_image`, `user_add`, `user_name`, `restaurant_name`) VALUES
 (1, 'hung1@gmail.com', 'hunghung1', 1, '', '', '', ''),
-(2, 'hung2@gmail.com', 'hunghung2', 1, '', '', '', ''),
+(2, 'hung2@gmail.com', 'hunghung2', 2, '', 'cho lon', '', 'AAAAAAAAAAAAAAAAAA'),
 (3, 'hung11', 'hung1', 2, 'khong co gi', 'xuan thuy, cau giay,ha noi', '', ''),
 (4, '', '', 1, 'aaaaa', 'duong quang ham, cau giay', '', ''),
 (5, '', '', 2, '123kjlk.jpg', 'le duc tho keo dai', '', ''),
