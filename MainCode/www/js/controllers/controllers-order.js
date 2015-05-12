@@ -165,6 +165,7 @@ angular.module('MainApp.controllers.order', [])
                 }).success(function(data, status, headers, config) {
                     $scope.tables = data;
                 }).error(function(data, status, headers, config){
+                    $scope.tables = [];
                     $rootScope.$broadcast('Request Failed');
                 })
             }
@@ -199,10 +200,9 @@ angular.module('MainApp.controllers.order', [])
             data: [{'resID' : $rootScope.restaurant.user_id}]
         }).success(function (data, status, headers, config){
             $scope.typeOfDish = data;
-            // console.log(data);
-            // $scope.chosen = $scope.typeOfDish[0];
         }).error(function (data, status, headers, config){
-          $rootScope.$broadcast('Request Failed');
+            $scope.typeOfDish = {};
+            $rootScope.$broadcast('Request Failed');
         })
 
         $scope.isSet = function(check){
@@ -225,7 +225,8 @@ angular.module('MainApp.controllers.order', [])
                 $scope.list = data;
                 // console.log(data);
             }).error(function (data, status, headers, config){
-              $rootScope.$broadcast('Request Failed');
+                $scope.list = [];
+                $rootScope.$broadcast('Request Failed');
             })
         }
 

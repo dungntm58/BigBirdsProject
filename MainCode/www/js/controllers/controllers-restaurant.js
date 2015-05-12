@@ -32,8 +32,29 @@ angular.module('MainApp.controllers.restaurant', [])
 		}).success(function(data, status, headers, config) {
         	$scope.listOfRestaurants = data;
         }).error(function(data, status, headers, config){
+            $scope.listOfRestaurants = [];
           	$rootScope.$broadcast('Request Failed');
         });
+
+        $scope.load = function(){
+            $http({
+                method: 'POST',
+                url: URL_SERVER.url + 'Search_Res.php',
+                headers: {
+                    'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept",
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type' : 'application/json'
+                }
+            }).success(function(data, status, headers, config) {
+                $scope.listOfRestaurants = data;
+            }).error(function(data, status, headers, config){
+                $scope.listOfRestaurants = [];
+                $rootScope.$broadcast('Request Failed');
+            })
+
+            $scope.$broadcast('scroll.refreshComplete');
+            $scope.$apply();
+        }
 
         $scope.openDetailRes = function(rest){
         	$ionicPopup.confirm({
