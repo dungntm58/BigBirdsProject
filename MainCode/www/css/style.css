@@ -95,6 +95,12 @@ div .card .activated > .item{
 	padding: 12px 12px 12px 12px;
 }
 
+.image-home{
+	position: relative;
+	left: 10%;
+	width: 80%;
+}
+
 #input-quantity{
 	width: 30px;
 	color: red;
