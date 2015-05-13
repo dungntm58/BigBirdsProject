@@ -62,3 +62,12 @@ angular.module('MainApp.controllers.restaurant', [])
             // $state.reload();
         }
     })
+
+    .controller('RestaurantTabs', function ($scope, $ionicSlideBoxDelegate){
+        $scope.setTab = function(tab){
+            $ionicSlideBoxDelegate.slide(tab);
+        }
+        $scope.isSetTab = function(tab){
+            return tab === $ionicSlideBoxDelegate.currentIndex();
+        }
+    })

@@ -160,6 +160,21 @@ a.active{
 	opacity: 0.55;
 }
 
+.tabs-restaurant{
+	float: left;
+	width: 33.3333333333333%;
+	font-size: 100%;
+	border: none;
+	text-align: center;
+	text-decoration: none;
+	line-height: 35px;
+	background-color: #444444;
+	color: white;
+	white-space: nowrap;
+	position: relative;
+	margin: 0;
+}
+
 .sign-in-image{
 	z-index: -1 !important;
 	position: fixed;
