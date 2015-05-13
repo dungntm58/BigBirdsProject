@@ -47,6 +47,8 @@ angular.module('MainApp.controllers.signIn', [])
 				age: 'Undefined'
 			}
 			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+
+			// console.log($rootScope.currentUser);
 		}
 		$scope.googleLogin = function () {
 		    var params = {
@@ -73,7 +75,7 @@ angular.module('MainApp.controllers.signIn', [])
 	                    }
 	                    // store data to DB
 	                    var user = {};
-	                    user.type = 'Google';
+	                    user.type = 'Gg';
 	                    user.name = resp.displayName;
 	                    user.email = userEmail;
 	                    user.image = resp.image;
@@ -86,6 +88,8 @@ angular.module('MainApp.controllers.signIn', [])
 	                });
 	            }
 	        }
+
+	        // console.log($rootScope.currentUser);
 		};
 
 		$scope.facebookLogin = function (){
@@ -109,7 +113,7 @@ angular.module('MainApp.controllers.signIn', [])
 	                    // Todo
 	                    // After posting user data to server successfully store user data locally
 	                    var user = {};
-	                    user.type = 'Facebook';
+	                    user.type = 'Fb';
 	                    user.name = response.name;
 	                    user.email = response.email;
 	                    user.gender = response.gender;
@@ -120,11 +124,11 @@ angular.module('MainApp.controllers.signIn', [])
 	                });
 	            });
 	        }
+
+	        // console.log($rootScope.currentUser);
 		}
 	})
-	.controller('AccountInfo', function ($scope, $rootScope){
-		$scope.user = $rootScope.currentUser;
-	})
+	.controller('AccountInfo', function ($scope, $rootScope){})
 	.controller('LogoutController', function ($scope, $rootScope, $state, $ionicPopup, $ionicSideMenuDelegate, $cookieStore, $ionicHistory){
 		$scope.logOut = function(){
 			$ionicPopup.confirm({
@@ -135,12 +139,13 @@ angular.module('MainApp.controllers.signIn', [])
                 if (res){
                 	$ionicSideMenuDelegate.toggleLeft();
                 	$ionicHistory.clearHistory();
-                	if ($scope.currentUser.type == "Google")
+                	if ($scope.currentUser.type == 'Gg')
                 		gapi.auth.signOut();
-                	if ($scope.currentUser.type == "Facebook")
+                	if ($scope.currentUser.type == 'Fb')
                 		FB.logout(function(response){});
                 	$cookieStore.remove('userInfo');
                 	$rootScope.currentUser = null;
+                	// console.log($rootScope.currentUser);
                 	$rootScope.start = false;
                     $state.go('sign-in');
                 }

@@ -1,10 +1,10 @@
 <div class="box">
 	<div ng-controller="MenuFoodTabController">
-		<ion-scroll direction="x">
-			<div class="list">
+		<!-- <ion-scroll direction="x"> -->
+			<div style="display: -webkit-box;">
 				<a href="#" ng-repeat="type in typeOfDish" class="list-tabs" ng-click="setTab(type)" ng-class="{active: isSet(type)}">{{type.ctl_name}}</a>
 			</div>
-		</ion-scroll>
+		<!-- </ion-scroll> -->
 		
 		<ion-scroll direction="y" style="height: 195px; border: 1px solid #E0E0E0; clear: both;">
 	  		<ion-list>
@@ -13,6 +13,9 @@
 	  				<span style="float: right; color: red;">{{dish.pro_price | currency: Currency}}</span>
 	  			</ion-item>
 	  		</ion-list>
+	  		<ion-item ng-hide="list.length">
+				Tap a tab to see dishes...
+			</ion-item>
 		</ion-scroll>
 	</div>
 	<div>

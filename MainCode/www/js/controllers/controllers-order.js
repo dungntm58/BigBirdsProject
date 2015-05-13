@@ -7,10 +7,7 @@ angular.module('MainApp.controllers.order', [])
         $scope.initialize = function(){
             $scope.order = {
                 dishes: [],
-                // quantity: [],
-                table: null,
-                // datetime: new Date(),
-                restaurant: null
+                table: null
             }
             $scope.data = {
                 dishes: [],
@@ -20,12 +17,6 @@ angular.module('MainApp.controllers.order', [])
                 restaurant: null
             }
             $scope.tables = [];
-            if ($rootScope.restaurant != null){
-                $scope.order.restaurant = $rootScope.restaurant.restaurant_name;
-                $scope.data.restaurant = $rootScope.restaurant.res_id;
-            }
-            else
-                $scope.order.restaurant = null;
 
             $scope.Currency = RestaurantService.Currency;
         }
@@ -122,6 +113,7 @@ angular.module('MainApp.controllers.order', [])
                             $scope.data.dishes.push($scope.order.dishes[i].pro_id);
                         }
                         $scope.data.table = $scope.order.table.table_id;
+                        $scope.data.restaurant = $rootScope.restaurant.restaurant_id;
                         //send order
                         RestaurantService.sendOrder($scope.data);
                     }
@@ -188,7 +180,6 @@ angular.module('MainApp.controllers.order', [])
 
     .controller('MenuFoodTabController', function ($scope, $http, $rootScope, $ionicPopup, URL_SERVER){
         $scope.typeOfDish = {};
-
         $http({
             method: 'POST',
             url: URL_SERVER.url + 'Search_ctl.php',

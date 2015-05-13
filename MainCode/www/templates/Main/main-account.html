@@ -1,14 +1,7 @@
-<div class="account" ng-controller="AccountInfo" >
-    <img src="{{user.image.url}}" style="position: fixed; z-index: -1; width : 100%;" class="transperant"></img>
-    <div class="list">
-        <h4 style="text-align: right; color: red; weight: 400;">{{user.name}}</h4>
-        <ion-item class="no-background">
-            <span>Gender:</span>
-            <strong class = "pull-right">{{user.gender}}</strong>
-        </ion-item>
-        <ion-item class="no-background">
-            <span>Email:</span>
-            <strong class = "pull-right">{{user.email}}</strong>
-        </ion-item>
+<div class="account-area" ng-controller="AccountInfo" >
+    <img src="{{currentUser.image.url}}" class="background-image light-transparent"></img>
+    <div style="display: block; top: 40px; position: relative;">
+        <img src="{{currentUser.image.url}}" class="center-round-avatar no-background"></img>
+        <div style="font-size: 120%; color: seashell; text-align: center; font-weight: bold; padding-top: 60px;">{{currentUser.name}}</div>
     </div>
 </div>

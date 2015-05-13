@@ -1,31 +1,48 @@
-<ion-view view-title="Select a restaurant">
+<ion-view view-title="Select a restaurant" ng-controller="RestaurantTabs">
 	<ion-nav-buttons side="left">
-		<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
+		<button class="button button-icon icon ion-navicon" ng-click="toggleDrawer()"></button>
 	</ion-nav-buttons>
 	
 	<ion-nav-buttons side="right">
         <button class="button button-icon icon ion-ios7-search"></button>
     </ion-nav-buttons>
 
-    <ion-content has-header="true" padding="true">
-    	<ion-refresher
-		    pulling-text="Pull to refresh..."
-		    on-refresh="load()"
-		    pulling-icon="ion-arrow-down-c"
-		    spinner='ion-load-c'>
-	  	</ion-refresher>
+    <ion-content has-header="true">
+		<ion-slide-box show-pager="false">
+			<ion-slide>
+				<ion-refresher
+				    pulling-text="Pull to refresh..."
+				    on-refresh="load()"
+				    pulling-icon="ion-arrow-down-c"
+				    spinner='ion-load-c'>
+			  	</ion-refresher>
 
-        <div class="card" ng-repeat="res in listOfRestaurants" ng-click="selectRestaurant(res)" on-hold="openDetailRes(res)">
-			<div class="item item-text-wrap">
-				<h2>{{res.restaurant_name}}</h2>
-				<strong>Address:</strong>
-				<span>{{res.user_add}}</span>
-				<!-- <br/>
-				<strong>Rating:</strong>
-				<span style="color: red">{{res.rating}}</span> -->
-				<i class="icon ion-checkmark-circled icon-selected" style="float: right" ng-show="isSelected(res)"></i>
-				<!-- <rating ng-model = 'res.rating' readonly = 'true' state-on="'ion-android-star'" state-off="'ion-android-star-outline'"></rating> -->
-			</div>
-        </div>
-    </ion-content>
+		        <div class="card" ng-repeat="res in listOfRestaurants" ng-click="openDetailRes(res)">
+					<div class="item item-text-wrap">
+						<h2>{{res.restaurant_name}}</h2>
+						<strong>Address:</strong>
+						<span>{{res.user_add}}</span>
+						<!-- <br/>
+						<strong>Rating:</strong>
+						<span style="color: red">{{res.rating}}</span> -->
+						<i class="icon ion-checkmark-circled icon-selected" style="float: right" ng-show="isSelected(res)"></i>
+						<!-- <rating ng-model = 'res.rating' readonly = 'true' state-on="'ion-android-star'" state-off="'ion-android-star-outline'"></rating> -->
+					</div>
+		        </div>
+			</ion-slide>
+
+			<ion-slide>
+				Nearly
+			</ion-slide>
+
+			<ion-slide>
+				Ranking
+			</ion-slide>
+		</ion-slide-box>
+	</ion-content>
+    <ion-footer-bar>
+    	<a href="#" class="tabs-restaurant" ng-click="setTab(0)" ng-class="{active: isSetTab(0)}">Nearby</a>
+		<a href="#" class="tabs-restaurant" ng-click="setTab(1)" ng-class="{active: isSetTab(1)}">Tendency</a>
+		<a href="#" class="tabs-restaurant" ng-click="setTab(2)" ng-class="{active: isSetTab(2)}">Rank</a>
+    </ion-footer-bar>
 </ion-view>

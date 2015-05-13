@@ -1,4 +1,13 @@
-angular.module('MainApp', ['ionic', 'MainApp.controllers', 'MainApp.directives', 'MainApp.services', 'ngCordova', 'ngCookies'])
+angular.module('MainApp', 
+    [
+        'ionic',
+        'MainApp.controllers',
+        'MainApp.directives',
+        'MainApp.services',
+        'ngCordova',
+        'ngCookies',
+        'ionic.contrib.drawer'
+    ])
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -43,6 +52,7 @@ angular.module('MainApp', ['ionic', 'MainApp.controllers', 'MainApp.directives',
             })
             .state('order', {
                 parent: 'main',
+                cache: false,
                 url: '/order',
                 templateUrl: 'templates/Main/Order/order.html'
             })
@@ -66,6 +76,12 @@ angular.module('MainApp', ['ionic', 'MainApp.controllers', 'MainApp.directives',
                 parent: 'main',
                 url: '/about',
                 templateUrl: 'templates/Main/Setting/about.html'
+            })
+            .state('restaurantInfo', {
+                parent: 'main',
+                cache: false,
+                url: '/restaurant-info',
+                templateUrl: 'templates/Main/Restaurant/restaurant-info.html'
             })
         //Need some code to check wheather view signIn showing
         $urlRouterProvider.otherwise('/sign-in');
