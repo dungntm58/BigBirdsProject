@@ -56,7 +56,7 @@
 		if($time >=7200){
 			$time_2 = $time - 7200;
 		}
-		echo $time;
+		//echo $time;
 		
 		
 	
