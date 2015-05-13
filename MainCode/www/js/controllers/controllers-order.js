@@ -109,13 +109,41 @@ angular.module('MainApp.controllers.order', [])
             }).then(function (res){
                 if(res){
                     if ($scope.order.dishes.length && $scope.order.table){
-                        for (var i = 0; i< $scope.order.dishes.length; i++){
-                            $scope.data.dishes.push($scope.order.dishes[i].pro_id);
+                        var _date = {
+                            dateUTC : $scope.data.datetime.getDate(),
+                            monthUTC : $scope.data.datetime.getMonth() + 1,
+                            yearUTC: $scope.data.datetime.getFullYear()
                         }
-                        $scope.data.table = $scope.order.table.table_id;
-                        $scope.data.restaurant = $rootScope.restaurant.restaurant_id;
+                        var _time = {
+                            hourUTC: $scope.data.datetime.getHours(),
+                            minuteUTC: $scope.data.datetime.getMinutes()
+                        }
+                        var datetimeString = "" + _date.yearUTC + "-";
+                        datetimeString += ((_date.monthUTC >= 10) ? _date.monthUTC : "0" + _date.monthUTC) + "-" + _date.dateUTC + " ";
+                        datetimeString += ((_time.hourUTC >= 10) ? _time.hourUTC : "0" + _time.hourUTC) + ":" + _time.minuteUTC + ":00";
                         //send order
-                        RestaurantService.sendOrder($scope.data);
+                        var dataSender = [];
+                        for (var i = 0; i < $scope.data.dishes.length ; i++){
+                            dataSender.push({
+                                dishes: $scope.order.dishes[i].pro_id,
+                                quantity: $scope.data.quantity[i],
+                                table: $scope.order.table.table_id,
+                                datetime: datetimeString
+                            })
+                        }
+                        $http({
+                            method: 'POST',
+                            url: URL_SERVER.url + 'Insert_order.php',
+                            headers: {
+                                'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept",
+                                'Access-Control-Allow-Origin': '*',
+                                'Content-Type' : 'application/json'
+                            },
+                            data: dataSender
+                        }).success(function (data, status, headers, config){})
+                        .error(function(data, status, headers, config){
+                            $rootScope.$broadcast('Request Failed');
+                        })
                     }
                     else{
                         $ionicPopup.alert({
