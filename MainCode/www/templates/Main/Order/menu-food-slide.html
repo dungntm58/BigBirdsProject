@@ -10,7 +10,7 @@
 	  		<ion-list>
 	  			<ion-item ng-repeat="dish in list" ng-click="selectDish(dish)" on-hold = "openDetail(dish)" class="selected">
 	  				<span style="float: left;">{{dish.pro_name}}</span>
-	  				<span style="float: right; color: red;">{{dish.pro_price | currency: Currency}}</span>
+	  				<span style="float: right; color: red;">{{dish.pro_price + Currency }}</span>
 	  			</ion-item>
 	  		</ion-list>
 	  		<ion-item ng-hide="list.length">

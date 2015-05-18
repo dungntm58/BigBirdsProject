@@ -12,13 +12,13 @@ angular.module('MainApp.controllers.order', [])
             $scope.data = {
                 dishes: [],
                 quantity: [],
-                table: null,
+                // table: null,
                 datetime: new Date(),
-                restaurant: null
+                // restaurant: null
             }
             $scope.tables = [];
 
-            $scope.Currency = RestaurantService.Currency;
+            $scope.Currency = 'VND';
         }
         
         $scope.initialize();
@@ -121,16 +121,6 @@ angular.module('MainApp.controllers.order', [])
                         var datetimeString = "" + _date.yearUTC + "-";
                         datetimeString += ((_date.monthUTC >= 10) ? _date.monthUTC : "0" + _date.monthUTC) + "-" + _date.dateUTC + " ";
                         datetimeString += ((_time.hourUTC >= 10) ? _time.hourUTC : "0" + _time.hourUTC) + ":" + _time.minuteUTC + ":00";
-                        //send order
-                        var dataSender = [];
-                        for (var i = 0; i < $scope.data.dishes.length ; i++){
-                            dataSender.push({
-                                dishes: $scope.order.dishes[i].pro_id,
-                                quantity: $scope.data.quantity[i],
-                                table: $scope.order.table.table_id,
-                                datetime: datetimeString
-                            })
-                        }
                         $http({
                             method: 'POST',
                             url: URL_SERVER.url + 'Insert_order.php',
@@ -139,9 +129,16 @@ angular.module('MainApp.controllers.order', [])
                                 'Access-Control-Allow-Origin': '*',
                                 'Content-Type' : 'application/json'
                             },
-                            data: dataSender
+                            data: [
+                                {
+                                    "dishes" : $scope.data.dishes,
+                                    "quantity" : $scope.data.quantity,
+                                    "table" : $scope.order.table.table_id,
+                                    "datetime" : datetimeString
+                                }]
                         }).success(function (data, status, headers, config){})
                         .error(function(data, status, headers, config){
+                            console.log(data);
                             $rootScope.$broadcast('Request Failed');
                         })
                     }
@@ -179,7 +176,7 @@ angular.module('MainApp.controllers.order', [])
                         'Content-Type' : 'application/json'
                     },
                     data: [{
-                            'resID' : $scope.data.restaurant,
+                            'resID' : $rootScope.restaurant.user_id,
                             'datetime' : datetimeString
                         }]
                 }).success(function(data, status, headers, config) {
